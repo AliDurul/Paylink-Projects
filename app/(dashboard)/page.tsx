@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <>
       {/* <Image src="/assets/images/undercons.jpg" alt="UBA Bank Logo" className="object-cover w-full " width={1000} height={1000} /> */}
-      <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: 'Overview', url: '/' }} />
+      <TopPageNavigation />
       <DashboardMain />
     </>
   );

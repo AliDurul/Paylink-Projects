@@ -17,11 +17,11 @@ export const getAllInvoices = async () => {
   const headers = await authConfig();
   try {
     const response = await fetch(`${BASE_URL}invoices/`, {
-      cache: "no-cache",
+      // cache: "no-cache",
       // next: { revalidate: 900 },
       headers,
     });
-
+console.log('get invoice calisti');
     const data = await response.json();
 
     if (response.ok) {

@@ -122,7 +122,7 @@ export default function TicketPreviewPage({ params }: { params: { ticketId: stri
 
     return (
         <>
-            <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: 'Tickets', url: 'ticket' }} miniTitle={{ title: ticket.title }} />
+            <TopPageNavigation />
 
             {/* <div className="mt-5 grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 grid-rows-none lg:grid-rows-1">
                 <TicketReview />

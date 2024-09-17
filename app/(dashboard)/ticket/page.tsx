@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import TicketStats from './components/TicketStats'
 import TopPageNavigation from '@/app/components/TopPageNavigation'
 
@@ -6,9 +6,8 @@ export const metadata = { title: 'Tickets' }
 
 import dynamic from 'next/dynamic';
 
-const TicketTable = dynamic(() => import('./components/TicketTable'), {
-  ssr: false 
-});
+const TicketTable = dynamic(() => import('./components/TicketTable'), { ssr: false, loading: () => <p>Loading...</p> }
+);
 
 export default async function TicketListPage() {
 
@@ -18,11 +17,12 @@ export default async function TicketListPage() {
 
   return (
     <>
-      <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: 'Tickets', url: 'ticket' }} />
+      <TopPageNavigation />
 
       <TicketStats />
 
       <TicketTable />
+
     </>
   )
 }
