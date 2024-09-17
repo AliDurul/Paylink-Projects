@@ -17,7 +17,7 @@ export const getAllInvoices = async () => {
   const headers = await authConfig();
   try {
     const response = await fetch(`${BASE_URL}invoices/`, {
-      // cache: "no-cache",
+      // cache: "force-cache",
       // next: { revalidate: 900 },
       headers,
     });

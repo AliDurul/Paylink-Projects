@@ -14,10 +14,6 @@ export const metadata = { title: 'Invoices' }
 export default async function InvoiceListPage() {
   const response = await getAllInvoices();
 
-
-
-  // console.log('line 12 -> ', response);
-
   return (
     <>
       <TopPageNavigation />

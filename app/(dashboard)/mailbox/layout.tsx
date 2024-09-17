@@ -9,7 +9,7 @@ interface Props {
 export default function MailLayout({ children }: Props) {
     return (
         <div>
-            <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: "Email", url: '/mailbox' }} />
+            <TopPageNavigation />
             <MailMain>
                 {children}
             </MailMain>

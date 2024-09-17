@@ -32,7 +32,7 @@ const TopPageNavigation = () => {
             {
                 minititle &&
                 <li className="before:w-1 before:h-1 before:rounded-full before:bg-primary before:inline-block before:relative before:-top-0.5 before:mx-4">
-                    <button className="text-primary">{minititle}</button>
+                    <button className="text-primary  truncate ">{minititle.slice(0,90)}</button>
                 </li>
             }
 

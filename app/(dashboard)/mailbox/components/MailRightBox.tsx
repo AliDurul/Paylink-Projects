@@ -3,13 +3,11 @@ import ReactQuill from 'react-quill';
 import { formatDate } from '@/utils/helperFunctions';
 import Tippy from '@tippyjs/react';
 import Swal from 'sweetalert2';
-import { Email, ToRecipient } from '@/types/types';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchAllEmailsAsync, fetchAllEmailsFolderAsync, fetchEmailByIdAsync, openMail, selectEmailStatus, selectFolderId, selectFolders, selectIds, selectIsEdit, selectIsShowMailMenu, selectMail, selectPagedMails, selectSelectedTab, setIds, setImportant, setIsEdit, setIsShowMailMenu, setSelectedTab, setStar, updateEmailState } from '@/lib/features/email/emailSlice';
 import { deleteEmail, forwardMessage, getAllEmailsForFolder, replyMessage, sendMessage, updateEmailProperties } from './mailAPI';
 import Dropdown from '@/app/components/Layout/Dropdown';
 import { MailReadIcon, MailRefreshIcon, MailTrashIcon, MailUnReadIcon, MailZipIcon } from './MailIcons';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface MailRightBoxProps {
     pager: any;
@@ -19,16 +17,12 @@ interface MailRightBoxProps {
     searchMails: (value?: boolean) => void;
     clearSelection: () => void;
     setSearchText: (value: string) => void;
-    params: any;
-    setParams: (value: any) => void;
     children: React.ReactNode;
 }
 
-const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, searchMails, clearSelection, setSearchText, params, setParams, children }: MailRightBoxProps) => {
+const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, searchMails, clearSelection, setSearchText, children }: MailRightBoxProps) => {
 
     const dispatch = useAppDispatch();
-    const router = useRouter()
-    const searchParams = useSearchParams()
     const isShowMailMenu = useAppSelector(selectIsShowMailMenu);
     const selectedTab = useAppSelector(selectSelectedTab);
     const selectedMail = useAppSelector(selectMail);
@@ -38,7 +32,7 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
     const emailStatus = useAppSelector(selectEmailStatus);
     const isEdit = useAppSelector(selectIsEdit);
 
-    
+
 
 
     const setAction = async (type: any) => {
@@ -64,7 +58,7 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
                     dispatch(fetchAllEmailsFolderAsync({}))
 
                 } else if (type === 'read') {
-                    console.log(ids);
+                    // console.log(ids);
                     ids.map(async (id: any) => {
                         const res = await updateEmailProperties({ emailId: id, isRead: true, flagStatus, importance })
                         if (res?.error) {
@@ -75,7 +69,7 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
                     dispatch(fetchAllEmailsFolderAsync({}))
                     showMessage(totalSelected + ' Mail has been marked as Read.');
                 } else if (type === 'unread') {
-                    console.log(ids);
+                    // console.log(ids);
                     ids.map(async (id: any) => {
                         const res = await updateEmailProperties({ emailId: id, isRead: false, flagStatus, importance })
                         if (res?.error) {
@@ -109,40 +103,6 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
             clearSelection();
         }
     };
-
-
-
-    // const setStar = async (mail: Email | null, assignIt?: boolean) => {
-    //     if (mail) {
-    //         const { id: emailId, flag } = mail
-    //         const isRead = null;
-    //         let flagStatus = flag?.flagStatus === 'flagged' ? 'complete' : flag?.flagStatus === 'notFlagged' ? 'flagged' : 'flagged'
-
-    //         if (assignIt) flagStatus = 'complete'
-    //         const importance = null
-
-    //         await updateEmailProperties({ emailId, isRead, flagStatus, importance })
-    //         dispatch(fetchAllEmailsAsync(folderId))
-    //         searchMails(false);
-    //     }
-    // };
-
-    // const setImportant = async (mail: Email) => {
-    //     if (mail) {
-    //         const { id: emailId, flag } = mail
-    //         const isRead = null;
-    //         const flagStatus = null
-    //         const importance = 'high'
-
-    //         await updateEmailProperties({ emailId, isRead, flagStatus, importance })
-    //         dispatch(fetchAllEmailsAsync(folderId))
-
-    //         setTimeout(() => {
-    //             searchMails(false);
-    //         });
-    //     }
-    // };
-
 
 
     const refreshMails = async () => {
@@ -181,202 +141,25 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
         }
     };
 
-    const saveMail = async (type: any, id: any,) => {
-        if (!params.to) {
-            showMessage('To email address is required.', 'error');
-            return false;
-        }
-        if (!params.title) {
-            showMessage('Title of email is required.', 'error');
-            return false;
-        }
-
-        let maxId = 0;
-        //@ts-ignore
-        if (!params.id) { maxId = mailList.length ? mailList.reduce((max, character) => (character.id > max ? character.id : max), mailList[0].id) : 0; }
-        let cDt = new Date();
-
-        /*let obj: any = {
-             id: maxId + 1,
-             path: '',
-             firstName: '',
-             lastName: '',
-             email: params.to,
-             date: cDt.getMonth() + 1 + '/' + cDt.getDate() + '/' + cDt.getFullYear(),
-             time: cDt.toLocaleTimeString(),
-             title: params.title,
-             displayDescription: params.displayDescription,
-             type: 'Drafts',
-             isImportant: false,
-             group: '',
-             comment: params.comment,
-             isRead: false,
-             description: params.description,
-             attachments: null,
-         };
-         if (params.file && params.file.length) {
-             obj.attachments = [];
-             for (let file of params.file) {
-                 let flObj = {
-                     name: file.name,
-                     size: getFileSize(file.size),
-                     type: getFileType(file.type),
-                 };
-                 obj.attachments.push(flObj);
-             }
+    /*  const getFileSize = (file_type: any) => {
+         let type = 'file';
+         if (file_type.includes('image/')) {
+             type = 'image';
+         } else if (file_type.includes('application/x-zip')) {
+             type = 'zip';
          }
-          */
-        if (type === 'save' || type === 'save_reply' || type === 'save_forward') {
-            //saved to Drafts
-            // obj.type = 'Drafts';
-            // mailList.splice(0, 0, obj)
-            searchMails();
-            showMessage('Mail has been saved successfully to Drafts.');
-        } else if (type === 'reply') {
-
-            const dataSend = {
-                "message": {
-                    "toRecipients": [
-                        {
-                            "emailAddress": {
-                                "address": params.to
-                            }
-                        }
-                    ]
-                },
-                "comment": `
-                ${params.comment}
-                <p><br></p>
-                <p><br></p>
-                <p><span style=\"color: black;\"><span class=\"ql-cursor\">﻿</span>Thanks &amp; Regards</span></p>
-                <p><span style=\"color: black;\">JACOB SHONGA</span></p>
-                <p><strong>PayLink Technologies Zambia Limited,&nbsp;</strong></p>
-                <p>2nd Floor Finance House, Heroes Place, Cairo Road, Lusaka, Zambia</p>
-                <p>Mobile: +260 973834511 | Website: www.paylinkzm.com</p>
-                `
-            }
-
-            const res = await replyMessage(params.id, dataSend);
-            if (res && res.error) {
-                showMessage(res.error, 'error');
-                return;
-            }
-            dispatch(fetchAllEmailsAsync(folderId))
-            searchMails();
-            showMessage('Mail has been sent successfully.');
-        } else if (type === 'send') {
-
-            interface EmailRecipient {
-                emailAddress: {
-                    address: string;
-                };
-            }
-
-            interface EmailMessage {
-                subject: string;
-                body: {
-                    contentType: string;
-                    content: string;
-                };
-                toRecipients: EmailRecipient[];
-                ccRecipients?: EmailRecipient[]; // Optional property
-            }
-
-            interface EmailData {
-                message: EmailMessage;
-                saveToSentItems: string;
-            }
-
-            const dataSend: EmailData = {
-                "message": {
-                    "subject": params.title,
-                    "body": {
-                        "contentType": "html",
-                        "content": params.comment
-                    },
-                    "toRecipients": [
-                        {
-                            "emailAddress": {
-                                "address": params.to
-                            }
-                        }
-                    ],
-                },
-                "saveToSentItems": "true"
-            }
-
-            if (params.cc) {
-                dataSend.message.ccRecipients = [
-                    {
-                        "emailAddress": {
-                            "address": params.cc
-                        }
-                    }
-                ]
-            }
-            const res = await sendMessage(dataSend)
-
-            if (res && res.error) {
-                showMessage(res.error, 'error')
-                return;
-            }
-            searchMails();
-            showMessage('Mail has been sent successfully.');
-        } else if (type === 'forward') {
-
-            const dataSend = {
-                // "comment": params.comment,
-                "toRecipients": [
-                    {
-                        "emailAddress": {
-                            "address": params.cc
-                        }
-                    }
-                ]
-            }
-
-            const res = await forwardMessage(dataSend, params.id);
-            if (res && res.error) {
-                showMessage(res.error, 'error');
-                return;
-            }
-            dispatch(fetchAllEmailsAsync(folderId))
-            searchMails();
-            showMessage('Mail has been forwarded successfully.');
-        }
-
-        // setSelectedMail(null);
-        dispatch(updateEmailState(null))
-        dispatch(setIsEdit(false))
-
-    };
-
-    const getFileSize = (file_type: any) => {
-        let type = 'file';
-        if (file_type.includes('image/')) {
-            type = 'image';
-        } else if (file_type.includes('application/x-zip')) {
-            type = 'zip';
-        }
-        return type;
-    };
-
-    const getFileType = (total_bytes: number) => {
-        let size = '';
-        if (total_bytes < 1000000) {
-            size = Math.floor(total_bytes / 1000) + 'KB';
-        } else {
-            size = Math.floor(total_bytes / 1000000) + 'MB';
-        }
-        return size;
-    };
-
-    const changeValue = (e: any) => {
-        const { value, id } = e.target;
-        setParams({ ...params, [id]: value });
-    };
-
-
+         return type;
+     };
+ 
+     const getFileType = (total_bytes: number) => {
+         let size = '';
+         if (total_bytes < 1000000) {
+             size = Math.floor(total_bytes / 1000) + 'KB';
+         } else {
+             size = Math.floor(total_bytes / 1000000) + 'MB';
+         }
+         return size;
+     }; */
 
     const checkAllCheckbox = () => {
         if (filteredMailList?.length && ids.length === filteredMailList?.length) {
@@ -386,11 +169,7 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
         }
     };
 
-    const closeMsgPopUp = () => {
-        dispatch(setIsEdit(false))
-        dispatch(setSelectedTab('Inbox'));
-        searchMails();
-    };
+
 
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
@@ -809,7 +588,7 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
                                                     if (res.error) {
                                                         showMessage(res.error, 'error')
                                                     } else {
-                                                        console.log(res);
+                                                        // console.log(res);
                                                         setMailList(res)
                                                     }
 
@@ -830,7 +609,7 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
                                                     if (res.error) {
                                                         showMessage(res.error, 'error')
                                                     } else {
-                                                        console.log(res);
+                                                        // console.log(res);
                                                         setMailList(res)
                                                     }
                                                 }}>
@@ -872,7 +651,7 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
                                             // dispatch(fetchAllEmailsAsync(folderId));
 
                                             pager.currentPage++;
-                                            console.log('pageer', pager);
+                                            // console.log('pageer', pager);
                                             searchMails(false);
                                         }}
                                     >
@@ -884,16 +663,15 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
                             </div>
                         </div>
                         <div className="h-px border-b border-white-light dark:border-[#1b2e4b]"></div>
-                        {/* DISPLAY MESSAGES */}
 
                     </div>)
             }
             {/* CHILDEREN */}
-
+            {/* DISPLAY MESSAGES */}
             {children}
 
             {/* SEND EMAIL */}
-            {
+            {/* {
                 isEdit && (
                     <div className="relative">
                         <div className="flex items-center py-4 px-6">
@@ -973,7 +751,7 @@ const MailRightBox = ({ pager, setMailList, searchText, filteredMailList, search
                         </form>
                     </div>
                 )
-            }
+            } */}
         </div >
     )
 }

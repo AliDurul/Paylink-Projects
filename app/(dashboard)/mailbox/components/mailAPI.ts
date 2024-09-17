@@ -234,6 +234,7 @@ export const getAllEmailsForFolder = async (folderId: string, filterUnread: bool
                 // 'Prefer': "outlook.body-content-type=text",
             },
             cache: "no-cache",
+            // next: { revalidate: 300 }
         });
 
         const data = await response.json();

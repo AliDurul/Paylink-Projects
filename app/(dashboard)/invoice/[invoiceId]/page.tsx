@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: { invoiceId: string
 
 export default async function InvoicePreviewPage({ params }: { params: { invoiceId: string } }) {
     const invoice = await readInvoice(params.invoiceId)
-    console.log('invoice', invoice);
+    // console.log('invoice', invoice);
 
     if (!invoice?.customer?.first_name) notFound()
 
