@@ -13,7 +13,6 @@ import { deleteInvoice, deleteMultiInvoice } from '@/lib/features/invoices/invoi
 import { coloredToast } from '@/utils/sweetAlerts';
 import { formatDate } from '@/utils/helperFunctions';
 import { useRouter } from 'next/navigation';
-import TableSkeleton from '@/app/components/common/TableSkeleton';
 
 
 const InvoiceTable = ({ invoices }: { invoices: any }) => {

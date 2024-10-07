@@ -9,7 +9,7 @@ import KycGridTable from './components/KycGridTable'
 export default async function KycPage() {
   return (
     <>
-      <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: 'Know Your Customer', url: 'kyc' }} />
+      <TopPageNavigation />
 
       <div className="flex justify-end">
         <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-3">

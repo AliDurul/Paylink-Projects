@@ -19,7 +19,7 @@ export default async function InvoiceListPage() {
       <TopPageNavigation />
 
       {/* <Suspense fallback={<TableSkeleton />}> */}
-      <InvoiceTable invoices={response} />
+      <InvoiceTable invoices={response.results} />
       {/* </Suspense> */}
     </>
   )

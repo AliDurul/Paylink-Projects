@@ -21,7 +21,6 @@ export const getAllInvoices = async () => {
       // next: { revalidate: 900 },
       headers,
     });
-console.log('get invoice calisti');
     const data = await response.json();
 
     if (response.ok) {

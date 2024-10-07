@@ -42,7 +42,7 @@ export const kycSlice = createAppSlice({
                     if (response.error) {
                         throw new Error(response.error);
                     }
-                    return response;
+                    return response.results;
                 } catch (error) {
                     throw new Error("Data fetch failed: " + (error as Error).message);
                 }
