@@ -9,7 +9,7 @@ import { productSlice } from "./features/products/productSlice";
 import { faqSlice } from "./features/faq/faqSlice";
 import { emailSlice } from "./features/email/emailSlice";
 import { taskSlice } from "./features/task/taskSlice";
-import { chatSlice } from "./features/chat/invoiceSlice";
+import { chatSlice } from "./features/chat/chatSlice";
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.

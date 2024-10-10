@@ -4,7 +4,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchAllFaqAsync, selectFaq, selectFaqModal, setFaqModal } from '@/lib/features/faq/faqSlice';
-import { set } from 'lodash';
 import { coloredToast } from '@/utils/sweetAlerts';
 import { createFaq, updateFaq } from '@/lib/features/faq/faqAPI';
 
