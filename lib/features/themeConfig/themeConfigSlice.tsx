@@ -100,13 +100,14 @@ export const themeConfigSlice = createAppSlice({
         selectThemeConfig: (theme) => theme,
         selectIsDarkMode: (theme) => theme.isDarkMode,
         selectRtlClass: (theme) => theme.rtlClass,
+        selectSidebar: (theme) => theme.sidebar,
     }
 })
 
 export const { toggleTheme, toggleMenu, toggleLayout, toggleRTL, toggleAnimation, toggleNavbar, toggleSemidark, toggleSidebar, setPageTitle } = themeConfigSlice.actions;
 
 
-export const { selectThemeConfig, selectIsDarkMode, selectRtlClass } = themeConfigSlice.selectors;
+export const { selectThemeConfig, selectIsDarkMode, selectRtlClass, selectSidebar } = themeConfigSlice.selectors;
 
 
 

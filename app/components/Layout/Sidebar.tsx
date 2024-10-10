@@ -60,17 +60,14 @@ const Sidebar = () => {
 
     return (
         <div className={semidark ? 'dark' : ''}>
-            <nav
-                className={`sidebar fixed top-0 bottom-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}
-            >
+            <nav className={`sidebar fixed top-0 bottom-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}>
                 <div className="h-full bg-white dark:bg-black">
                     {/* Sidebar Header*/}
-                    <div className="flex items-center justify-between px-4 py-3">
+                    <div className="flex items-center justify-between px-4 py-3 overflow-hidden">
                         <Link href="/" className="flex shrink-0 items-center">
-                            <Image className="flex-none" src="/assets/images/onelife-logo.png" alt="logo" width={150} height={50} />
-                            {/* <span className=" px-1 align-middle text-base font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">United Bank for Africa</span> */}
+                            <Image className="flex-none" src="/assets/images/onelife-logo.png" alt="logo" width={80} height={80} />
+                            <span className=" px-1 align-middle text-base font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">Assurance</span>
                         </Link>
-
                         <button
                             type="button"
                             className="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"

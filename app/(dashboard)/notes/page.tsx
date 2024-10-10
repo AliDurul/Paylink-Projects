@@ -5,7 +5,7 @@ const NotePage = () => {
     return (
         <div className="h-full w-full flex justify-center items-center">
             {/* <div>Working on it </div> */}
-            <Image src="/assets/images/undercons.jpg" alt="UBA Bank Logo" className="object-cover w-full " width={1000} height={1000} />
+            <Image src="/assets/images/undercons.jpg" alt="OneLife Logo" className="object-cover w-full " width={1000} height={1000} />
         </div>
     )
 }

@@ -41,6 +41,7 @@
     "react-sortablejs": "^6.1.4",
     "react-text-mask": "^5.5.0",
     "sharp": "^0.33.5",
+    "socket.io-client": "^4.8.0",
     "sortablejs": "^1.15.2",
     "sweetalert2": "^11.6.13",
     "sweetalert2-react-content": "^5.0.7",
