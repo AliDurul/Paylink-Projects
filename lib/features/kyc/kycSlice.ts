@@ -9,6 +9,8 @@ export interface KycSliceState {
     status: "idle" | "loading" | "failed";
     error: null | string;
     value: string;
+    activeUsers: any[]
+
 }
 
 const initialState: KycSliceState = {
@@ -16,7 +18,8 @@ const initialState: KycSliceState = {
     status: "idle",
     error: null,
     kyc: null,
-    value: 'list'
+    value: 'list',
+    activeUsers: []
 };
 
 export const kycSlice = createAppSlice({
@@ -34,6 +37,9 @@ export const kycSlice = createAppSlice({
         updateKycState: reducer((state, action: PayloadAction<Kyc | null | undefined>) => {
             state.status = 'idle';
             state.kyc = action.payload;
+        }),
+        setActiveUsersState: reducer((state, action: PayloadAction<any[]>) => {
+            state.activeUsers = action.payload
         }),
         fetchAllKycAsync: asyncThunk(
             async (params: { type?: string }) => {
@@ -58,10 +64,12 @@ export const kycSlice = createAppSlice({
         selectKycs: (kyc) => kyc.kycs,
         selectKyc: (kyc) => kyc.kyc,
         selectValue: (kyc) => kyc.value,
-        selectKycState: (kyc) => kyc
+        selectKycState: (kyc) => kyc,
+        selectKycStatus: (kyc) => kyc.status,
+        selectActiveUsers: (kyc) => kyc.activeUsers
     }
 });
 
-export const { fetchAllKycAsync, updateKycs, updateKycState, setValue } = kycSlice.actions;
+export const { fetchAllKycAsync, updateKycs, updateKycState, setValue, setActiveUsersState } = kycSlice.actions;
 
-export const { selectValue, selectKycs, selectKycState, selectKyc } = kycSlice.selectors
+export const { selectValue, selectKycs, selectKycState, selectKyc, selectKycStatus, selectActiveUsers } = kycSlice.selectors

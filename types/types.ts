@@ -322,4 +322,75 @@ export interface GroupAdmin {
   profile_pic: null | string;
 }
 
+/* CHAT START */
+export interface Chat {
+  id: number;
+  latestMessageId: null | number;
+  chatName: string | null;
+  chatPicture: string | null;
+  isGroupChat: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: null | Date;
+  groupAdminId: number | null;
+  chatUsers: GroupAdmin[];
+  latestMessage: null | LatestMessage;
+  groupAdmin: GroupAdmin | null;
+}
+
+export interface GroupAdmin {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profilePic: string;
+  phoneNo: string;
+  role: number;
+}
+
+
+export interface LatestMessage {
+  id: number;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: null | Date;
+  chatId: number;
+  senderId: number;
+}
+
+export interface Message {
+  id: number;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: null | Date;
+  chatId: number;
+  senderId: number;
+}
+
+
+export interface MessageNotification {
+  id: number;
+  content: string;
+  senderId: number;
+  chatId: number;
+  updatedAt: Date;
+  createdAt: Date;
+  deletedAt: null;
+  isGroupChat: boolean;
+  chatPicture: null | string;
+  chatName: null | string;
+  sender: MsgSender;
+}
+
+export interface MsgSender {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profilePic: string;
+  phoneNo: string;
+  role: number;
+}
 

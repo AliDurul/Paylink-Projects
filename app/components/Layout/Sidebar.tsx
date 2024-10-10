@@ -113,9 +113,6 @@ const Sidebar = () => {
                                         <li>
                                             <Link href="/finance">Finance</Link>
                                         </li>
-                                        {/* <li>
-                                            <Link href="/crypto">crypto</Link>
-                                        </li> */}
                                     </ul>
                                 </AnimateHeight>
                             </li>
@@ -156,7 +153,7 @@ const Sidebar = () => {
                                                     <Link href="/mailbox">Emails</Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/wp">Whatsapp</Link>
+                                                    <Link href="/chats">Chats</Link>
                                                 </li>
                                                 <li>
                                                     <Link href="/facebook">Facebook</Link>
