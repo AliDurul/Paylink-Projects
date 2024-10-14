@@ -7,9 +7,9 @@ import { ChatBoxSmileIcon } from './ChatIcons';
 import ChatBoxBottom from './ChatBoxBottom';
 import { Message } from '@/types/types';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { selectActiveUsers } from '@/lib/features/user/userSlice';
-import { selectSocket } from '@/lib/features/socket/socketSlice';
-import { useSocket } from '@/lib/contexts/SocketContext';
+// import { selectActiveUsers } from '@/lib/features/user/userSlice';
+// import { selectSocket } from '@/lib/features/socket/socketSlice';
+// import { useSocket } from '@/lib/contexts/SocketContext';
 
 const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
 
@@ -20,44 +20,44 @@ export default function ChatBoxBody({ chatboxData, receiver }: { chatboxData: an
 
     //? CUSTOM HOOK
     const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
-    const socket = useSocket()
+    // const socket = useSocket()
 
 
     const { userInfo } = useCurrentUser()
-    const activeUsers = useAppSelector(selectActiveUsers)
+    // const activeUsers = useAppSelector(selectActiveUsers)
 
     const { messages, selectedChat } = chatboxData
     const [isTyping, setIsTyping] = useState<boolean>(false);
     const [chatMessages, setChatMessages] = useState<Message[]>(messages)
 
 
-    useEffect(() => {
-        if (socket && selectedChat) {
-            socket.emit('joinRoom', selectedChat.id);
-        }
+    // useEffect(() => {
+    //     if (socket && selectedChat) {
+    //         socket.emit('joinRoom', selectedChat.id);
+    //     }
 
-        socket?.on('receiveMessage', (message: Message) => {
-            setChatMessages((prevMessages) => [...prevMessages, message]);
-        })
+    //     socket?.on('receiveMessage', (message: Message) => {
+    //         setChatMessages((prevMessages) => [...prevMessages, message]);
+    //     })
 
-        socket?.on('typing', () => {
-            setIsTyping(true);
-        });
+    //     socket?.on('typing', () => {
+    //         setIsTyping(true);
+    //     });
 
-        socket?.on('stopTyping', () => {
-            setIsTyping(false);
-        });
+    //     socket?.on('stopTyping', () => {
+    //         setIsTyping(false);
+    //     });
 
-        return () => {
-            if (socket && selectedChat) {
-                socket.emit('leaveRoom', selectedChat.id);
-                socket.off('receiveMessage');
-                socket.off('typing');
-                socket.off('stopTyping');
-            }
-        }
+    //     return () => {
+    //         if (socket && selectedChat) {
+    //             socket.emit('leaveRoom', selectedChat.id);
+    //             socket.off('receiveMessage');
+    //             socket.off('typing');
+    //             socket.off('stopTyping');
+    //         }
+    //     }
 
-    }, [selectedChat, socket]);
+    // }, [selectedChat, socket]);
 
     useEffect(() => {
         scrollToBottom();
@@ -72,7 +72,7 @@ export default function ChatBoxBody({ chatboxData, receiver }: { chatboxData: an
     };
 
     const showProfilePic = (currentMessage: Message, nextMessage: Message | undefined) => {
-        return !nextMessage || currentMessage.senderId !== nextMessage.senderId;
+        return !nextMessage || currentMessage.sender !== nextMessage.sender;
     };
 
     const formatTime = (dateString: string) => {
@@ -89,8 +89,8 @@ export default function ChatBoxBody({ chatboxData, receiver }: { chatboxData: an
 
     const isNewDay = (currentMessage: Message, previousMessage: Message | undefined) => {
         if (!previousMessage) return true;
-        const currentDate = new Date(currentMessage.createdAt).toDateString();
-        const previousDate = new Date(previousMessage.createdAt).toDateString();
+        const currentDate = new Date(currentMessage.created_at).toDateString();
+        const previousDate = new Date(previousMessage.created_at).toDateString();
         return currentDate !== previousDate;
     };
 
@@ -108,7 +108,7 @@ export default function ChatBoxBody({ chatboxData, receiver }: { chatboxData: an
                                 let senderPic;
 
                                 if (selectedChat.isGroupChat) {
-                                    senderPic = selectedChat.chatUsers.find((user: any) => user.id === message.senderId).profilePic;
+                                    senderPic = selectedChat.chatUsers.find((user: any) => user.id === message.sender).profilePic;
                                 }
 
 
@@ -117,13 +117,13 @@ export default function ChatBoxBody({ chatboxData, receiver }: { chatboxData: an
                                         {showDateHeader && (
                                             <div className="m-6 mt-0 block ">
                                                 <h4 className="relative border-b  border-[#f4f4f4] text-center text-xs dark:border-gray-800 ">
-                                                    <span className="relative top-2 bg-white px-3 dark:bg-black">{formatDate(message.createdAt.toString())}</span>
+                                                    <span className="relative top-2 bg-white px-3 dark:bg-black">{formatDate(message.created_at.toString())}</span>
                                                 </h4>
                                             </div>
                                         )}
 
-                                        <div className={`flex items-start gap-3 ${userInfo?.id === message.senderId ? 'justify-end' : ''}`}>
-                                            <div className={`flex-none ${userInfo?.id === message.senderId ? 'order-2' : ''}`}>
+                                        <div className={`flex items-start gap-3 ${userInfo?.user_id === message.sender ? 'justify-end' : ''}`}>
+                                            <div className={`flex-none ${userInfo?.user_id === message.sender ? 'order-2' : ''}`}>
                                                 {/* {showProfilePic(message, nextMessage) && userInfo?.id !== message.senderId ? (
                                                     <Image width={40} height={40} src={`${BASE_URL}/image/${receiver?.profilePic}`} className="rounded-full object-cover" alt="" />
                                                 ) : ('')} */}
@@ -132,8 +132,8 @@ export default function ChatBoxBody({ chatboxData, receiver }: { chatboxData: an
                                                     selectedChat.isGroupChat ? (
                                                         <Image height={40} width={40} src={`${BASE_URL}/image/${senderPic}`} className="rounded-full object-cover" alt="" />
                                                     ) : (
-                                                        userInfo?.id === message.senderId ? (
-                                                            <Image height={40} width={40} src={`${BASE_URL}/image/${userInfo?.profilePic}`} className="rounded-full object-cover" alt="" />
+                                                        userInfo?.user_id === message.sender ? (
+                                                            <Image height={40} width={40} src={`${BASE_URL}/image/${userInfo?.payload.first_name}`} className="rounded-full object-cover" alt="" />
                                                         ) : (
                                                             <Image width={40} height={40} src={`${BASE_URL}/image/${receiver?.profilePic}`} className="rounded-full object-cover" alt="" />
                                                         )
@@ -145,13 +145,13 @@ export default function ChatBoxBody({ chatboxData, receiver }: { chatboxData: an
 
                                             </div>
                                             <div className="flex items-center gap-3">
-                                                <div className={` relative rounded-md bg-black/10 p-2 py-3 pr-11 dark:bg-gray-800 ${message.senderId === userInfo?.id ? '!bg-primary text-white rounded-br-none' : 'rounded-bl-none '}`}>
+                                                <div className={` relative rounded-md bg-black/10 p-2 py-3 pr-11 dark:bg-gray-800 ${message.sender === userInfo?.user_id ? '!bg-primary text-white rounded-br-none' : 'rounded-bl-none '}`}>
                                                     {message.content}
-                                                    <div className={`absolute bottom-1 right-1  text-xs text-white-dark ${userInfo?.id === message.senderId ? 'ltr:text-right ltr:text-white-light rtl:text-left' : ''}`}>
-                                                        {formatTime(message.createdAt.toString())}
+                                                    <div className={`absolute bottom-1 right-1  text-xs text-white-dark ${userInfo?.user_id === message.sender ? 'ltr:text-right ltr:text-white-light rtl:text-left' : ''}`}>
+                                                        {formatTime(message.created_at.toString())}
                                                     </div>
                                                 </div>
-                                                <div className={`${userInfo?.id === message.senderId ? 'hidden' : ''}`}>
+                                                <div className={`${userInfo?.user_id === message.sender ? 'hidden' : ''}`}>
                                                     <ChatBoxSmileIcon />
                                                 </div>
                                             </div>

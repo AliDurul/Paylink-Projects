@@ -4,7 +4,7 @@ import { postMessage } from '@/lib/features/chat/chatActions';
 import { fetchAllChatsAsync, updateChatsState } from '@/lib/features/chat/chatSlice';
 import { selectKycs, selectKycState, selectKycStatus } from '@/lib/features/kyc/kycSlice';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { Kyc } from '@/types/types';
+import { Chat, Kyc } from '@/types/types';
 import { coloredToast } from '@/utils/sweetAlerts';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -49,14 +49,14 @@ const ChatContactList = ({ selectUser, setSelectedTab }: ChatListProps) => {
     async function handleSelectUser(user: Kyc) {
 
         if (user.id) {
-            const res = await postMessage(null, { receiver: user?.id })
-            if (!res.isError) {
-                navigate.push(`/chats/${res.chat.id}`)
-                dispatch(updateChatsState(res.chat))
+            const chat = await postMessage(null, { receiver: user?.id })
+            if (!chat.error) {
+                navigate.push(`/chats/${chat.id}`)
+                dispatch(updateChatsState(chat))
                 setSelectedTab('Chats')
 
             }
-            else coloredToast('danger', res.message)
+            else coloredToast('danger', chat.message)
         }
     }
 

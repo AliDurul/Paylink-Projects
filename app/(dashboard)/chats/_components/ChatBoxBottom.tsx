@@ -4,7 +4,7 @@ import { ChatBoxSendIcon, ChatBoxSmileIcon } from './ChatIcons'
 import { Chat, Message } from '@/types/types';
 import { getMessagesForChat, postMessage } from '@/lib/features/chat/chatActions';
 import { coloredToast } from '@/utils/sweetAlerts';
-import { useSocket } from '@/lib/contexts/SocketContext';
+// import { useSocket } from '@/lib/contexts/SocketContext';
 
 
 
@@ -16,7 +16,7 @@ export default function ChatBoxBottom({ receiver, selectedChat, pushMessage, scr
 
     //? CUSTOM HOOK
     const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
-    const socket = useSocket()
+    // const socket = useSocket()
 
 
 
@@ -25,11 +25,11 @@ export default function ChatBoxBottom({ receiver, selectedChat, pushMessage, scr
         if (textMessage.trim()) {
 
             if (receiver?.id) {
-                const res = await postMessage(selectedChat.id, { receiverId: receiver?.id, content: textMessage });
+                const res = await postMessage(selectedChat.id, { receiver: receiver?.id, content: textMessage });
                 if (!res.isError) {
 
-                    socket?.emit('stopTyping', { chatId: selectedChat.id });
-                    socket?.emit('sendMessage', res.message, receiver.id, selectedChat);
+                    // socket?.emit('stopTyping', { chatId: selectedChat.id });
+                    // socket?.emit('sendMessage', res.message, receiver.id, selectedChat);
 
                     pushMessage(res.message)
                 } else {
@@ -57,11 +57,11 @@ export default function ChatBoxBottom({ receiver, selectedChat, pushMessage, scr
         if (typingTimeoutRef.current) {
             clearTimeout(typingTimeoutRef.current);
         } else {
-            socket?.emit('typing', { chatId: selectedChat.id });
+            // socket?.emit('typing', { chatId: selectedChat.id });
         }
 
         typingTimeoutRef.current = setTimeout(() => {
-            socket?.emit('stopTyping', { chatId: selectedChat.id });
+            // socket?.emit('stopTyping', { chatId: selectedChat.id });
             typingTimeoutRef.current = null;
         }, 3000);
     }
