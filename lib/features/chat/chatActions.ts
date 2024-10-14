@@ -84,10 +84,10 @@ export const getMessagesForChat = async (chatId: number) => {
     }
 };
 
-export const postMessage = async (chatId: number | null, messageData: { receiverId: number, content?: string }) => {
+export const postMessage = async (chatId: number | null, messageData: { receiver: number, content?: string }) => {
     const headers = await authConfig();
     try {
-        const response = await fetch(`${BASE_URL}/chats/message/${chatId}`, {
+        const response = await fetch(`${BASE_URL}/test/message/${chatId}`, {
             cache: "no-cache",
             headers,
             method: "POST",

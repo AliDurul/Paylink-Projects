@@ -47,8 +47,9 @@ const ChatContactList = ({ selectUser, setSelectedTab }: ChatListProps) => {
     }, [searchQuery, users])
 
     async function handleSelectUser(user: Kyc) {
+
         if (user.id) {
-            const res = await postMessage(null, { receiverId: user?.id })
+            const res = await postMessage(null, { receiver: user?.id })
             if (!res.isError) {
                 navigate.push(`/chats/${res.chat.id}`)
                 dispatch(updateChatsState(res.chat))
