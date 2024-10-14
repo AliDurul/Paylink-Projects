@@ -315,13 +315,34 @@ export interface AsignAgent {
   email: string;
 }
 
-export interface ChatRoom {
+
+/* CHAT START */
+export interface Chat {
   id: number;
   chat_name: string;
+  chat_picture: null | string
   is_group_chat: boolean;
-  preview: null;
-  group_admin: GroupAdmin;
-  members: GroupAdmin[];
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date;
+  group_admin: null | number
+  chat_users: ChatUser[];
+  letestMessage: LetestMessage;
+  groupAdmin: null | GroupAdmin;
+}
+
+export interface ChatUser {
+  id: number;
+  first_name: string;
+  last_name: string;
+  phone_number: null;
+  email: string;
+  profile_pic: null;
+}
+
+export interface LetestMessage {
+  id: number;
+  content: string;
   created_at: Date;
 }
 
@@ -334,52 +355,17 @@ export interface GroupAdmin {
   profile_pic: null | string;
 }
 
-/* CHAT START */
-export interface Chat {
-  id: number;
-  latestMessageId: null | number;
-  chatName: string | null;
-  chatPicture: string | null;
-  isGroupChat: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: null | Date;
-  groupAdminId: number | null;
-  chatUsers: GroupAdmin[];
-  latestMessage: null | LatestMessage;
-  groupAdmin: GroupAdmin | null;
-}
-
-export interface GroupAdmin {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  profilePic: string;
-  phoneNo: string;
-  role: number;
-}
-
-
-export interface LatestMessage {
-  id: number;
-  content: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: null | Date;
-  chatId: number;
-  senderId: number;
-}
 
 export interface Message {
   id: number;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: null | Date;
-  chatId: number;
-  senderId: number;
+  chat: number;
+  sender: number,
+  image: null | string;
+  video: null | string;
+  created_at: Date;
 }
+
 
 
 export interface MessageNotification {

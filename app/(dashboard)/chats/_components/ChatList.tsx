@@ -29,6 +29,7 @@ const ChatList = ({ selectUser, filteredItems, selectedTab }: ChatListProps) => 
     const [groupModal, setGroupModal] = useState(false);
 
 
+
     return (
         <PerfectScrollbar className="chat-users relative -mr-3.5 h-full min-h-[100px] space-y-0.5 pb-5 pr-3.5 sm:h-[calc(100vh_-_357px)]">
             {
@@ -39,7 +40,7 @@ const ChatList = ({ selectUser, filteredItems, selectedTab }: ChatListProps) => 
                 ) : (
                     <>
                         {filteredItems.map((chat: Chat, i: number) => {
-                            const member = chat.chatUsers.find((member: any) => member.id !== userInfo?.user_id);
+                            const member = chat.chat_users.find((member: any) => member.id !== userInfo?.user_id);
                             return (
                                 <button
                                     onClick={() => { selectUser(chat); navigate.push(`/chats/${chat.id}`) }}
@@ -54,10 +55,10 @@ const ChatList = ({ selectUser, filteredItems, selectedTab }: ChatListProps) => 
                                                     className="rounded-full object-cover"
                                                     width={48}
                                                     height={48}
-                                                    src={`${chat.isGroupChat ? `${BASE_URL}/image/${chat.chatPicture}` : `${BASE_URL}/image/${member?.profilePic || '/assets/images/profile.png'}`}`} alt=""
+                                                    src={`${chat.is_group_chat ? `${BASE_URL}/image/${chat.chat_picture}` : `${BASE_URL}/image/${member?.profile_pic || '/assets/images/profile.png'}`}`} alt=""
                                                 />
                                                 {
-                                                    !chat.isGroupChat && activeUsers.some(user => user.userId === member?.id) && (
+                                                    !chat.is_group_chat && activeUsers.some(user => user.userId === member?.id) && (
                                                         <div className="absolute bottom-0 ltr:right-0 rtl:left-0">
                                                             <div className="size-3 rounded-full bg-success"></div>
                                                         </div>
@@ -67,17 +68,17 @@ const ChatList = ({ selectUser, filteredItems, selectedTab }: ChatListProps) => 
                                             </div>
                                             <div className="mx-3 ltr:text-left rtl:text-right">
                                                 {
-                                                    chat.isGroupChat
-                                                        ? <p className="mb-1 font-semibold">{chat.chatName}</p>
-                                                        : <p className="mb-1 font-semibold">{member?.firstName} {member?.lastName}</p>
+                                                    chat.is_group_chat
+                                                        ? <p className="mb-1 font-semibold">{chat.chat_name}</p>
+                                                        : <p className="mb-1 font-semibold">{member?.first_name} {member?.last_name}</p>
 
                                                 }
-                                                <p className="max-w-[185px] truncate text-xs text-white-dark">{chat.latestMessage?.content}</p>
+                                                <p className="max-w-[185px] truncate text-xs text-white-dark">{chat.letestMessage?.content}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="whitespace-nowrap text-xs ">
-                                        <p>{chat.latestMessage && formatDate(chat?.latestMessage.createdAt)}</p>
+                                        <p>{chat.letestMessage && formatDate(chat?.letestMessage.created_at)}</p>
                                     </div>
                                 </button>
                             );

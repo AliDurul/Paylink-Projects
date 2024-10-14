@@ -17,24 +17,24 @@ const authConfig = async () => {
 const authConfigFormData = async () => {
     const session = await auth();
     const accessToken = session?.accessToken;
-  
+
     return {
-      Authorization: `Bearer ${accessToken}`,
-      // "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${accessToken}`,
+        // "Content-Type": "multipart/form-data",
     };
-  }
+}
 
 export const getAllChats = async () => {
     const headers = await authConfig();
     try {
-        const response = await fetch(`${BASE_URL}/chats/`, {
+        const response = await fetch(`${BASE_URL}chats/`, {
             cache: "no-cache",
             headers,
         });
         const data = await response.json();
 
         if (response.ok) {
-            return data.userChats;
+            return data;
         } else {
             throw new Error(data.message || "Something went wrong, Please try again!");
         }
@@ -47,7 +47,7 @@ export const getAllChats = async () => {
 export const getChat = async (chatId: string) => {
     const headers = await authConfig();
     try {
-        const response = await fetch(`${BASE_URL}/chats/${chatId}`, {
+        const response = await fetch(`${BASE_URL}chat/${chatId}/`, {
             cache: "no-cache",
             headers,
         });
@@ -67,7 +67,7 @@ export const getChat = async (chatId: string) => {
 export const getMessagesForChat = async (chatId: number) => {
     const headers = await authConfig();
     try {
-        const response = await fetch(`${BASE_URL}/chats/message/${chatId}`, {
+        const response = await fetch(`${BASE_URL}chats/message/${chatId}/`, {
             cache: "no-cache",
             headers,
         });
@@ -86,8 +86,13 @@ export const getMessagesForChat = async (chatId: number) => {
 
 export const postMessage = async (chatId: number | null, messageData: { receiver: number, content?: string }) => {
     const headers = await authConfig();
+
+    let url = `${BASE_URL}message/${chatId}/`;
+
+    if (!chatId) url = `${BASE_URL}message/`;
+
     try {
-        const response = await fetch(`${BASE_URL}/test/message/${chatId}`, {
+        const response = await fetch(url, {
             cache: "no-cache",
             headers,
             method: "POST",
@@ -95,9 +100,9 @@ export const postMessage = async (chatId: number | null, messageData: { receiver
 
         });
         const data = await response.json();
-
+        console.log(data);
         if (response.ok) {
-            return data;
+            return data.chat
         } else {
             throw new Error(data.message || "Something went wrong, Please try again!");
         }
@@ -110,7 +115,7 @@ export const postMessage = async (chatId: number | null, messageData: { receiver
 export const postGroup = async (groupData: any) => {
     const headers = await authConfigFormData();
     try {
-        const response = await fetch(`${BASE_URL}/chats/group`, {
+        const response = await fetch(`${BASE_URL}chats/group`, {
             headers,
             method: "POST",
             body: groupData,

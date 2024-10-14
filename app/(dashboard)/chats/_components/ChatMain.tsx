@@ -9,7 +9,7 @@ import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { AllChatsIcon, ContactIcon, GroupChatIcon, HelpIcon, SettingIcon, SignOutIcon, SingleChatIcon } from './ChatIcons';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchAllChatsAsync, selectChats, selectChatStates, setIsShowChatMenu, } from '@/lib/features/chat/chatSlice';
-import { Chat } from '@/types/types';
+import { Chat, ChatUser, Kyc } from '@/types/types';
 import { coloredToast } from '@/utils/sweetAlerts';
 import ChatContactList from './ChatContactList';
 import { ChatListSkeleton } from './ChatSkeletons';
@@ -35,6 +35,7 @@ const ChatMain = ({ children }: { children: React.ReactNode; }) => {
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedTab, setSelectedTab] = useState('All')
 
+console.log(chats);
     useEffect(() => {
         dispatch(fetchAllChatsAsync({}))
         dispatch(fetchAllKycAsync({}))
@@ -46,17 +47,17 @@ const ChatMain = ({ children }: { children: React.ReactNode; }) => {
 
     useEffect(() => {
         setFilteredItems(() => {
-            return chats?.filter((chat: any) => {
+            return chats?.filter((chat: Chat) => {
 
                 const searchTerm = searchQuery.toLowerCase();
 
                 let isChatNameMatch;
-                if (chat.chatName) {
-                    isChatNameMatch = chat.chatName ? chat.chatName.toLowerCase().includes(searchTerm) : false;
+                if (chat.chat_name) {
+                    isChatNameMatch = chat.chat_name ? chat.chat_name.toLowerCase().includes(searchTerm) : false;
                 }
 
-                const isMemberMatch = chat.chatUsers?.some((member: any) => {
-                    const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
+                const isMemberMatch = chat.chat_users?.some((member: ChatUser) => {
+                    const fullName = `${member.first_name} ${member.last_name}`.toLowerCase();
                     const email = member.email ? member.email.toLowerCase() : '';
 
                     return fullName.includes(searchTerm) || email.includes(searchTerm);
@@ -68,9 +69,9 @@ const ChatMain = ({ children }: { children: React.ReactNode; }) => {
                     case 'All':
                         return matchesSearch;
                     case 'Chats':
-                        return matchesSearch && chat.isGroupChat === false;
+                        return matchesSearch && chat.is_group_chat === false;
                     case 'Groups':
-                        return matchesSearch && chat.isGroupChat === true;
+                        return matchesSearch && chat.is_group_chat === true;
                     default:
                         return false;
                 }
