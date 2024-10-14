@@ -28,18 +28,17 @@ const ChatContactList = ({ selectUser, setSelectedTab }: ChatListProps) => {
     const { userInfo } = useCurrentUser()
 
 
-
     useEffect(() => {
-        setfilteredItems(users)
+        setfilteredItems(users.results)
     }, [users])
 
     const [searchQuery, setSearchQuery] = useState('')
-    const [filteredItems, setfilteredItems] = useState(users)
+    const [filteredItems, setfilteredItems] = useState(users.results)
 
 
     useEffect(() => {
         setfilteredItems(() => {
-            return users.filter((user: Kyc) => {
+            return users.results.filter((user: Kyc) => {
                 const searchTerm = searchQuery.toLowerCase()
                 return user.first_name.toLowerCase().includes(searchTerm) || user.last_name.toLowerCase().includes(searchTerm)
             })

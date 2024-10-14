@@ -1,3 +1,4 @@
+
 export interface Login {
   email: string;
   password: string;
@@ -7,6 +8,17 @@ export interface Register {
   name: string;
   email: string;
   password: string;
+}
+
+export type Pagination<T> = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[]
+}
+
+export interface ApiResponse extends Pagination<any> {
+  error?: any;
 }
 
 /* TIKCET */

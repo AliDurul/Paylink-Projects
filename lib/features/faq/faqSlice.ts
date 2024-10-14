@@ -1,5 +1,5 @@
 import { createAppSlice } from "@/lib/createAppSlice";
-import { Faq } from "@/types/types";
+import { ApiResponse, Faq, Pagination } from "@/types/types";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { getAllFaqs } from "./faqAPI";
 
@@ -10,7 +10,7 @@ interface defaultParams {
 }
 
 export interface FaqSliceState {
-    faqs: Faq[];
+    faqs: Pagination<Faq>;
     faq: Faq | defaultParams;
     status: "idle" | "loading" | "failed";
     error: null | string;
@@ -19,7 +19,12 @@ export interface FaqSliceState {
 }
 
 const initialState: FaqSliceState = {
-    faqs: [],
+    faqs: {
+        count: 0,
+        next: null,
+        previous: null,
+        results: []
+    },
     status: "idle",
     faqModal: false,
     error: null,
@@ -36,7 +41,7 @@ export const faqSlice = createAppSlice({
     reducers: (create) => ({
         updateFaqs: create.reducer((state, action: PayloadAction<Faq[]>) => {
             state.status = 'idle';
-            state.faqs = action.payload;
+            state.faqs.results = action.payload;
         }),
         setFaqModal: create.reducer((state, action: PayloadAction<boolean>) => {
             state.status = 'idle';
@@ -49,7 +54,7 @@ export const faqSlice = createAppSlice({
         fetchAllFaqAsync: create.asyncThunk(
             async () => {
                 try {
-                    const response = await getAllFaqs();
+                    const response:ApiResponse = await getAllFaqs();
                     if (response.error) {
                         throw new Error(response.error);
                     }

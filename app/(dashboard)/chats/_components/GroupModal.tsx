@@ -42,10 +42,9 @@ export default function GroupModal({ onClose, isOpen }: GroupModalProps) {
 
     const users = useAppSelector(selectKycs);
 
-    const userOp = users
-        .filter(user => user.id !== userInfo?.user_id)
+    const userOp = users.results?.filter(user => user.id !== userInfo?.user_id)
         .map(user => ({
-            label: user.last_name+ " " + user.last_name,
+            label: user.last_name + " " + user.last_name,
             value: user.id,
             picture: user?.profile_pic
         }));

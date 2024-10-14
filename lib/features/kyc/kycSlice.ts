@@ -1,20 +1,27 @@
 import { createAppSlice } from "@/lib/createAppSlice";
 import { getAllKycs } from "./kycAPI";
-import { Kyc } from "@/types/types";
+import { ApiResponse, Kyc, Pagination } from "@/types/types";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+
 export interface KycSliceState {
-    kycs: Kyc[];
+    kycs: Pagination<Kyc>;
     kyc: Kyc | null | undefined
     status: "idle" | "loading" | "failed";
     error: null | string;
     value: string;
     activeUsers: any[]
-
 }
 
+
+
 const initialState: KycSliceState = {
-    kycs: [],
+    kycs: {
+        count: 0,
+        next: null,
+        previous: null,
+        results: []
+    },
     status: "idle",
     error: null,
     kyc: null,
@@ -28,7 +35,7 @@ export const kycSlice = createAppSlice({
     reducers: ({ reducer, asyncThunk }) => ({
         updateKycs: reducer((state, action: PayloadAction<Kyc[]>) => {
             state.status = 'idle';
-            state.kycs = action.payload;
+            state.kycs.results = action.payload;
         }),
         setValue: reducer((state, { payload }: PayloadAction<string>) => {
             state.status = 'idle';
@@ -44,11 +51,11 @@ export const kycSlice = createAppSlice({
         fetchAllKycAsync: asyncThunk(
             async (params: { type?: string }) => {
                 try {
-                    const response = await getAllKycs(params.type);
+                    const response: ApiResponse = await getAllKycs(params.type);
                     if (response.error) {
                         throw new Error(response.error);
                     }
-                    return response.results;
+                    return response;
                 } catch (error) {
                     throw new Error("Data fetch failed: " + (error as Error).message);
                 }

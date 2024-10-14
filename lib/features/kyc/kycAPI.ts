@@ -17,14 +17,17 @@ const authConfig = async () => {
 export const getAllKycs = async (type?: string) => {
   const headers = await authConfig();
 
+  let url = `${BASE_URL}users/`;
+
+  if (type) url = `${BASE_URL}users/?user_type=${type}`;
+
+
   try {
-    const response = await fetch(`${BASE_URL}users/?user_type=${type}`, {
+    const response = await fetch(url, {
       headers,
     });
 
     const data = await response.json();
-
-    // const data = allData.filter((item: Kyc) => item.user_type === type)
 
     if (response.ok) {
       return data;

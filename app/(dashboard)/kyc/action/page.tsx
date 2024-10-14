@@ -34,15 +34,15 @@ const KycActionPage = () => {
 
         setUserTickets(data)
     }
-    
+
     const fetchKyc = async () => {
         const kycInfo = await readKyc(Number(userId))
         dispatch(updateKycState(kycInfo))
     }
 
-  /*   useEffect(() => {
-        if (userId) fetchKyc()
-    }, []) */
+    /*   useEffect(() => {
+          if (userId) fetchKyc()
+      }, []) */
 
     useEffect(() => {
         fetchTicketsForUser(userId)
@@ -74,12 +74,12 @@ const KycActionPage = () => {
         })
     };
 
-    const {id, first_name, last_name, email, phone_number, father_name, mother_name, witness_name, witness_relation} = kyc || {}
+    const { id, first_name, last_name, email, phone_number, father_name, mother_name, witness_name, witness_relation } = kyc || {}
 
     const initialValues = {
-        id:id || 0,
-        first_name:first_name || '',
-        last_name:last_name || '',
+        id: id || 0,
+        first_name: first_name || '',
+        last_name: last_name || '',
         father_name: kyc?.father_name || '',
         mother_name: kyc?.mother_name || '',
         witness_name: kyc?.witness_name || '',
@@ -118,7 +118,7 @@ const KycActionPage = () => {
 
     return (
         <div>
-            <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: 'Kyc`s', url: 'kyc' }} miniTitle={{ title: kyc ? kyc.first_name : 'Not Named' }} />
+            <TopPageNavigation />
 
             <div className="pt-5">
                 <Formik

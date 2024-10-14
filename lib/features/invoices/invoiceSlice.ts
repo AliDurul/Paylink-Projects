@@ -2,17 +2,22 @@ import { createAppSlice } from "@/lib/createAppSlice";
 import type { AppThunk } from "@/lib/store";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { getAllInvoices } from "./invoiceAPI";
-import { Invoice } from "@/types/types";
+import { ApiResponse, Invoice, Pagination } from "@/types/types";
 
 export interface InvoiceSliceState {
-    invoices: Invoice[];
+    invoices: Pagination<Invoice>;
     status: "idle" | "loading" | "failed";
     error: null | string;
     invoice: null | Invoice;
 }
 
 const initialState: InvoiceSliceState = {
-    invoices: [],
+    invoices: {
+        count: 0,
+        next: null,
+        previous: null,
+        results: []
+    },
     status: "idle",
     error: null,
     invoice: null
@@ -28,12 +33,12 @@ export const invoiceSlice = createAppSlice({
         }),
         updateInvoices: create.reducer((state, action: PayloadAction<Invoice[]>) => {
             state.status = 'idle';
-            state.invoices = action.payload;
+            state.invoices.results = action.payload;
         }),
         fetchAllInvoicesAsync: create.asyncThunk(
             async () => {
                 try {
-                    const response = await getAllInvoices();
+                    const response: ApiResponse = await getAllInvoices();
                     if (response.error) {
                         throw new Error(response.error);
                     }
