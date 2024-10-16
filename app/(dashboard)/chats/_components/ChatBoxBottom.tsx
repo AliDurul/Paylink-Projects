@@ -19,21 +19,19 @@ export default function ChatBoxBottom({ receiver, selectedChat, pushMessage, scr
     // const socket = useSocket()
 
 
-
-
     const sendMessage = async () => {
         if (textMessage.trim()) {
 
             if (receiver?.id) {
                 const res = await postMessage(selectedChat.id, { receiver: receiver?.id, content: textMessage });
-                if (!res.isError) {
+                if (!res.error) {
 
                     // socket?.emit('stopTyping', { chatId: selectedChat.id });
                     // socket?.emit('sendMessage', res.message, receiver.id, selectedChat);
 
                     pushMessage(res.message)
                 } else {
-                    coloredToast('danger', res.message);
+                    coloredToast('danger', res.error);
                 }
             } else {
                 coloredToast('danger', 'Receiver not found');

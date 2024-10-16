@@ -49,14 +49,14 @@ const ChatContactList = ({ selectUser, setSelectedTab }: ChatListProps) => {
     async function handleSelectUser(user: Kyc) {
 
         if (user.id) {
-            const chat = await postMessage(null, { receiver: user?.id })
-            if (!chat.error) {
-                navigate.push(`/chats/${chat.id}`)
-                dispatch(updateChatsState(chat))
-                setSelectedTab('Chats')
+            const res = await postMessage(null, { receiver: user?.id })
+            if (!res.error) {
+                navigate.push(`/chats/${res.chat.id}`)
+                dispatch(updateChatsState(res.chat))
+                // setSelectedTab('Chats')
 
             }
-            else coloredToast('danger', chat.message)
+            else coloredToast('danger', res.error)
         }
     }
 

@@ -331,6 +331,12 @@ export interface Chat {
   groupAdmin: null | GroupAdmin;
 }
 
+export interface ChatDetail {
+  isError: boolean;
+  selectedChat: Chat;
+  messages: Message[];
+}
+
 export interface ChatUser {
   id: number;
   first_name: string;
@@ -355,7 +361,6 @@ export interface GroupAdmin {
   profile_pic: null | string;
 }
 
-
 export interface Message {
   id: number;
   content: string;
@@ -365,6 +370,12 @@ export interface Message {
   video: null | string;
   created_at: Date;
 }
+
+
+
+
+
+
 
 
 

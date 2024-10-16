@@ -7,22 +7,24 @@ import ChatBurgerBtn from '../_components/ChatBurgerBtn';
 import { auth } from '@/auth';
 import Dropdown from '@/app/components/Layout/Dropdown';
 import ChatBoxUserDetail from '../_components/ChatBoxUserDetail';
+import { ChatDetail, ChatUser } from '@/types/types';
 
 
 export default async function ChatBoxPage({ params }: { params: { chatId: string } }) {
 
-    const chatboxData = await getChat(params?.chatId)
+    const chatboxData: ChatDetail = await getChat(params?.chatId)
 
     const { selectedChat } = chatboxData
     const session = await auth()
     const userInfo = session?.user
-    const receiver = selectedChat?.chatUsers?.find((member: any) => member.id !== userInfo?.user_id)
+    const receiver = selectedChat?.chat_users?.find((member: ChatUser) => member.id !== userInfo?.user_id)
+
 
     return (
 
         <div className="relative h-full">
             <div className="flex items-center justify-between p-4">
-                <ChatBoxUserDetail selectedChat={selectedChat} receiver={receiver} />
+                {receiver && <ChatBoxUserDetail selectedChat={selectedChat} receiver={receiver} />}
                 <div className="flex gap-3 sm:gap-5">
                     <button type="button">
                         <ChatBoxCallIcons />

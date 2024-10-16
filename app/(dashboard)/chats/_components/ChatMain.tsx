@@ -35,7 +35,6 @@ const ChatMain = ({ children }: { children: React.ReactNode; }) => {
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedTab, setSelectedTab] = useState('All')
 
-console.log(chats);
     useEffect(() => {
         dispatch(fetchAllChatsAsync({}))
         dispatch(fetchAllKycAsync({}))
@@ -192,10 +191,9 @@ console.log(chats);
                         </Tab.Panel>
                         <Tab.Panel>
                             <ChatList selectUser={selectUser} filteredItems={filteredItems} selectedTab={selectedTab} />
-
                         </Tab.Panel>
                         <Tab.Panel>
-                            <ChatContactList setSelectedTab={setSelectedTab} selectUser={selectUser} />
+                            <ChatContactList setSelectedTab={setSelectedTab} selectUser={selectUser}  />
                         </Tab.Panel>
                     </Tab.Panels>
                 </Tab.Group>

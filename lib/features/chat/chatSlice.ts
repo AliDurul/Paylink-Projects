@@ -34,7 +34,9 @@ export const chatSlice = createAppSlice({
         }),
         updateChatsState: reducer((state, action: PayloadAction<Chat>) => {
             state.status = 'idle';
-            state.chats.push(action.payload)
+            if (!state.chats.some(chat => chat.id === action.payload.id)) {
+                state.chats.push(action.payload)
+            }
         }),
         setIsShowChatMenu: reducer((state, action: PayloadAction<boolean>) => {
             state.isShowChatMenu = action.payload;

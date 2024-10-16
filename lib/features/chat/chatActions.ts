@@ -87,7 +87,7 @@ export const getMessagesForChat = async (chatId: number) => {
 export const postMessage = async (chatId: number | null, messageData: { receiver: number, content?: string }) => {
     const headers = await authConfig();
 
-    let url = `${BASE_URL}message/${chatId}/`;
+    let url = `${BASE_URL}message/?chat_id=${chatId}`;
 
     if (!chatId) url = `${BASE_URL}message/`;
 
@@ -97,12 +97,10 @@ export const postMessage = async (chatId: number | null, messageData: { receiver
             headers,
             method: "POST",
             body: JSON.stringify(messageData),
-
         });
         const data = await response.json();
-        console.log(data);
         if (response.ok) {
-            return data.chat
+            return data;
         } else {
             throw new Error(data.message || "Something went wrong, Please try again!");
         }
@@ -136,93 +134,3 @@ export const postGroup = async (groupData: any) => {
 
 
 
-/* ----------------------------------------------------- */
-
-export const deleteChat = async (id: any) => {
-    const headers = await authConfig();
-    try {
-        const response = await fetch(`${BASE_URL}ticket-room/${id}/`, {
-            method: "DELETE",
-            headers,
-        });
-
-        const data = await response.json();
-
-        if (response.status === 200) {
-            return { message: data.message, remainingData: data.data };
-        } else {
-            throw new Error(data.detail ?? "Something went wrong, Please try again!");
-        }
-
-    } catch (error: any) {
-        return { error: error.message };
-    }
-};
-
-
-
-export const readChat = async (id: string) => {
-    const headers = await authConfig();
-
-    try {
-        const response = await fetch(`${BASE_URL}ticket-room/${id}/`, {
-            headers,
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            return data;
-        } else {
-            throw new Error(data.detail || "Something went wrong, Please try again!");
-        }
-
-    } catch (error: any) {
-        return { error: error.message };
-    }
-
-}
-
-export const updateChat = async (roomData: any) => {
-    const headers = await authConfig();
-    try {
-        const response = await fetch(`${BASE_URL}ticket-room/${roomData.id}`, {
-            method: "PUT",
-            headers,
-            body: JSON.stringify(roomData),
-        });
-
-        const data = await response.json();
-        if (response.ok && data.isUpdated) {
-            return { message: "Successfully Updated!" };
-        } else {
-            throw new Error(
-                data.message || "Something went wrong, Please try again!"
-            );
-        }
-    } catch (error: any) {
-        return { error: error.message };
-    }
-};
-
-export const createChat = async (roomData: any) => {
-    const headers = await authConfig();
-    try {
-        const response = await fetch(`${BASE_URL}ticket-categories/`, {
-            method: "POST",
-            headers,
-            body: JSON.stringify(roomData),
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-            return { message: "Successfully Created!", data };
-        } else {
-            throw new Error(
-                data.message || "Something went wrong, Please try again!"
-            );
-        }
-    } catch (error: any) {
-        return { error: error.message };
-    }
-};
