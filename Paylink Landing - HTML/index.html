@@ -1,0 +1,448 @@
+<html lang="en">
+
+<head>
+  <title>PayLink</title>
+
+  <!-- Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <meta charset="UTF-8">
+
+  <!-- Links -->
+  <link rel="apple-touch-icon" sizes="152x152" href="./public/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./public/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./public/favicon-16x16.png">
+  <link rel="mask-icon" href="./public/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="manifest" href="./public/site.webmanifest">
+
+  <!-- INDEX CSS -->
+  <link rel="stylesheet" href="./style.css" />
+
+  <!-- DAISY UI -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
+
+  <!-- TAILWIND CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- SWIPER CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</head>
+
+<body cz-shortcut-listen="true">
+  <div id="root">
+    <div class="bg-primary w-full overflow-hidden">
+
+      <!-- NAVBAR -->
+      <div class="sm:px-16 px-6 flex justify-center items-center">
+        <div class="xl:max-w-[1280px] w-full">
+          <nav class="w-full flex py-6 justify-between items-center navbar">
+            <img src="/assets/logo.png" alt="paylink" class="w-[126px]">
+            <ul class="list-none sm:flex hidden justify-end items-center flex-1" id="navLinks">
+              <li class="font-poppins font-normal cursor-pointer text-[16px] text-white mr-10"
+                onclick="setActiveLink(this)"><a href="#home">Home</a>
+              </li>
+              <li class="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite mr-10"
+                onclick="setActiveLink(this)"><a href="#services">Services</a></li>
+              <li class="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite mr-10"
+                onclick="setActiveLink(this)"><a href="#products">Products</a></li>
+              <li class="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite mr-0"
+                onclick="setActiveLink(this)"><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="sm:hidden flex flex-1 justify-end items-center">
+              <img src="/assets/menu.svg" alt="menu" class="w-[28px] h-[28px] object-contain" id="menuToggle">
+              <div
+                class="hidden p-6 bg-black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar"
+                id="mobileMenu">
+                <ul class="list-none flex justify-end items-start flex-1 flex-col">
+                  <li class="font-poppins font-medium cursor-pointer text-[16px] text-white mb-4"><a
+                      href="#home">Home</a></li>
+                  <li class="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite mb-4"><a
+                      href="#services">Services</a></li>
+                  <li class="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite mb-4"><a
+                      href="#products">Products</a></li>
+                  <li class="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite mb-0"><a
+                      href="#contact">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <!-- HERO -->
+      <div class="bg-primary flex justify-center items-start">
+        <div class="xl:max-w-[1280px] w-full">
+          <section id="home" class="flex md:flex-row flex-col sm:py-16 py-6">
+            <div class="flex-1 flex justify-center items-start flex-col xl:px-0 sm:px-16 px-6">
+              <div class="flex flex-row items-center py-[6px] px-4 bg-discount-gradient rounded-[10px] mb-2">
+                <div id="progressBar" class="progress-6"></div>
+                <p class="paragraph ml-2">
+                  <span id="loadingText"
+                    class="font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px] text-white">Loading...</span>
+                </p>
+                <img id="discountImage" src="/assets/Discount.svg" alt="discount" class="w-[32px] h-[32px] hidden" />
+
+                <!--      <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px] ml-2">
+                  <span class="text-white">Loaded 100</span>
+                </p>
+                <img src="/assets/Discount.svg" alt="discount" class="w-[32px] h-[32px]"> -->
+              </div>
+
+              <div class="flex flex-row justify-between items-center w-full">
+                <div id="heroAnimation"
+                  class=" flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-white ss:leading-[100.8px] leading-[75px]">
+                  <h1 class="">We are <span></span> <br class="sm:block hidden"></h1>
+                  <h1 class=" pl-16">PayLink <span></span></h1>
+                </div>
+                <div class="ss:flex hidden md:mr-4 mr-0">
+                  <div onclick="my_modal_3.showModal()"
+                    class="flex justify-center items-center w-[140px] h-[140px] rounded-full bg-blue-gradient p-[2px] cursor-pointer">
+                    <div class="flex justify-center items-center flex-col bg-primary w-[100%] h-[100%] rounded-full">
+                      <div class="flex justify-center items-start flex-row">
+                        <p class="font-poppins font-medium text-[18px] leading-[23.4px]"><span
+                            class="text-gradient">Get</span></p><img src="/assets/arrow-up.svg" alt="arrow-up"
+                          class="w-[23px] h-[23px] object-contain">
+                      </div>
+                      <p class="font-poppins font-medium text-[18px] leading-[23.4px]"><span
+                          class="text-gradient">Started</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px] max-w-[470px] mt-5">We
+                aspire to lead at the forefront of technological advancements, setting the standard for innovation and
+                excellence in the Pan-African tech landscape.</p>
+            </div>
+            <div class="flex-1 flex flex justify-center items-center md:my-0 my-10 relative"><img
+                src="/assets/robot1.png" alt="billing" class="w-[100%] h-[100%] relative z-[5]">
+              <div class="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient"></div>
+              <div class="absolute z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40"></div>
+              <div class="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient"></div>
+            </div>
+            <div class="ss:hidden flex justify-center items-center">
+              <div
+                class="flex justify-center items-center w-[140px] h-[140px] rounded-full bg-blue-gradient p-[2px] cursor-pointer"
+                id="getStartedButton">
+                <div class="flex justify-center items-center flex-col bg-primary w-[100%] h-[100%] rounded-full">
+                  <div class="flex justify-center items-start flex-row">
+                    <p class="font-poppins font-medium text-[18px] leading-[23.4px]">
+                      <span class="text-gradient">Get
+                      </span>
+                    </p>
+                    <img src="/assets/arrow-up.svg" alt="arrow-up" class="w-[23px] h-[23px] object-contain">
+                  </div>
+                  <p class="font-poppins font-medium text-[18px] leading-[23.4px]"><span
+                      class="text-gradient">Started</span></p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="bg-primary sm:px-16 px-6 flex justify-center items-center">
+        <!-- SECTION CONTAINER -->
+        <div class="xl:max-w-[1280px] w-full">
+          <!-- STATS -->
+          <section class="flex justify-center items-center flex-row flex-wrap sm:mb-20 mb-6">
+            <div class="flex-1 flex justify-start items-center flex-row m-3">
+              <h4
+                class="font-poppins font-semibold xs:text-[40.89px] text-[30.89px] xs:leading-[53.16px] leading-[43.16px] text-white">
+                02</h4>
+              <p
+                class="font-poppins font-normal xs:text-[20.45px] text-[15.45px] xs:leading-[26.58px] leading-[21.58px] text-gradient uppercase ml-3">
+                Number of Service</p>
+            </div>
+            <div class="flex-1 flex justify-start items-center flex-row m-3">
+              <h4
+                class="font-poppins font-semibold xs:text-[40.89px] text-[30.89px] xs:leading-[53.16px] leading-[43.16px] text-white">
+                04</h4>
+              <p
+                class="font-poppins font-normal xs:text-[20.45px] text-[15.45px] xs:leading-[26.58px] leading-[21.58px] text-gradient uppercase ml-3">
+                Trusted by Company</p>
+            </div>
+            <div class="flex-1 flex justify-start items-center flex-row m-3">
+              <h4
+                class="font-poppins font-semibold xs:text-[40.89px] text-[30.89px] xs:leading-[53.16px] leading-[43.16px] text-white">
+                05</h4>
+              <p
+                class="font-poppins font-normal xs:text-[20.45px] text-[15.45px] xs:leading-[26.58px] leading-[21.58px] text-gradient uppercase ml-3">
+                Number of Product</p>
+            </div>
+          </section>
+          <!-- SERVICES -->
+          <section id="services" class="flex md:flex-row flex-col sm:py-16 py-6">
+            <div class="flex-1 flex justify-center items-start flex-col">
+              <h2
+                class="font-poppins font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full">
+                You do the business, <br class="sm:block hidden"> we’ll handle the software.</h2>
+              <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px] max-w-[470px] mt-5">
+                At Paylink, we offer a wide range of services tailored to meet the diverse needs of businesses, from
+                small-scale enterprises to large corporations.</p>
+              <button
+                class="py-4 px-6 font-poppins font-medium text-[18px] text-primary bg-blue-gradient rounded-[10px] outline-none mt-10"
+                id="getStartedButton" onclick="my_modal_3.showModal()">
+                Get Started</button>
+            </div>
+            <div class="flex-1 flex flex justify-center items-center md:ml-10 ml-0 md:mt-0 mt-10 relative flex-col">
+              <div class="flex flex-row p-6 rounded-[20px] mb-6 feature-card">
+                <div class="w-[64px] h-[64px] rounded-full flex justify-center items-center bg-dimBlue"><img
+                    src="/assets/Star.svg" alt="star" class="w-[50%] h-[50%] object-contain"></div>
+                <div class="flex-1 flex flex-col ml-3">
+                  <h4 class="font-poppins font-semibold text-white text-[18px] leading-[23.4px] mb-1">SaaS Solutions
+                  </h4>
+                  <p class="font-poppins font-normal text-dimWhite text-[16px] leading-[24px]">Our Software as a Service
+                    (SaaS) solutions cater to businesses of all sizes, providing customizable solutions according to
+                    their unique requirements</p>
+                </div>
+              </div>
+              <div class="flex flex-row p-6 rounded-[20px] mb-6 feature-card">
+                <div class="w-[64px] h-[64px] rounded-full flex justify-center items-center bg-dimBlue"><img
+                    src="/assets/Send.svg" alt="star" class="w-[50%] h-[50%] object-contain"></div>
+                <div class="flex-1 flex flex-col ml-3">
+                  <h4 class="font-poppins font-semibold text-white text-[18px] leading-[23.4px] mb-1">BPO Services</h4>
+                  <p class="font-poppins font-normal text-dimWhite text-[16px] leading-[24px]">Our Business Process
+                    Outsourcing (BPO) services are designed to streamline your customer care support operations.</p>
+                </div>
+              </div>
+              <div class="flex flex-row p-6 rounded-[20px] mb-0 feature-card">
+                <div class="w-[64px] h-[64px] rounded-full flex justify-center items-center bg-dimBlue"><img
+                    src="/assets/Shield.svg" alt="star" class="w-[50%] h-[50%] object-contain"></div>
+                <div class="flex-1 flex flex-col ml-3">
+                  <h4 class="font-poppins font-semibold text-white text-[18px] leading-[23.4px] mb-1">100% Secured</h4>
+                  <p class="font-poppins font-normal text-dimWhite text-[16px] leading-[24px]">We take proactive steps
+                    make sure your information and business are secure.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- WEB DEV -->
+          <section id="product" class="flex md:flex-row flex-col-reverse sm:py-16 py-6">
+            <div class="flex-1 flex flex justify-center items-center md:mr-10 mr-0 md:mt-0 mt-10 relative"><img
+                src="/assets/webDesign.png" alt="billing" class="w-[100%] h-[100%] relative z-[5] md:mr-48 mr-0">
+              <div class="absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient"></div>
+              <div class="absolute z-[0] w-[50%] h-[50%] -left-1/2 bottom-0 rounded-full pink__gradient"></div>
+            </div>
+            <div class="flex-1 flex justify-center items-start flex-col">
+              <h2
+                class="font-poppins font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full">
+                Web Development</h2>
+              <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px] max-w-[470px] mt-5">To
+                leverage technology to empower businesses, enhance efficiency, and drive growth. Committed to providing
+                top-notch technological services tailored to the unique needs of businesses, we ensure they not only
+                adapt but thrive in the ever-evolving digital era.</p>
+              <button
+                class="py-4 px-6 font-poppins font-medium text-[18px] text-primary bg-blue-gradient rounded-[10px] outline-none mt-10"
+                onclick="my_modal_3.showModal()">Get
+                Started</button>
+            </div>
+          </section>
+          <!-- MOBILE DEV -->
+          <section class="flex md:flex-row flex-col sm:py-16 py-6">
+            <div class="flex-1 flex justify-center items-start flex-col">
+              <h2
+                class="font-poppins font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full">
+                Mobile Development</h2>
+              <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px] max-w-[550px] mt-5">To
+                leverage technology to empower businesses, enhance efficiency, and drive growth. Committed to providing
+                top-notch technological services tailored to the unique needs of businesses, we ensure they not only
+                adapt but thrive in the ever-evolving digital era.</p>
+              <div class="flex flex-row flex-wrap sm:mt-10 mt-6"><img src="/assets/apple.svg" alt="google_play"
+                  class="w-[128.86px] h-[42.05px] object-contain mr-5 cursor-pointer"><img src="/assets/google.svg"
+                  alt="google_play" class="w-[144.17px] h-[43.08px] object-contain cursor-pointer"></div>
+            </div>
+            <div class="flex-1 flex flex justify-center items-center md:ml-10 ml-0 md:mt-0 mt-10 relative"><img
+                src="/assets/card1.png" alt="billing" class="w-[100%] h-[100%]"></div>
+          </section>
+          <!-- PRODUCTS -->
+          <section id="products" class="flex justify-center items-center my-4 pt-10 ">
+            <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div
+                    class="flex-1 flex justify-center items-center rounded-[20px] sm:min-w-[192px] min-w-[170px]  flex justify-between flex-col client-card px-6 py-5 h-96">
+                    <img src="/assets/sureLink.png" alt="client_logo" class="sm:w-[192px] w-[200px] object-contain">
+                    <p class="font-poppins font-normal text-[18px] leading-[32.4px] text-dimWhite my-5">SureLink is a
+                      comprehensive insurance and reinsurance software solution tailored to meet the unique requirements
+                      of businesses.</p>
+                  </div>
+                </div>
+                <div class="swiper-slide ">
+                  <div
+                    class="flex-1 flex justify-center items-center rounded-[20px] sm:min-w-[192px] min-w-[170px]  flex justify-between flex-col client-card px-6 py-5 h-96">
+                    <img src="/assets/loanLink.png" alt="client_logo" class="sm:w-[192px] w-[200px] object-contain">
+                    <p class="font-poppins font-normal text-[18px] leading-[32.4px] text-dimWhite my-5">LoanLink is a
+                      feature-rich CRM (Customer Relationship Management) software solution designed to meet the diverse
+                      needs of businesses, from small-scale enterprises.</p>
+                  </div>
+                </div>
+                <div class="swiper-slide ">
+                  <div
+                    class="flex-1 flex justify-center items-center rounded-[20px] sm:min-w-[192px] min-w-[170px]  flex justify-between flex-col client-card px-6 py-5 h-96">
+                    <img src="/assets/healtLink.png" alt="client_logo" class="sm:w-[192px] w-[200px] object-contain">
+                    <p class="font-poppins font-normal text-[18px] leading-[32.4px] text-dimWhite my-5">HealthLink is a
+                      cutting-edge web and mobile-based application designed to streamline the connection between
+                      insurance companies, healthcare facilities, and beneficiaries</p>
+                  </div>
+                </div>
+                <div class="swiper-slide ">
+                  <div
+                    class="flex-1 flex justify-center items-center rounded-[20px] sm:min-w-[192px] min-w-[170px]  flex justify-between flex-col client-card px-6 py-5 h-96">
+                    <img src="/assets/clientLink.png" alt="client_logo" class="sm:w-[192px] w-[200px] object-contain">
+                    <p class="font-poppins font-normal text-[18px] leading-[32.4px] text-dimWhite my-5">ClientLink is a
+                      feature-rich CRM (Customer Relationship Management) software solution designed to meet the diverse
+                      needs of businesses, from small-scale enterprises.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- CTA -->
+          <section
+            class="flex justify-center items-center sm:my-16 my-6 sm:px-16 px-6 sm:py-12 py-4 sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow">
+            <div class="flex-1 flex flex-col">
+              <h2
+                class="font-poppins font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full">
+                Let’s try our service now!</h2>
+              <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px] max-w-[470px] mt-5">Its time
+                to build your business solutions faster together contact us!</p>
+            </div>
+            <div class="flex justify-center items-center sm:ml-10 ml-0 sm:mt-0 mt-10">
+              <button
+                class="py-4 px-6 font-poppins font-medium text-[18px] text-primary bg-blue-gradient rounded-[10px] outline-none undefined"
+                onclick="my_modal_3.showModal()">Get Started</button>
+            </div>
+          </section>
+          <!-- FOOTER -->
+          <section id="contact" class="flex justify-center items-center sm:py-16 py-6 flex-col">
+            <div class="flex justify-center items-start md:flex-row flex-col mb-8 w-full">
+              <div class="flex-[1] flex flex-col justify-start mr-10"><img src="/assets/logo.png" alt="hoobank"
+                  class="w-[266px] h-[72.14px] object-contain">
+                <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px] mt-4 max-w-[312px]">We
+                  aspire to lead at the forefront of technological advancements.</p>
+              </div>
+              <div class="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10">
+                <div class="flex flex-col ss:my-0 my-4 min-w-[150px]">
+                  <h4 class="font-poppins font-medium text-[18px] leading-[27px] text-white">Useful Links</h4>
+                  <ul class="list-none mt-4">
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      Content</li>
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      How it Works</li>
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      Create</li>
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      Explore</li>
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-0">
+                      Terms &amp; Services</li>
+                  </ul>
+                </div>
+                <div class="flex flex-col ss:my-0 my-4 min-w-[150px]">
+                  <h4 class="font-poppins font-medium text-[18px] leading-[27px] text-white">Community</h4>
+                  <ul class="list-none mt-4">
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      Help Center</li>
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      Partners</li>
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      Suggestions</li>
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      Blog</li>
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-0">
+                      Newsletters</li>
+                  </ul>
+                </div>
+                <div class="flex flex-col ss:my-0 my-4 min-w-[150px]">
+                  <h4 class="font-poppins font-medium text-[18px] leading-[27px] text-white">Help &amp; Support</h4>
+                  <ul class="list-none mt-4">
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      2nd Floor,Finance House, Hero's Place, Lusaka, Zambia</li>
+                    <li
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-4">
+                      +260 977 42 9510</li>
+                    <li onclick="my_modal_3.showModal()"
+                      class="font-poppins font-normal text-[16px] leading-[24px] text-dimWhite hover:text-secondary cursor-pointer mb-0">
+                      info@paylinkzm.com</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t-[1px] border-t-[#3F3E45]">
+              <p class="font-poppins font-normal text-center text-[18px] leading-[27px] text-white">Copyright Ⓒ 2024
+                PayLink. All Rights Reserved.</p>
+              <div class="flex flex-row md:mt-0 mt-6">
+                <img src="/assets/instagram.svg" alt="social-media-1"
+                  class="social-icon w-[21px] h-[21px] object-contain cursor-pointer mr-6"
+                  data-link="https://www.instagram.com/paylink_technologies_zm_ltd?igsh=NzVzOHoyYTdmeGd1">
+                <img src="/assets/facebook.svg" alt="social-media-2"
+                  class="social-icon w-[21px] h-[21px] object-contain cursor-pointer mr-6"
+                  data-link="https://www.facebook.com/share/v7SHfTnS81dDM6xV/?mibextid=qi2Omg">
+                <img src="/assets/twitter.svg" alt="social-media-3"
+                  class="social-icon w-[21px] h-[21px] object-contain cursor-pointer mr-6"
+                  data-link="https://www.twitter.com/">
+                <img src="/assets/linkedin.svg" alt="social-media-4"
+                  class="social-icon w-[21px] h-[21px] object-contain cursor-pointer mr-0"
+                  data-link="https://www.linkedin.com/company/paylink-technologies-zambia-limited/">
+              </div>
+            </div>
+          </section>
+          <!-- MODAL -->
+          <div>
+            <dialog id="my_modal_3" class="modal">
+              <div class="modal-box w-11/12 max-w-3xl">
+                <h3 class="font-bold text-lg pb-7">Hello there, You can send an email to us.</h3>
+                <form method="dialog" class="space-y-5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><label
+                      class="input input-bordered flex items-center gap-2">First Name :<input type="text" class="grow"
+                        name="user_firstName" placeholder="Lee" fdprocessedid="fdkfyi"></label><label
+                      class="input input-bordered flex items-center gap-2">Last Name :<input type="text" class="grow"
+                        name="user_lastName" placeholder="Phiri" fdprocessedid="mk89j"></label></div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><label
+                      class="input input-bordered flex items-center gap-2">Phone No :<input type="text" class="grow"
+                        name="user_phoneNumber" placeholder="+260970732144" fdprocessedid="8504uf"></label><label
+                      class="input input-bordered flex items-center gap-2">Email :<input type="email" class="grow"
+                        name="user_email" placeholder="info@paylinkzm.com" fdprocessedid="l3089r"></label></div>
+                  <div><textarea class="textarea textarea-ghost textarea-lg w-full" name="user_message"
+                      placeholder="Enter you message here.."></textarea></div>
+                  <div class="flex justify-center items-center">
+                    <button type="submit" value="Send" class="btn btn-ghost  px-10"
+                      fdprocessedid="mb7s3a3">Send</button>
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" fdprocessedid="s9w92u"
+                      id="closeModalButton">✕</button>
+                  </div>
+                </form>
+              </div>
+            </dialog>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MAIN JS -->
+  <script src="./script.js"></script>
+  <!-- EMAIL JS -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init({
+        publicKey: "HT-W6XkVuOHTyLNNk",
+      });
+    })();
+  </script>
+</body>
+
+</html>
