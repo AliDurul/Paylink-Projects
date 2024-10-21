@@ -371,14 +371,6 @@ export interface Message {
   created_at: Date;
 }
 
-
-
-
-
-
-
-
-
 export interface MessageNotification {
   id: number;
   content: string;

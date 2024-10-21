@@ -22,8 +22,8 @@ interface GroupModalProps {
 
 interface GroupData {
     [key: string]: string | string[];
-    chatName: string;
-    userIds: string[];
+    chat_name: string;
+    members: string[];
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
@@ -51,8 +51,8 @@ export default function GroupModal({ onClose, isOpen }: GroupModalProps) {
 
 
     const [groupData, setGroupData] = useState<GroupData>({
-        "chatName": "",
-        "userIds": [],
+        "chat_name": "",
+        "members": [],
     })
 
     const handleUpload = () => {
@@ -78,15 +78,20 @@ export default function GroupModal({ onClose, isOpen }: GroupModalProps) {
 
         // @ts-ignore
         Object.keys(groupData).forEach((key) => {
-            if (key === 'userIds' && Array.isArray(groupData[key])) {
+            if (key === 'members' && Array.isArray(groupData[key])) {
                 formData.append(key, JSON.stringify(groupData[key]));
             } else {
                 formData.append(key, groupData[key] as string);
             }
         });
 
-        if (chatPicture) formData.append('chatPicture', chatPicture);
+        if (chatPicture) formData.append('chat_picture', chatPicture);
 
+        formData.append("is_group_chat", "true");
+
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
         const res = await postGroup(formData);
         if (!res.error) {
             dispatch(updateChatsState(res.group))
@@ -161,8 +166,8 @@ export default function GroupModal({ onClose, isOpen }: GroupModalProps) {
                                     </div>
 
                                     <div className="mb-5">
-                                        <label htmlFor="chatName" className="form-label">Group Name</label>
-                                        <input id="chatName" type="text" placeholder="Enter Group Name" className="form-input flex-1" value={groupData.chatName} onChange={(e) => changeValue(e)} />
+                                        <label htmlFor="chat_name" className="form-label">Group Name</label>
+                                        <input id="chat_name" type="text" placeholder="Enter Group Name" className="form-input flex-1" value={groupData.chat_name} onChange={(e) => changeValue(e)} />
                                     </div>
                                     <Select
                                         placeholder="Select Group Members"
@@ -184,7 +189,7 @@ export default function GroupModal({ onClose, isOpen }: GroupModalProps) {
                                         )}
                                         onChange={(selectedOptions) => {
                                             const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
-                                            setGroupData(() => ({ ...groupData, userIds: selectedValues }))
+                                            setGroupData(() => ({ ...groupData, members: selectedValues }))
                                             // setSelectedUsers(users.filter(user => selectedValues.includes(user.id)));
                                         }}
                                     />
