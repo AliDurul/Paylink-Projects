@@ -143,35 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
-
-
-document.addEventListener('DOMContentLoaded', function () {
-
-});
-
-/* SOCIAL ICONS */
-document.addEventListener('DOMContentLoaded', function () {
-
-});
 
