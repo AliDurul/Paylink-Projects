@@ -21,6 +21,7 @@ tailwind.config = {
             lg: "1200px",
             xl: "1700px",
         },
+
     }
 }
 
@@ -111,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+
     /* SWIPER */
     var swiper = new Swiper('.mySwiper', {
         slidesPerView: 3,
@@ -145,4 +147,38 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+/* Product Tabs */
+document.addEventListener('DOMContentLoaded', function () {
+    const tabButtons = document.querySelectorAll('[role="tab"]');
+    const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Deactivate all tabs and panels
+            tabButtons.forEach(btn => {
+                btn.classList.remove('border-secondary', 'text-secondary');
+                btn.classList.add('border-transparent', 'text-gray-500', 'hover:border-gray-300', 'hover:text-gray-700');
+                btn.setAttribute('aria-selected', 'false');
+            });
+
+            tabPanels.forEach(panel => {
+                panel.classList.add('hidden');
+                panel.setAttribute('tabindex', '-1');
+            });
+
+            // Activate the clicked tab and corresponding panel
+            button.classList.remove('border-transparent', 'text-gray-500', 'hover:border-gray-300', 'hover:text-gray-700');
+            button.classList.add('border-secondary', 'text-secondary');
+            button.setAttribute('aria-selected', 'true');
+
+            const panelId = button.getAttribute('aria-controls');
+            const panel = document.getElementById(panelId);
+            panel.classList.remove('hidden');
+            panel.setAttribute('tabindex', '0');
+        });
+    });
+
+    // Activate the first tab and panel by default
+    tabButtons[0].click();
+});
 
