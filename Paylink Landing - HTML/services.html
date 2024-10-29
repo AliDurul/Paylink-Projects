@@ -37,10 +37,16 @@
                     <li class="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite mr-10"
                         onclick="setActiveLink(this)"><a href="./index.html">Home</a>
                     </li>
-                    <li class="font-poppins font-normal cursor-pointer text-[16px] text-white  mr-10"
+                    <li class="font-poppins font-normal cursor-pointer text-[16px] text-white mr-10"
                         onclick="setActiveLink(this)"><a href="./services.html">Services</a></li>
-                    <li class="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite mr-10"
-                        onclick="setActiveLink(this)"><a href="./products.html">Products</a></li>
+                    <li class="font-poppins font-normal cursor-pointer text-[16px]  text-dimWhite mr-10"
+                        onclick="setActiveLink(this)">
+                        <a href="./products.html">Products</a>
+                    </li>
+                    <li class="font-poppins font-normal cursor-pointer text-[16px]  text-dimWhite mr-10"
+                        onclick="setActiveLink(this)">
+                        <a href="./about.html">About Us</a>
+                    </li>
                     <li class="font-poppins font-normal cursor-pointer text-[16px] text-dimWhite mr-0"
                         onclick="setActiveLink(this)"><a href="./contact.html">Contact</a></li>
                 </ul>
@@ -50,16 +56,19 @@
                         id="mobileMenu">
                         <ul class="list-none flex justify-end items-start flex-1 flex-col">
                             <li class="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite mb-4">
-                                <a href="#home">Home</a>
+                                <a href="./index.html">Home</a>
                             </li>
                             <li class="font-poppins font-medium cursor-pointer text-[16px] text-white mb-4">
-                                <a href="#services">Services</a>
+                                <a href="./services.html">Services</a>
                             </li>
-                            <li class="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite mb-4">
-                                <a href="#products">Products</a>
+                            <li class="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite  mb-4">
+                                <a href="./products.html">Products</a>
                             </li>
-                            <li class="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite mb-0">
-                                <a href="#contact">Contact</a>
+                            <li class="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite  mb-4">
+                                <a href="./about.html">About Us</a>
+                            </li>
+                            <li class="font-poppins font-medium cursor-pointer text-[16px] text-dimWhite  mb-0">
+                                <a href="./contact.html">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -71,8 +80,193 @@
     <div class="sm:px-16 px-6 flex justify-center items-center">
         <div class="xl:max-w-[1280px] w-full">
 
+
+            <!-- Service section -->
+            <div class="relative isolate mt-10 sm:pt-20">
+                <svg class="absolute inset-0 -z-10 hidden h-full w-full stroke-gray-600 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)] sm:block"
+                    aria-hidden="true">
+                    <defs>
+                        <pattern id="55d3d46d-692e-45f2-becd-d8bdc9344f45" width="200" height="200" x="50%" y="0"
+                            patternUnits="userSpaceOnUse">
+                            <path d="M.5 200V.5H200" fill="none" />
+                        </pattern>
+                    </defs>
+                    <svg x="50%" y="0" class="overflow-visible fill-gray-800">
+                        <path
+                            d="M-200.5 0h201v201h-201Z M-200.5 400h201v201h-201Z M0 0h201v201h-201Z"
+                            stroke-width="0" />
+                    </svg>
+                    <rect width="100%" height="100%" stroke-width="0"
+                        fill="url(#55d3d46d-692e-45f2-becd-d8bdc9344f45)" />
+                </svg>
+                <div class="relative">
+                    <div class="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl"
+                        aria-hidden="true">
+                        <div class="ml-[max(50%,38rem)] aspect-[1313/771] w-[82.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc]"
+                            style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                        </div>
+                    </div>
+                    <div class="absolute inset-x-0 top-0 -z-10 flex transform-gpu overflow-hidden pt-8 opacity-25 blur-3xl xl:justify-end"
+                        aria-hidden="true">
+                        <div class="ml-[-22rem] aspect-[1313/771] w-[82.0625rem] flex-none origin-top-right rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] xl:ml-0 xl:mr-[calc(50%-12rem)]"
+                            style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                        </div>
+                    </div>
+                    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                        <div class="mx-auto max-w-2xl sm:text-center">
+                            <h1
+                                class="text-white text-4xl font-semibold tracking-tight text-gray-900 sm:text-balance sm:text-5xl">
+                                What We Offer
+                            </h1>
+                            <p class="text-2xl pt-10 font-semibold text-dimWhite">
+                                At PayLink, we specialise in providing tailored SaaS solutions for businesses of all
+                                sizes,
+                                integrating cutting-edge technology to empower modern enterprises.
+                            </p>
+                        </div>
+                        <div
+                            class="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm/6 text-gray-900 sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
+                            <figure
+                                class="col-span-2 hidden sm:block sm:rounded-2xl sm:bg-white sm:shadow-lg sm:ring-1 sm:ring-gray-900/5 xl:col-start-2 xl:row-end-1">
+                                <blockquote class="p-12 text-xl/8 font-semibold tracking-tight text-gray-900">
+                                    <p>
+                                        Our Customer Relationship Management CRM services allow
+                                        businesses to outsource their CRM needs, while our intuitive Point of Sale (POS)
+                                        software and advanced CRM solutions support various industries, including
+                                        bankingk
+                                        microfinance institutions, and insurance companies. </p>
+                                </blockquote>
+                                <figcaption class="flex items-center gap-x-4 border-t border-gray-900/10 px-6 py-4">
+                                    <img class="h-10 w-10 flex-none rounded-full bg-gray-50" src="./assets/Star.svg"
+                                        alt="">
+                                    <div class="flex-auto">
+                                        <div class="font-semibold">SaaS Solutions</div>
+                                        <!-- <div class="text-gray-600">@brennagoyette</div> -->
+                                    </div>
+                                    <!-- <img class="h-10 w-auto flex-none"
+                                        src="https://tailwindui.com/plus/img/logos/savvycaSl-logo-gray-900.svg" alt=""> -->
+                                </figcaption>
+                            </figure>
+                            <div class="space-y-8 xl:contents xl:space-y-0">
+                                <div class="space-y-8 xl:row-span-2">
+                                    <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                        <blockquote class="text-gray-900  text-base">
+                                            <p>
+                                                Our Business Process Outsourcing (BPO) services are designed to
+                                                streamline your customer care support operations.</p>
+                                        </blockquote>
+                                        <figcaption class="mt-6 flex items-center gap-x-4">
+                                            <img class="h-10 w-10 rounded-full bg-gray-50" src="./assets/Send.svg"
+                                                alt="">
+                                            <div>
+                                                <div class="font-semibold">BPO Services</div>
+                                                <!-- <div class="text-gray-600">@lesliealexander</div> -->
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                    <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                        <blockquote class="text-gray-900 text-base">
+                                            <p>
+                                                Our innovative mobile money
+                                                wallet solutions facilitate seamless financial transactions,
+                                                complementing our
+                                                suite of
+                                                services. </p>
+                                        </blockquote>
+                                        <figcaption class="mt-6 flex items-center gap-x-4">
+                                            <img class="h-10 w-10 rounded-full bg-gray-50" src="./assets/Send.svg"
+                                                alt="">
+                                            <div>
+                                                <div class="font-semibold">BPO Services</div>
+                                                <!-- <div class="text-gray-600">@lesliealexander</div> -->
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+
+                                    <!-- More testimonials... -->
+                                </div>
+                                <div class="space-y-8 xl:row-start-1">
+                                    <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                        <blockquote class="text-gray-900 text-base">
+                                            <p>Hardware solutions, including Laptops, Desktops, Printers, Servers and
+                                                Network Accessories, ensuring a seamless end-to-end service.</p>
+                                        </blockquote>
+                                        <figcaption class="mt-6 flex items-center gap-x-4">
+                                            <img class="h-10 w-10 rounded-full bg-gray-50" src="./assets/Shield.svg"
+                                                alt="">
+                                            <div>
+                                                <div class="font-semibold">Lindsay Walton</div>
+                                                <!-- <div class="text-gray-600">@lindsaywalton</div> -->
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+
+                                    <!-- More testimonials... -->
+                                </div>
+                            </div>
+                            <div class="space-y-8 xl:contents xl:space-y-0">
+                                <div class="space-y-8 xl:row-start-1">
+                                    <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                        <blockquote class="text-gray-900 text-base">
+                                            <p>
+                                                Our Software as a Service (SaaS) solutions cater to businesses of all
+                                                sizes,
+                                                providing customizable solutions according to their unique requirements.
+                                            </p>
+                                        </blockquote>
+                                        <figcaption class="mt-6 flex items-center gap-x-4">
+                                            <img class="h-10 w-10 rounded-full bg-gray-50" src="./assets/Send.svg"
+                                                alt="">
+                                            <div>
+                                                <div class="font-semibold">----------</div>
+                                                <!-- <div class="text-gray-600">@tomcook</div> -->
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+
+                                </div>
+                                <div class="space-y-8 xl:row-span-2">
+                                    <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                        <blockquote class="text-gray-900 text-base">
+                                            <p>Hardware solutions, including Laptops, Desktops, Printers, Servers and
+                                                Network Accessories, ensuring a seamless end-to-end service.</p>
+                                        </blockquote>
+                                        <figcaption class="mt-6 flex items-center gap-x-4">
+                                            <img class="h-10 w-10 rounded-full bg-gray-50" src="./assets/Send.svg"
+                                                alt="">
+                                            <div>
+                                                <div class="font-semibold">Leonard Krasner</div>
+                                                <!-- <div class="text-gray-600">@leonardkrasner</div> -->
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                    <figure class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-900/5">
+                                        <blockquote class="text-gray-900 text-base">
+                                            <p>With flexible pricing and user-friendly interfaces, our solutions
+                                                deliver deep
+                                                customer insights and drive transformative change across diverse
+                                                sectors.</p>
+                                        </blockquote>
+                                        <figcaption class="mt-6 flex items-center gap-x-4">
+                                            <img class="h-10 w-10 rounded-full bg-gray-50" src="./assets/Shield.svg"
+                                                alt="">
+                                            <div>
+                                                <div class="font-semibold">Leonard Krasner</div>
+                                                <!-- <div class="text-gray-600">@leonardkrasner</div> -->
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+
+                                    <!-- More testimonials... -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Feature section -->
-            <div class="mx-auto  w-full sm:mt-32 ">
+            <!-- <div class="mx-auto  w-full sm:mt-32 ">
                 <div
                     class="relative isolate  overflow-hidden bg-gray-900 px-6 py-20  sm:px-10 sm:py-24 lg:py-24 xl:px-24">
                     <div
@@ -89,10 +283,10 @@
                             </p>
                         </div>
 
-                        <!-- <img src="https://tailwindui.com/plus/img/component-images/dark-project-app-screenshot.png"
-          alt="Product screenshot"
-          class="relative -z-20 min-w-full max-w-xl rounded-xl shadow-xl ring-1 ring-white/10 lg:row-span-4 lg:w-[64rem] lg:max-w-none"
-          width="2432" height="2432"> -->
+                        <img src="https://tailwindui.com/plus/img/component-images/dark-project-app-screenshot.png"
+                            alt="Product screenshot"
+                            class="relative -z-20 min-w-full max-w-xl rounded-xl shadow-xl ring-1 ring-white/10 lg:row-span-4 lg:w-[64rem] lg:max-w-none"
+                            width="2432" height="2432">
 
 
                         <div
@@ -184,10 +378,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- WEB DEV -->
-            <section id="product" class="flex md:flex-row flex-col-reverse sm:py-16 py-6">
+            <section id="product" class="flex md:flex-row flex-col-reverse sm:py-32 py-6">
                 <div class="flex-1 flex flex justify-center items-center md:mr-10 mr-0 md:mt-0 mt-10 relative"><img
                         src="/assets/webDesign.png" alt="billing"
                         class="w-[100%] h-[100%] relative z-[5] md:mr-48 mr-0">
@@ -211,8 +405,47 @@
                 </div>
             </section>
 
+
+              <!-- CTA section -->
+              <div class="relative isolate    sm:py-40 lg:px-8">
+                <svg class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+                    aria-hidden="true">
+                    <defs>
+                        <pattern id="1d4240dd-898f-445f-932d-e2872fd12de3" width="200" height="200" x="50%" y="0"
+                            patternUnits="userSpaceOnUse">
+                            <path d="M.5 200V.5H200" fill="none" />
+                        </pattern>
+                    </defs>
+                    <svg x="50%" y="0" class="overflow-visible fill-gray-800/20">
+                        <path
+                            d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+                            stroke-width="0" />
+                    </svg>
+                    <rect width="100%" height="100%" stroke-width="0"
+                        fill="url(#1d4240dd-898f-445f-932d-e2872fd12de3)" />
+                </svg>
+                <div class="absolute inset-x-0 top-10 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl"
+                    aria-hidden="true">
+                    <div class="aspect-[1108/632] w-[69.25rem] flex-none bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+                        style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
+                    </div>
+                </div>
+                <div class="mx-auto max-w-2xl text-center">
+                    <h2 class="text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl">Boost your
+                        productivity. Start using our apps today.</h2>
+                    <p class="mx-auto mt-6 max-w-xl text-lg/8 text-gray-300">----------------</p>
+                    <div class="mt-10 flex items-center justify-center gap-x-6">
+                        <a href="#"
+                            class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 text-base shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Get
+                            started</a>
+                        <a href="#" class="text-sm/6 font-semibold text-white">Learn more <span
+                                aria-hidden="true">→</span></a>
+                    </div>
+                </div>
+            </div>
+
             <!-- MOBILE DEV -->
-            <section class="flex md:flex-row flex-col sm:py-16 py-6">
+            <section class="flex md:flex-row flex-col sm:py-32 py-6">
                 <div class="flex-1 flex justify-center items-start flex-col">
                     <h2
                         class="font-poppins font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full">
@@ -232,64 +465,10 @@
                         src="/assets/card1.png" alt="billing" class="w-[100%] h-[100%]"></div>
             </section>
 
-            <!-- SERVICES -->
-            <section id="services" class="flex md:flex-row flex-col sm:py-16 py-6">
-                <div class="flex-1 flex justify-center items-start flex-col">
-                    <h2
-                        class="font-poppins font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full">
-                        You do the business, <br class="sm:block hidden"> we’ll handle the software.</h2>
-                    <p class="font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px] max-w-[470px] mt-5">
-                        At Paylink, we offer a wide range of services tailored to meet the diverse needs of businesses,
-                        from
-                        small-scale enterprises to large corporations.</p>
-                    <button
-                        class="py-4 px-6 font-poppins font-medium text-[18px] text-primary bg-blue-gradient rounded-[10px] outline-none mt-10"
-                        id="getStartedButton" onclick="my_modal_3.showModal()">
-                        Get Started</button>
-                </div>
-                <div class="flex-1 flex flex justify-center items-center md:ml-10 ml-0 md:mt-0 mt-10 relative flex-col">
-                    <div class="flex flex-row p-6 rounded-[20px] mb-6 feature-card">
-                        <div class="w-[64px] h-[64px] rounded-full flex justify-center items-center bg-dimBlue"><img
-                                src="/assets/Star.svg" alt="star" class="w-[50%] h-[50%] object-contain"></div>
-                        <div class="flex-1 flex flex-col ml-3">
-                            <h4 class="font-poppins font-semibold text-white text-[18px] leading-[23.4px] mb-1">SaaS
-                                Solutions
-                            </h4>
-                            <p class="font-poppins font-normal text-dimWhite text-[16px] leading-[24px]">Our Software as
-                                a
-                                Service
-                                (SaaS) solutions cater to businesses of all sizes, providing customizable solutions
-                                according to
-                                their unique requirements</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-row p-6 rounded-[20px] mb-6 feature-card">
-                        <div class="w-[64px] h-[64px] rounded-full flex justify-center items-center bg-dimBlue"><img
-                                src="/assets/Send.svg" alt="star" class="w-[50%] h-[50%] object-contain"></div>
-                        <div class="flex-1 flex flex-col ml-3">
-                            <h4 class="font-poppins font-semibold text-white text-[18px] leading-[23.4px] mb-1">BPO
-                                Services
-                            </h4>
-                            <p class="font-poppins font-normal text-dimWhite text-[16px] leading-[24px]">Our Business
-                                Process
-                                Outsourcing (BPO) services are designed to streamline your customer care support
-                                operations.</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-row p-6 rounded-[20px] mb-0 feature-card">
-                        <div class="w-[64px] h-[64px] rounded-full flex justify-center items-center bg-dimBlue"><img
-                                src="/assets/Shield.svg" alt="star" class="w-[50%] h-[50%] object-contain"></div>
-                        <div class="flex-1 flex flex-col ml-3">
-                            <h4 class="font-poppins font-semibold text-white text-[18px] leading-[23.4px] mb-1">100%
-                                Secured
-                            </h4>
-                            <p class="font-poppins font-normal text-dimWhite text-[16px] leading-[24px]">We take
-                                proactive steps
-                                make sure your information and business are secure.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+
+
+            </main>
+
 
             <!-- FOOTER -->
             <footer id="contact" class="flex justify-center items-center sm:py-16 py-6 flex-col">
