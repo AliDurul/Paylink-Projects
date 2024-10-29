@@ -39,7 +39,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         if (screenLoader?.length) {
             setTimeout(() => {
                 setShowLoader(false);
-            }, 900);
+            }, 500);
         }
         // const handleRouteChange = (url: string, { shallow }: { shallow: boolean }) => {
         //     console.log(

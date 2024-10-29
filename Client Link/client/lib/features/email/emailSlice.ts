@@ -2,6 +2,7 @@ import { createAppSlice } from "@/lib/createAppSlice";
 import type { PayloadAction, } from "@reduxjs/toolkit";
 import { Email, Folder } from "@/types/types";
 import { getAllEmailFolders, getAllEmailsForFolder, getEmailById, updateEmailProperties } from "@/app/(dashboard)/mailbox/components/mailAPI";
+import { init } from "next/dist/compiled/webpack/webpack";
 
 export interface EmailSliceState {
     emails: Email[];
@@ -17,6 +18,28 @@ export interface EmailSliceState {
     defaultParams: any;
     isEdit: boolean;
     ids: any[];
+    params: any
+}
+
+const defaultParams = {
+
+    from: 'jacobs@paylinkzm.com',
+    to: '',
+    cc: '',
+    title: '',
+    file: null,
+    description: '',
+    comment: `
+            <p><br></p>
+            <p><br></p>
+            <p><span style=\"color: black;\"><span class=\"ql-cursor\">﻿</span>Thanks &amp; Regards</span></p>
+            <p><span style=\"color: black;\">JACOB SHONGA</span></p>
+            <p><strong>PayLink Technologies Zambia Limited,&nbsp;</strong></p>
+            <p>2nd Floor Finance House, Heroes Place, Cairo Road, Lusaka, Zambia</p>
+            <p>Mobile: +260 973834511 | Website: www.paylinkzm.com</p>
+        `,
+    displayDescription: '',
+
 }
 
 const initialState: EmailSliceState = {
@@ -31,24 +54,8 @@ const initialState: EmailSliceState = {
     assignModal: false,
     isEdit: false,
     ids: [],
-    defaultParams: {
-        from: 'jacobs@paylinkzm.com',
-        to: '',
-        cc: '',
-        title: '',
-        file: null,
-        description: '',
-        comment: `
-            <p><br></p>
-            <p><br></p>
-            <p><span style=\"color: black;\"><span class=\"ql-cursor\">﻿</span>Thanks &amp; Regards</span></p>
-            <p><span style=\"color: black;\">JACOB SHONGA</span></p>
-            <p><strong>PayLink Technologies Zambia Limited,&nbsp;</strong></p>
-            <p>2nd Floor Finance House, Heroes Place, Cairo Road, Lusaka, Zambia</p>
-            <p>Mobile: +260 973834511 | Website: www.paylinkzm.com</p>
-        `,
-        displayDescription: '',
-    },
+    params: JSON.parse(JSON.stringify(defaultParams)),
+    defaultParams,
     folderId: 'AQMkADczMWZjOGQ2LWYzZjYtNGRiYy1hNGJhLWQ4MWEzMjhkM2M2OQAuAAADDcfNN0obY06oytW6pASbIAEASKmNop-NnEGYHstHS1IuyQAAAgEMAAAA'
 };
 
@@ -75,6 +82,9 @@ export const emailSlice = createAppSlice({
         setIds: reducer((state, action: PayloadAction<any[]>) => {
             state.ids = action.payload;
         }),
+        // setParams: reducer((state, action: PayloadAction<any[]>) => {
+        //     state.ids = action.payload;
+        // }),
         setSelectedTab: reducer((state, action: PayloadAction<string>) => {
             state.selectedTab = action.payload;
         }),
@@ -90,6 +100,7 @@ export const emailSlice = createAppSlice({
             const { type, item } = action.payload;
             const { defaultParams } = state;
             let data = JSON.parse(JSON.stringify(item));
+
 
             const e1 = data?.sender?.emailAddress
             const e2 = data?.toRecipients[0]?.emailAddress

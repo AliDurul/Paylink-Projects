@@ -1,17 +1,22 @@
 import { createAppSlice } from "@/lib/createAppSlice";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { getAllTasks } from "./taskAPI";
-import { Task } from "@/types/types";
+import { ApiResponse, Pagination, Task } from "@/types/types";
 
 export interface TaskSliceState {
-    tasks: Task[];
+    tasks: Pagination<Task>;
     status: "idle" | "loading" | "failed";
     error: null | string;
     task: null | Task;
 }
 
 const initialState: TaskSliceState = {
-    tasks: [],
+    tasks: {
+        count: 0,
+        next: null,
+        previous: null,
+        results: []
+    },
     status: "idle",
     error: null,
     task: null
@@ -27,12 +32,12 @@ export const taskSlice = createAppSlice({
         }),
         updateTasks: create.reducer((state, action: PayloadAction<Task[]>) => {
             state.status = 'idle';
-            state.tasks = action.payload;
+            state.tasks.results = action.payload;
         }),
         fetchAllTasksAsync: create.asyncThunk(
             async () => {
                 try {
-                    const response = await getAllTasks();
+                    const response:ApiResponse = await getAllTasks();
                     if (response.error) {
                         throw new Error(response.error);
                     }

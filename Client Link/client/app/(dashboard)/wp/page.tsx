@@ -10,7 +10,7 @@ const WpPage = async () => {
 
   return (
     <>
-      <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: "Whatsapp", url: 'wp' }} />
+      <TopPageNavigation />
 
       <WpMain
         chatRooms={chatRooms}

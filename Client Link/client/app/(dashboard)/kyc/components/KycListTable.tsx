@@ -15,6 +15,7 @@ import { coloredToast } from '@/utils/sweetAlerts';
 import Image from 'next/image';
 import { formatDate } from '@/utils/helperFunctions';
 import { useRouter } from 'next/navigation';
+import { Kyc } from '@/types/types';
 
 
 const KycListTable = () => {
@@ -27,13 +28,13 @@ const KycListTable = () => {
 
 
     useEffect(() => {
-        dispatch(fetchAllKycAsync({type:'Customer'}));
+        dispatch(fetchAllKycAsync({ type: 'Customer' }));
     }, []);
 
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(kycs, 'first_name'));
+    const [initialRecords, setInitialRecords] = useState(sortBy(kycs.results, 'first_name'));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [date3, setDate3] = useState<any>(null);
@@ -46,8 +47,8 @@ const KycListTable = () => {
 
 
     useEffect(() => {
-        setRecords(kycs);
-        setInitialRecords(kycs);
+        setRecords(kycs.results);
+        setInitialRecords(kycs.results);
     }, [kycs]);
 
     useEffect(() => {
@@ -64,7 +65,7 @@ const KycListTable = () => {
     useEffect(() => {
         const [startDate, endDate] = date3 ? date3.map((date: string | number | Date) => new Date(date)) : [null, null];
         setInitialRecords(() => {
-            return kycs.filter((kyc) => {
+            return kycs.results?.filter((kyc: Kyc) => {
                 const itemDate = new Date(kyc.date_joined);
                 const isInDateRange = startDate && endDate ? (itemDate >= startDate && itemDate <= endDate) : true;
                 const matchesSearch = (

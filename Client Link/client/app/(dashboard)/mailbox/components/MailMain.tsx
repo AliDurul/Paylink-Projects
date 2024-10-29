@@ -17,16 +17,10 @@ const MailMain = ({ children }: PropsWithChildren) => {
     const folderId = useAppSelector(selectFolderId);
     const isShowMailMenu = useAppSelector(selectIsShowMailMenu);
     const selectedTab = useAppSelector(selectSelectedTab);
-    const defaultParams = useAppSelector(selectDefaultParams);
 
     const [mailList, setMailList] = useState<Email[]>(data);
-
-
-
-    // const [isEdit, setIsEdit] = useState(false);
     const [filteredMailList, setFilteredMailList] = useState<any>(mailList);
     const [searchText, setSearchText] = useState<any>('');
-    const [params, setParams] = useState<any>(JSON.parse(JSON.stringify(defaultParams)));
 
 
     useEffect(() => {
@@ -136,8 +130,6 @@ const MailMain = ({ children }: PropsWithChildren) => {
                 searchMails={searchMails}
                 clearSelection={clearSelection}
                 setSearchText={setSearchText}
-                params={params}
-                setParams={setParams}
                 children={children}
             />
         </div>

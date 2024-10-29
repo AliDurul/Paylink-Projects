@@ -1,3 +1,4 @@
+
 export interface Login {
   email: string;
   password: string;
@@ -7,6 +8,17 @@ export interface Register {
   name: string;
   email: string;
   password: string;
+}
+
+export type Pagination<T> = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[]
+}
+
+export interface ApiResponse extends Pagination<any> {
+  error?: any;
 }
 
 /* TIKCET */
@@ -303,13 +315,40 @@ export interface AsignAgent {
   email: string;
 }
 
-export interface ChatRoom {
+
+/* CHAT START */
+export interface Chat {
   id: number;
   chat_name: string;
+  chat_picture: null | string
   is_group_chat: boolean;
-  preview: null;
-  group_admin: GroupAdmin;
-  members: GroupAdmin[];
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date;
+  group_admin: null | number
+  chat_users: ChatUser[];
+  letestMessage: LetestMessage;
+  groupAdmin: null | GroupAdmin;
+}
+
+export interface ChatDetail {
+  isError: boolean;
+  selectedChat: Chat;
+  messages: Message[];
+}
+
+export interface ChatUser {
+  id: number;
+  first_name: string;
+  last_name: string;
+  phone_number: null;
+  email: string;
+  profile_pic: null;
+}
+
+export interface LetestMessage {
+  id: number;
+  content: string;
   created_at: Date;
 }
 
@@ -322,4 +361,37 @@ export interface GroupAdmin {
   profile_pic: null | string;
 }
 
+export interface Message {
+  id: number;
+  content: string;
+  chat: number;
+  sender: number,
+  image: null | string;
+  video: null | string;
+  created_at: Date;
+}
+
+export interface MessageNotification {
+  id: number;
+  content: string;
+  senderId: number;
+  chatId: number;
+  updatedAt: Date;
+  createdAt: Date;
+  deletedAt: null;
+  isGroupChat: boolean;
+  chatPicture: null | string;
+  chatName: null | string;
+  sender: MsgSender;
+}
+
+export interface MsgSender {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profilePic: string;
+  phoneNo: string;
+  role: number;
+}
 

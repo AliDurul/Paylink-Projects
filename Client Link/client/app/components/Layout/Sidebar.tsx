@@ -60,17 +60,14 @@ const Sidebar = () => {
 
     return (
         <div className={semidark ? 'dark' : ''}>
-            <nav
-                className={`sidebar fixed top-0 bottom-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}
-            >
+            <nav className={`sidebar fixed top-0 bottom-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300 ${semidark ? 'text-white-dark' : ''}`}>
                 <div className="h-full bg-white dark:bg-black">
                     {/* Sidebar Header*/}
-                    <div className="flex items-center justify-between px-4 py-3">
+                    <div className="flex items-center justify-between px-4 py-3 overflow-hidden">
                         <Link href="/" className="flex shrink-0 items-center">
-                            <Image className="flex-none" src="/assets/images/onelife-logo.png" alt="logo" width={150} height={50} />
-                            {/* <span className=" px-1 align-middle text-base font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">United Bank for Africa</span> */}
+                            <Image className="flex-none" src="/assets/images/onelife-logo.png" alt="logo" width={80} height={80} />
+                            <span className=" px-1 align-middle text-base font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">Assurance</span>
                         </Link>
-
                         <button
                             type="button"
                             className="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
@@ -116,9 +113,6 @@ const Sidebar = () => {
                                         <li>
                                             <Link href="/finance">Finance</Link>
                                         </li>
-                                        {/* <li>
-                                            <Link href="/crypto">crypto</Link>
-                                        </li> */}
                                     </ul>
                                 </AnimateHeight>
                             </li>
@@ -131,72 +125,6 @@ const Sidebar = () => {
 
                             <li className="nav-item">
                                 <ul>
-                                    {/* <li className="menu nav-item">
-                                        <button type="button" className={`${currentMenu === 'invoice' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('invoice')}>
-                                            <div className="flex items-center">
-                                                <InvoiceIcon />
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-white dark:group-hover:text-primary-light">Invoice</span>
-                                            </div>
-
-                                            <div className={currentMenu === 'invoice' ? '!rotate-90' : 'rtl:rotate-180'}>
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
-                                            </div>
-                                        </button>
-
-                                        <AnimateHeight duration={300} height={currentMenu === 'invoice' ? 'auto' : 0}>
-                                            <ul className="sub-menu text-gray-500">
-                                                <li>
-                                                    <Link href="/invoice">list</Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/invoice/preview">preview</Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/invoice/action">add</Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/invoice/edit">edit</Link>
-                                                </li>
-                                            </ul>
-                                        </AnimateHeight>
-                                    </li> */}
-                                    {/* <li className="menu nav-item">
-                                        <button type="button" className={`${currentMenu === 'ticket' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('ticket')}>
-                                            <div className="flex items-center">
-                                                <svg width="24" height="24" className="group-hover:!text-primary" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M17 12C19.7614 12 22 9.76142 22 7C22 4.23858 19.7614 2 17 2C14.2386 2 12 4.23858 12 7C12 7.79984 12.1878 8.55582 12.5217 9.22624C12.6105 9.4044 12.64 9.60803 12.5886 9.80031L12.2908 10.9133C12.1615 11.3965 12.6035 11.8385 13.0867 11.7092L14.1997 11.4114C14.392 11.36 14.5956 11.3895 14.7738 11.4783C15.4442 11.8122 16.2002 12 17 12Z" fill="currentColor" />
-                                                    <path opacity="0.5" d="M8.03759 7.31617L8.6866 8.4791C9.2723 9.52858 9.03718 10.9053 8.11471 11.8278C8.11471 11.8278 8.11471 11.8278 8.11471 11.8278C8.11459 11.8279 6.99588 12.9468 9.02451 14.9755C11.0525 17.0035 12.1714 15.8861 12.1722 15.8853C12.1722 15.8853 12.1722 15.8853 12.1722 15.8853C13.0947 14.9628 14.4714 14.7277 15.5209 15.3134L16.6838 15.9624C18.2686 16.8468 18.4557 19.0692 17.0628 20.4622C16.2258 21.2992 15.2004 21.9505 14.0669 21.9934C12.1588 22.0658 8.91828 21.5829 5.6677 18.3323C2.41713 15.0817 1.93421 11.8412 2.00655 9.93309C2.04952 8.7996 2.7008 7.77423 3.53781 6.93723C4.93076 5.54428 7.15317 5.73144 8.03759 7.31617Z" fill="currentColor" />
-                                                </svg>
-
-                                                <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-white dark:group-hover:text-primary-light">Ticket</span>
-                                            </div>
-
-                                            <div className={currentMenu === 'ticket' ? '!rotate-90' : 'rtl:rotate-180'}>
-                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
-                                            </div>
-                                        </button>
-
-                                        <AnimateHeight duration={300} height={currentMenu === 'ticket' ? 'auto' : 0}>
-                                            <ul className="sub-menu text-gray-500">
-                                                <li>
-                                                    <Link href="/ticket">list</Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/ticket/preview">preview</Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/ticket/add">add</Link>
-                                                </li>
-                                                <li>
-                                                    <Link href="/ticket/edit">edit</Link>
-                                                </li>
-                                            </ul>
-                                        </AnimateHeight>
-                                    </li> */}
                                     <li className="nav-item">
                                         <Link href="/invoice" className="group">
                                             <div className="flex items-center">
@@ -225,7 +153,7 @@ const Sidebar = () => {
                                                     <Link href="/mailbox">Emails</Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/wp">Whatsapp</Link>
+                                                    <Link href="/chats">Chats</Link>
                                                 </li>
                                                 <li>
                                                     <Link href="/facebook">Facebook</Link>

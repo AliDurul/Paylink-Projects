@@ -6,7 +6,7 @@ import TopPageNavigation from '@/app/components/TopPageNavigation'
 export default function ProductPage() {
   return (
     <>
-      <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: 'Products', url: 'product' }} />
+      <TopPageNavigation />
 
       <ProductViews />
     </>

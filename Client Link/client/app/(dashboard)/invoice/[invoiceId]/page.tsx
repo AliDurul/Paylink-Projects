@@ -5,6 +5,7 @@ import PreviewButtons from '../components/InvoicePreview';
 import { readInvoice } from '@/lib/features/invoices/invoiceAPI';
 import { formatDate } from '@/utils/helperFunctions';
 import { notFound } from 'next/navigation';
+import TopPageNavigation from '@/app/components/TopPageNavigation';
 
 // metadata title
 export async function generateMetadata({ params }: { params: { invoiceId: string } }) {
@@ -24,8 +25,8 @@ export async function generateMetadata({ params }: { params: { invoiceId: string
 
 export default async function InvoicePreviewPage({ params }: { params: { invoiceId: string } }) {
     const invoice = await readInvoice(params.invoiceId)
-    console.log('invoice', invoice);
-    
+    // console.log('invoice', invoice);
+
     if (!invoice?.customer?.first_name) notFound()
 
 
@@ -61,17 +62,8 @@ export default async function InvoicePreviewPage({ params }: { params: { invoice
 
     return (
         <div className="flex flex-col space-y-5">
-            <ol className="flex pl-2 text-gray-500 font-semibold dark:text-white-dark ">
-                <li>
-                    <Link href={'/'} className="hover:text-gray-500/70 dark:hover:text-white-dark/70">Dashboard</Link>
-                </li>
-                <li className="before:w-1 before:h-1 before:rounded-full before:bg-primary before:inline-block before:relative before:-top-0.5 before:mx-4">
-                    <Link href={'/invoice'} className=" hover:text-gray-500/70 dark:hover:text-white-dark/70">Invoices</Link>
-                </li>
-                <li className="before:w-1 before:h-1 before:rounded-full before:bg-primary before:inline-block before:relative before:-top-0.5 before:mx-4">
-                    <button className="text-primary">{invoice && invoice.id}</button>
-                </li>
-            </ol>
+            <TopPageNavigation />
+
 
             <div>
                 <PreviewButtons invoice={invoice} />

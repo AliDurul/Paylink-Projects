@@ -1,7 +1,7 @@
 
 import { createAppSlice } from "@/lib/createAppSlice";
 import { getAllTickets } from "./ticketAPI";
-import { EscalationForm, Ticket, TicketClientPhoneNumber, TicketComments } from "@/types/types";
+import { ApiResponse, EscalationForm, Pagination, Ticket, TicketClientPhoneNumber, TicketComments } from "@/types/types";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 
@@ -24,7 +24,7 @@ export interface defaultTicketParams {
 }
 
 export interface ticketSliceState {
-    tickets: Ticket[];
+    tickets: Pagination<Ticket>;
     ticket: Ticket | defaultTicketParams;
     status: "idle" | "loading" | "failed";
     error: null | string;
@@ -36,7 +36,12 @@ export interface ticketSliceState {
 
 
 const initialState: ticketSliceState = {
-    tickets: [],
+    tickets: {
+        count: 0,
+        next: null,
+        previous: null,
+        results: []
+    },
     status: "idle",
     error: null,
     ticketModal: false,
@@ -65,7 +70,7 @@ export const ticketSlice = createAppSlice({
     reducers: (create) => ({
         updateTickets: create.reducer((state, action: PayloadAction<Ticket[]>) => {
             state.status = 'idle';
-            state.tickets = action.payload;
+            state.tickets.results = action.payload;
         }),
         updateticketComments: create.reducer((state, action: PayloadAction<TicketComments>) => {
             state.status = 'idle';
@@ -85,11 +90,11 @@ export const ticketSlice = createAppSlice({
         }),
         fetchAllTicketAsync: create.asyncThunk(async () => {
             try {
-                const response = await getAllTickets();
+                const response: ApiResponse = await getAllTickets();
                 if (response.error) {
                     throw new Error(response.error);
                 }
-                return response;
+                return response
             } catch (error) {
                 throw new Error("Data fetch failed: " + (error as Error).message);
             }

@@ -9,8 +9,8 @@ import './styles/tailwind.css';
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
-  title: "One Life Dashboard",
-  description: "One Life Dashboard",
+  title: "One Life Login",
+  description: "One Life Login page",
 };
 
 interface Props {

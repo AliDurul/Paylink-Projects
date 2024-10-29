@@ -3,16 +3,18 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Disclosure } from '@headlessui/react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchAllEmailsAsync, openMail, selectFolders, selectIsEdit, selectIsShowMailMenu, selectSelectedTab, setFolderId, setIsEdit, setIsShowMailMenu, setSelectedTab, setStar, updateEmailState } from '@/lib/features/email/emailSlice';
+import { useRouter } from 'next/navigation';
 
 
 
 const MailSubMenu = () => {
     const dispatch = useAppDispatch();
+    const router = useRouter()
     const isShowMailMenu = useAppSelector(selectIsShowMailMenu);
     const selectedTab = useAppSelector(selectSelectedTab);
     const folders = useAppSelector(selectFolders);
     const isEdit = useAppSelector(selectIsEdit);
-    
+
 
     function getItemCount(folderName: string) {
 
@@ -41,7 +43,7 @@ const MailSubMenu = () => {
         >
             <div className="flex h-full flex-col pb-16">
                 <div className="pb-5">
-                    <button className="btn btn-primary w-full" type="button" onClick={() => dispatch(openMail({ type: 'add', item: null }))}>
+                    <button className="btn btn-primary w-full" type="button" onClick={() => { dispatch(openMail({ type: 'add', item: null })); router.push('/mailbox/action') }}>
                         New Message
                     </button>
                 </div>

@@ -13,20 +13,26 @@ import { deleteInvoice, deleteMultiInvoice } from '@/lib/features/invoices/invoi
 import { coloredToast } from '@/utils/sweetAlerts';
 import { formatDate } from '@/utils/helperFunctions';
 import { useRouter } from 'next/navigation';
-import TableSkeleton from '@/app/components/common/TableSkeleton';
 
 
-const InvoiceTable = () => {
+const InvoiceTable = ({ invoices }: { invoices: any }) => {
     const dispatch = useAppDispatch();
-    const router = useRouter()
+    const router = useRouter();
 
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
     const isDark = useAppSelector(selectIsDarkMode)
-    const { error, status, invoices } = useAppSelector(selectInvoiceStates);
+    const { error, status } = useAppSelector(selectInvoiceStates);
+
+    if (invoices.error) {
+        console.log(invoices.error);
+        // coloredToast('danger', invoices.error);
+    }
+    // console.log('line 26--<', invoices);
 
     useEffect(() => {
-        dispatch(fetchAllInvoicesAsync({}));
-    }, []);
+        // dispatch(fetchAllInvoicesAsync({}));
+        dispatch(updateInvoices(invoices))
+    }, [invoices]);
 
     useEffect(() => {
         if (error) coloredToast('danger', error);
@@ -66,12 +72,14 @@ const InvoiceTable = () => {
 
     useEffect(() => {
         setInitialRecords(() => {
-            return invoices.filter((item) => {
+            return invoices?.filter((item: any) => {
                 return (
                     item?.staff?.first_name.toLowerCase().includes(search.toLowerCase()) ||
                     item?.customer?.first_name.toLowerCase().includes(search.toLowerCase()) ||
                     item?.invoice_number?.toLowerCase().includes(search.toLowerCase()) ||
-                    item?.total_price?.toLowerCase().includes(search.toLowerCase())
+                    item?.status?.toLowerCase().includes(search.toLowerCase()) ||
+                    item?.payment_terms?.toLowerCase().includes(search.toLowerCase())
+                    // item?.total_price?.toString().toLowerCase().includes(search.toLowerCase())
                 );
             });
         });
@@ -234,7 +242,7 @@ const InvoiceTable = () => {
     // if (status === 'loading') return <TableSkeleton />
 
     return (
-        <div className="panel border-white-light px-0 dark:border-[#1b2e4b]">
+        <div className="panel border-white-light px-0 dark:border-[#1b2e4b] mt-7">
             <div className="invoice-table">
                 <div className="mb-4.5 flex flex-col justify-between gap-5 md:flex-row md:items-center">
                     <div className="flex flex-wrap items-center gap-2">
@@ -360,7 +368,7 @@ const InvoiceTable = () => {
                             },
                         ]}
                         highlightOnHover
-                        totalRecords={initialRecords.length}
+                        totalRecords={initialRecords?.length}
                         recordsPerPage={pageSize}
                         page={page}
                         onPageChange={(p) => setPage(p)}

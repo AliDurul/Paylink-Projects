@@ -1,11 +1,10 @@
 'use client'
 import React, { useEffect } from 'react'
-import { MailZipIcon } from '../components/MailIcons';
+import { MailPrintIcon, MailZipIcon } from '../components/MailIcons';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchEmailByIdAsync, openMail, selectEmailStatus, selectIsEdit, selectMail, selectSelectedTab, setImportant, setStar, updateEmailState } from '@/lib/features/email/emailSlice';
 import { useRouter } from 'next/navigation';
 import Tippy from '@tippyjs/react';
-import { formatDistanceToNow } from 'date-fns'
 import Dropdown from '@/app/components/Layout/Dropdown';
 import { ToRecipient } from '@/types/types';
 import { formatDate } from '@/utils/helperFunctions';
@@ -21,10 +20,10 @@ const MailDetailPage = ({ params }: { params: { emailId: string } }) => {
     const dispatch = useAppDispatch()
     const selectedMail = useAppSelector(selectMail);
     const selectedTab = useAppSelector(selectSelectedTab);
-    const isEdit = useAppSelector(selectIsEdit);
+    // const isEdit = useAppSelector(selectIsEdit);
     const emailStatus = useAppSelector(selectEmailStatus)
 
-    console.log(emailStatus);
+    // console.log(emailStatus);
     useEffect(() => {
 
         dispatch(fetchEmailByIdAsync(emailId))
@@ -59,30 +58,7 @@ const MailDetailPage = ({ params }: { params: { emailId: string } }) => {
                             <div>
                                 <Tippy content="Print">
                                     <button type="button">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M6 17.9827C4.44655 17.9359 3.51998 17.7626 2.87868 17.1213C2 16.2426 2 14.8284 2 12C2 9.17157 2 7.75736 2.87868 6.87868C3.75736 6 5.17157 6 8 6H16C18.8284 6 20.2426 6 21.1213 6.87868C22 7.75736 22 9.17157 22 12C22 14.8284 22 16.2426 21.1213 17.1213C20.48 17.7626 19.5535 17.9359 18 17.9827"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                            />
-                                            <path opacity="0.5" d="M9 10H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                            <path d="M19 14L5 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                            <path
-                                                d="M18 14V16C18 18.8284 18 20.2426 17.1213 21.1213C16.2426 22 14.8284 22 12 22C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V14"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                                strokeLinecap="round"
-                                            />
-                                            <path
-                                                opacity="0.5"
-                                                d="M17.9827 6C17.9359 4.44655 17.7626 3.51998 17.1213 2.87868C16.2427 2 14.8284 2 12 2C9.17158 2 7.75737 2 6.87869 2.87868C6.23739 3.51998 6.06414 4.44655 6.01733 6"
-                                                stroke="currentColor"
-                                                strokeWidth="1.5"
-                                            />
-                                            <circle opacity="0.5" cx="17" cy="10" r="1" fill="currentColor" />
-                                            <path opacity="0.5" d="M15 16.5H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                            <path opacity="0.5" d="M13 19H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                                        </svg>
+                                        <MailPrintIcon />
                                     </button>
                                 </Tippy>
                             </div>
@@ -219,8 +195,7 @@ const MailDetailPage = ({ params }: { params: { emailId: string } }) => {
                                             </button>
                                         </Tippy>
                                         <Tippy content="Reply">
-                                            <button type="button" className="hover:text-info" onClick={() => dispatch(openMail({ type: 'reply', item: selectedMail }))}>
-
+                                            <button type="button" className="hover:text-info" onClick={() => { dispatch(openMail({ type: 'reply', item: selectedMail })); router.push('/mailbox/action') }}>
 
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 rtl:hidden">
                                                     <path d="M9.5 7L4.5 12L9.5 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -233,7 +208,7 @@ const MailDetailPage = ({ params }: { params: { emailId: string } }) => {
                                             </button>
                                         </Tippy>
                                         <Tippy content="Forward">
-                                            <button type="button" className="hover:text-info" onClick={() => dispatch(openMail({ type: 'forward', item: selectedMail }))}>
+                                            <button type="button" className="hover:text-info" onClick={() => { dispatch(openMail({ type: 'forward', item: selectedMail })); router.push('/mailbox/action') }}>
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ltr:hidden rtl:block">
                                                     <path d="M9.5 7L4.5 12L9.5 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                                     <path opacity="0.5" d="M4.5 12L14.5 12C16.1667 12 19.5 13 19.5 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

@@ -26,7 +26,7 @@ const MailBoxPage = () => {
     dispatch(fetchAllEmailsAsync(folderId));
     dispatch(fetchAllEmailsFolderAsync({}));
     dispatch(fetchAllKycAsync({ type: 'Agent' }));
-}, [selectedTab]);
+  }, [selectedTab]);
 
   const ids = useAppSelector(selectIds)
   const [ticketMailInfo, setTicketMailInfo] = useState<Email | null>(null)
@@ -80,7 +80,7 @@ const MailBoxPage = () => {
         dispatch(openMail({ type: 'Drafts', item: mail }));
       }
       // dispatch(fetchAllEmailsAsync(folderId)),
-        // dispatch(fetchAllEmailsFolderAsync({}))
+      // dispatch(fetchAllEmailsFolderAsync({}))
     } else {
       // setSelectedMail('');
       dispatch(updateEmailState(null))
@@ -205,13 +205,13 @@ const MailBoxPage = () => {
                     </td>
                     <td className='group '>
                       <div className="flex items-center justify-center gap-3">
-                        {/*  <div
-                                                            className={`h-2 w-2 rounded-full ${(importance === 'normal' && 'bg-primary') ||
-                                                                (importance === 'low' && 'bg-warning') ||
-                                                                // (importance === 'social' && 'bg-success') ||
-                                                                (importance === 'private' && 'bg-danger')
-                                                                }`}
-                                                        /> */}
+                        {/* <div
+                          className={`h-2 w-2 rounded-full ${(importance === 'normal' && 'bg-primary') ||
+                            (importance === 'low' && 'bg-warning') ||
+                            // (importance === 'social' && 'bg-success') ||
+                            (importance === 'private' && 'bg-danger')
+                            }`}
+                        /> */}
                         {hasAttachments && (
                           <div className="">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

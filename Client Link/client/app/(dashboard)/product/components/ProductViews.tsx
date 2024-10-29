@@ -134,7 +134,7 @@ const ProductViews = () => {
                 <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
                     <div className="flex gap-3">
                         <div>
-                            <button type="button" className="btn btn-uba" onClick={() => { dispatch(setProductModal(true)), dispatch(updateProductState(defaultParams)) }}>
+                            <button type="button" className="btn btn-primary" onClick={() => { dispatch(setProductModal(true)), dispatch(updateProductState(defaultParams)) }}>
                                 <svg className="ltr:mr-2 rtl:ml-2" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="10" cy="6" r="4" stroke="currentColor" strokeWidth="1.5" />
                                     <path
@@ -149,7 +149,7 @@ const ProductViews = () => {
                             </button>
                         </div>
                         <div>
-                            <button type="button" className={`btn btn-outline-uba p-2 ${value === 'list' && 'bg-[#BE0A04] text-white'}`} onClick={() => setValue('list')}>
+                            <button type="button" className={`btn btn-outline-primary p-2 ${value === 'list' && 'bg-primary text-white'}`} onClick={() => setValue('list')}>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                     <path d="M2 5.5L3.21429 7L7.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     <path opacity="0.5" d="M2 12.5L3.21429 14L7.5 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -161,7 +161,7 @@ const ProductViews = () => {
                             </button>
                         </div>
                         <div>
-                            <button type="button" className={`btn btn-outline-uba p-2 ${value === 'grid' && 'bg-[#BE0A04] text-white'}`} onClick={() => setValue('grid')}>
+                            <button type="button" className={`btn btn-outline-primary p-2 ${value === 'grid' && 'bg-primary text-white'}`} onClick={() => setValue('grid')}>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-5 w-5">
                                     <path
                                         opacity="0.5"
