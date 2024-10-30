@@ -32,7 +32,7 @@ const KycActionPage = () => {
     const fetchTicketsForUser = async (userId: string | null) => {
         const data = await getAllTickets(userId ? userId.toString() : null)
 
-        setUserTickets(data)
+        setUserTickets(data.results)
     }
 
     const fetchKyc = async () => {
