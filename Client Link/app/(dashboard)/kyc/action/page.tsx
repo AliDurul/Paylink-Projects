@@ -31,7 +31,6 @@ const KycActionPage = () => {
 
     const fetchTicketsForUser = async (userId: string | null) => {
         const data = await getAllTickets(userId ? userId.toString() : null)
-
         setUserTickets(data.results)
     }
 
@@ -140,7 +139,21 @@ const KycActionPage = () => {
                                 }
                             }, 500);
                         } else {
-                            const res = await createKyc(values);
+                            const formData = new FormData();
+                            Object.keys(values).forEach(key => {
+                                formData.append(key, values[key as keyof typeof values] as string);
+                            })
+
+                            if (images.length > 0) {
+                                images.forEach((image: any) => {
+                                    formData.append('profile_pic', image.file);
+                                })
+                            }
+                            formData.append('user_type', 'Customer');
+                            formData.append('password', 'CustomerPassword');
+                            console.log('form data', ...formData);
+
+                            const res = await createKyc(formData);
                             setTimeout(() => {
                                 setSubmitting(false);
                                 if (!res.error) {

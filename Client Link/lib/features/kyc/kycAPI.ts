@@ -14,6 +14,16 @@ const authConfig = async () => {
   };
 };
 
+const authConfigFormData = async () => {
+  const session = await auth();
+  const accessToken = session?.accessToken;
+
+  return {
+    Authorization: `Bearer ${accessToken}`,
+    // "Content-Type": "multipart/form-data",
+  };
+}
+
 export const getAllKycs = async (type?: string) => {
   const headers = await authConfig();
 
@@ -125,21 +135,19 @@ export const updateKyc = async (kycData: Kyc) => {
 };
 
 export const createKyc = async (kycData: any) => {
-  const headers = await authConfig();
+  const headers = await authConfigFormData();
+  console.log(kycData);
   try {
     const response = await fetch(`${BASE_URL}users/`, {
       method: "POST",
       headers,
-      body: JSON.stringify(kycData),
+      body: kycData,
     });
     const data = await response.json();
-
     if (response.ok) {
       return data
     } else {
-      throw new Error(
-        data.error || "Something went wrong, Please try again!"
-      );
+      throw new Error(data.error || "Something went wrong, Please try again!");
     }
   } catch (error: any) {
     return { error: error.message };

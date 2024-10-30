@@ -58,7 +58,9 @@ const KycListTable = () => {
     useEffect(() => {
         const from = (page - 1) * pageSize;
         const to = from + pageSize;
-        setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
+        console.log('tiklandi');
+        
+        // setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
     }, [page, pageSize, initialRecords]);
 
 
@@ -214,7 +216,7 @@ const KycListTable = () => {
                                     },
                                 ]}
                                 highlightOnHover
-                                totalRecords={initialRecords.length}
+                                totalRecords={kycs.count}
                                 recordsPerPage={pageSize}
                                 page={page}
                                 onPageChange={(p) => setPage(p)}
