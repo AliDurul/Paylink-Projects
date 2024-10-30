@@ -1,8 +1,7 @@
 import { createAppSlice } from "@/lib/createAppSlice";
 import type { PayloadAction, } from "@reduxjs/toolkit";
 import { Email, Folder } from "@/types/types";
-import { getAllEmailFolders, getAllEmailsForFolder, getEmailById, updateEmailProperties } from "@/app/(dashboard)/mailbox/components/mailAPI";
-import { init } from "next/dist/compiled/webpack/webpack";
+import { getAllEmailFolders, getAllEmailsForFolder, getEmailById, updateEmailProperties } from "@/lib/features/email/mailAPI";
 
 export interface EmailSliceState {
     emails: Email[];

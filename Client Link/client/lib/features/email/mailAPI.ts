@@ -192,7 +192,7 @@ export const getEmailById = async (EMAIL_ID: string | null) => {
 
         const data = await response.json();
         if (response.ok) {
-            console.log('gettin email by id success');
+            // console.log('gettin email by id success');
             return data
         } else {
             throw new Error(data.error.message || "Something went wrong, Please try again!");
@@ -241,7 +241,7 @@ export const getAllEmailsForFolder = async (folderId: string, filterUnread: bool
         ;
 
         if (response.ok) {
-            console.log('gettin all messages is success..');
+            // console.log('gettin all messages is success..');
             return data.value;
         } else {
             throw new Error(data.error.message || "Something went wrong, Please try again!");

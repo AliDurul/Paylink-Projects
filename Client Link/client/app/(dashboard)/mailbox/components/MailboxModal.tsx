@@ -25,7 +25,7 @@ const MailboxModal = ({ ticketMailInfo }: MailboxModalProps) => {
     const assignModal = useAppSelector(selectAsssignModal);
     const [selectedAgent, setSelectedAgent] = useState<number | undefined>(undefined);
 
-    const agentOp = agents.map((kyc) => ({ label: kyc.first_name + " " + kyc.last_name, value: kyc.id }));
+    const agentOp = agents.results?.map((kyc) => ({ label: kyc.first_name + " " + kyc.last_name, value: kyc.id }));
     // const categoryOp = categories.map((category) => ({ label: category.title, value: category.id }));
     // console.log(ticketMailInfo);
 

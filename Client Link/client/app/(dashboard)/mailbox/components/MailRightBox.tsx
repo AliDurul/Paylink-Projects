@@ -5,7 +5,7 @@ import Tippy from '@tippyjs/react';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchAllEmailsAsync, fetchAllEmailsFolderAsync, fetchEmailByIdAsync, openMail, selectEmailStatus, selectFolderId, selectFolders, selectIds, selectIsEdit, selectIsShowMailMenu, selectMail, selectPagedMails, selectSelectedTab, setIds, setImportant, setIsEdit, setIsShowMailMenu, setSelectedTab, setStar, updateEmailState } from '@/lib/features/email/emailSlice';
-import { deleteEmail, forwardMessage, getAllEmailsForFolder, replyMessage, sendMessage, updateEmailProperties } from './mailAPI';
+import { deleteEmail, forwardMessage, getAllEmailsForFolder, replyMessage, sendMessage, updateEmailProperties } from '../../../../lib/features/email/mailAPI';
 import Dropdown from '@/app/components/Layout/Dropdown';
 import { MailReadIcon, MailRefreshIcon, MailTrashIcon, MailUnReadIcon, MailZipIcon } from './MailIcons';
 

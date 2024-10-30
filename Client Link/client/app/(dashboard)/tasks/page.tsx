@@ -5,7 +5,7 @@ import TasklistMain from './components/TaskListMain'
 const TodoListPage = () => {
   return (
     <div>
-      <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: 'Todo Lists', url: 'todo-list' }} />
+      <TopPageNavigation />
 
       <TasklistMain />
 

@@ -44,7 +44,7 @@ export default function TicketModal() {
     const [isOwn, setIsOwn] = useState<boolean>(false)
 
 
-    const phoneOp = kycs.map((kyc) => ({ label: kyc.phone_number, value: kyc.id }));
+    const phoneOp = kycs.results?.map((kyc) => ({ label: kyc.phone_number, value: kyc.id }));
     const categoryOp = categories.map((category) => ({ label: category.title, value: category.id }));
 
     useEffect(() => {

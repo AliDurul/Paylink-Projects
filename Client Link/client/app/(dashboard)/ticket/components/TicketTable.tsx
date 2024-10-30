@@ -16,6 +16,7 @@ import { deleteMultiTicket, deleteTicket } from '@/lib/features/tickets/ticketAP
 import { coloredToast } from '@/utils/sweetAlerts';
 import { fetchAllCategoryAsync } from '@/lib/features/category/categorySlice';
 import Dropdown from '@/app/components/Layout/Dropdown';
+import { Ticket } from '@/types/types';
 
 
 const TicketTable = () => {
@@ -33,8 +34,8 @@ const TicketTable = () => {
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(tickets, 'id'));
-    const [records, setRecords] = useState(initialRecords);
+    const [initialRecords, setInitialRecords] = useState<Ticket[]>(sortBy(tickets.results, 'id'));
+    const [records, setRecords] = useState<Ticket[]>(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [date3, setDate3] = useState<any>(null);
     const [activeFilter, setActiveFilter] = useState<any>(false);
@@ -66,8 +67,8 @@ const TicketTable = () => {
     const statuses = ['Pending', 'Active', 'Resolved', 'Cancelled', 'Escalated'];
 
     useEffect(() => {
-        setRecords(tickets);
-        setInitialRecords(tickets);
+        setRecords(tickets.results);
+        setInitialRecords(tickets.results);
     }, [tickets]);
 
     useEffect(() => {
@@ -84,7 +85,7 @@ const TicketTable = () => {
     useEffect(() => {
         const [startDate, endDate] = date3 ? date3.map((date: string | number | Date) => new Date(date)) : [null, null];
         setInitialRecords(() => {
-            return tickets.filter((ticket) => {
+            return tickets.results.filter((ticket) => {
                 const ticketDate = new Date(ticket.timestamp);
                 const isInDateRange = startDate && endDate ? (ticketDate >= startDate && ticketDate <= endDate) : true;
                 const statusFilter = filters.length > 0 ? filters.includes(ticket.status) : true;

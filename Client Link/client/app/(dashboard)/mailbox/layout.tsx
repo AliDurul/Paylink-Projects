@@ -8,11 +8,11 @@ interface Props {
 
 export default function MailLayout({ children }: Props) {
     return (
-        <div>
+        <>
             <TopPageNavigation />
             <MailMain>
                 {children}
             </MailMain>
-        </div>
+        </>
     )
 }

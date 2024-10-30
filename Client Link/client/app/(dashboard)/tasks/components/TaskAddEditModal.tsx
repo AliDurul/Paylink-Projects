@@ -35,7 +35,7 @@ const TaskAddEditModal = ({ addTaskModal, setAddTaskModal, setParams, params }: 
     const agents = useAppSelector(selectKycs)
 
 
-    const agentOp = agents.map((kyc) => ({ label: kyc.first_name + " " + kyc.last_name, value: kyc.id }));
+    const agentOp = agents.results?.map((kyc) => ({ label: kyc.first_name + " " + kyc.last_name, value: kyc.id }));
 
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({

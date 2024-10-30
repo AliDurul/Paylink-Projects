@@ -25,12 +25,12 @@ const InvoiceAction = () => {
 
     // console.log('customers', customers);
 
-    const customerOP = customers.map((customer) => ({
+    const customerOP = customers.results?.map((customer) => ({
         label: `${customer.first_name} ${customer.last_name}`,
         value: customer.id
     }))
 
-    const productOP = products.map((product) => ({
+    const productOP = products.results?.map((product) => ({
         label: product.name,
         value: product.id,
         price: product.price
@@ -84,7 +84,7 @@ const InvoiceAction = () => {
         return `${year}-${month}-${day}`;
     };
 
-    const initialValueCustomer = customers.find(customer => customer.id === invoice?.customer.id);
+    const initialValueCustomer = customers.results?.find(customer => customer.id === invoice?.customer.id);
 
 
     const [selectedCustomer, setSelectedCustomer] = useState(initialValueCustomer);
@@ -211,7 +211,7 @@ const InvoiceAction = () => {
                                                 value={customerOP.find(option => option.value === values.customer?.id)}
                                                 onChange={option => {
                                                     setFieldValue('customer', option ? option.value : '');
-                                                    const selectedCustomer = customers.find(customer => customer.id === option?.value);
+                                                    const selectedCustomer = customers.results?.find(customer => customer.id === option?.value);
                                                     // @ts-ignore
                                                     setSelectedCustomer(selectedCustomer || null);
                                                 }}

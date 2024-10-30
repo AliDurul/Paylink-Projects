@@ -9,7 +9,7 @@ import WpChatList from './WpChatList';
 import WpChatBox from './WpChatBox';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { ChatsIcon, SettingIcon, SignOutIcon, StartChatIcon } from './ChatIcons';
-import { ChatRoom } from '@/types/types';
+import { Chat } from '@/types/types';
 
 // let chatRooms = [
 //     // {
@@ -77,7 +77,7 @@ import { ChatRoom } from '@/types/types';
 // ];
 
 type WpMainProps = {
-    chatRooms: ChatRoom[];
+    chatRooms: Chat[];
     chatTitle: string;
     image: string;
 };
@@ -92,7 +92,7 @@ const WpMain = ({ chatTitle, image, chatRooms }: WpMainProps) => {
     const [searchUser, setSearchUser] = useState('');
     const [isShowUserChat, setIsShowUserChat] = useState(false);
     const [selectedUser, setSelectedUser] = useState<any>(null);
-    const [filteredItems, setFilteredItems] = useState<ChatRoom[]>(chatRooms);
+    const [filteredItems, setFilteredItems] = useState<Chat[]>(chatRooms);
 
     useEffect(() => {
         setFilteredItems(() => {

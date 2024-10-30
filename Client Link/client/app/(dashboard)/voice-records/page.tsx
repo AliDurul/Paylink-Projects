@@ -9,7 +9,7 @@ const VoiceRecordPage = () => {
 
     return (
         <div>
-            <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: 'Redords', url: 'voice-records' }} />
+            <TopPageNavigation />
 
             <RecordsHeader />
 

@@ -73,11 +73,11 @@ const TasklistMain = () => {
         }
         let res;
         if (selectedTab === 'Completed') {
-            res = tasks.filter((d) => d.status === selectedTab);
+            res = tasks.results?.filter((d) => d.status === selectedTab);
         } else if (selectedTab === 'High') {
-            res = tasks.filter((d) => d.priority === selectedTab);
+            res = tasks.results?.filter((d) => d.priority === selectedTab);
         } else {
-            res = tasks.filter((d) => d.status !== 'trash');
+            res = tasks.results?.filter((d) => d.status !== 'trash');
         }
 
         if (selectedTab === 'High' || selectedTab === 'Medium' || selectedTab === 'Low') {
@@ -126,7 +126,7 @@ const TasklistMain = () => {
                 selectedTab={selectedTab}
                 setIsShowTaskMenu={setIsShowTaskMenu}
                 setSelectedTab={setSelectedTab}
-                tasks={tasks}
+                tasks={tasks.results}
                 addEditTask={addEditTask}
             />
             <div className={`overlay absolute z-[5] hidden h-full w-full rounded-md bg-black/60 ${isShowTaskMenu && '!block xl:!hidden'}`} onClick={() => setIsShowTaskMenu(!isShowTaskMenu)}></div>

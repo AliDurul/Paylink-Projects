@@ -4,7 +4,7 @@ import TopPageNavigation from '@/app/components/TopPageNavigation'
 const InstagramPage = () => {
     return (
         <div>
-            <TopPageNavigation main={{ title: 'Dashboard', url: '/' }} subTitle={{ title: "Instagram", url: 'instagram' }} />
+            <TopPageNavigation  />
 
            
         </div>

@@ -3,7 +3,6 @@
 import { signIn } from "@/auth"
 import { AuthError } from "next-auth";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL
 
 interface loginValuesType {
     email: string;

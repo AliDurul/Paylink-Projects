@@ -1,12 +1,12 @@
 'use client'
 import { useCurrentUser } from '@/hooks/useCurrentUser';
-import { ChatRoom } from '@/types/types';
+import { Chat } from '@/types/types';
 import React from 'react'
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 interface WpChatListProps {
-    filteredItems: ChatRoom[];
+    filteredItems: Chat[];
     selectUser: (chat: any) => void;
     selectedUser: any;
 

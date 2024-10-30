@@ -4,7 +4,7 @@ import { fetchAllEmailsAsync, selectDefaultParams, selectFolderId, selectIsShowM
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { coloredToast } from "@/utils/sweetAlerts";
 import { useState } from "react";
-import { forwardMessage, replyMessage, sendMessage } from "../components/mailAPI";
+import { forwardMessage, replyMessage, sendMessage } from "../../../../lib/features/email/mailAPI";
 import ReactQuill from 'react-quill';
 import { useRouter } from "next/navigation";
 

@@ -37,11 +37,11 @@ const ProductViews = () => {
 
     const [search, setSearch] = useState('');
 
-    const [filteredItems, setFilteredItems] = useState<Product[]>(products);
+    const [filteredItems, setFilteredItems] = useState<Product[]>(products.results);
 
     const searchProduct = () => {
         setFilteredItems(() => {
-            return products?.filter((product: Product) => {
+            return products.results?.filter((product: Product) => {
                 return product.name.toLowerCase().includes(search.toLowerCase());
             });
         });
@@ -49,7 +49,7 @@ const ProductViews = () => {
 
     useEffect(() => {
         searchProduct();
-    }, [search, products]);
+    }, [search, products.results]);
 
     // const saveProduct = () => {
     //     if (!params.name) {

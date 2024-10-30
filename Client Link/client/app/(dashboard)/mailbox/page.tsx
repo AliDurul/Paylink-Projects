@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import MailboxModal from './components/MailboxModal'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks'
 import { fetchAllEmailsAsync, fetchAllEmailsFolderAsync, openMail, selectDefaultParams, selectEmailStatus, selectFolderId, selectIds, selectPagedMails, selectSelectedTab, setAssignModal, setIds, setImportant, setStar, updateEmailState } from '@/lib/features/email/emailSlice'
-import { updateEmailProperties } from './components/mailAPI'
+import { updateEmailProperties } from '../../../lib/features/email/mailAPI'
 import { useRouter } from 'next/navigation'
 import { Email } from '@/types/types'
 import Tippy from '@tippyjs/react';
