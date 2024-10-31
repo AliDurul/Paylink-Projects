@@ -22,7 +22,9 @@ export const getAllCategories = async () => {
             cache: "no-cache",
             headers,
         });
+        
         const data = await response.json();
+
         if (response.ok) {
             return data;
         } else {

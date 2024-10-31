@@ -268,7 +268,7 @@ export default function TicketPreviewPage({ params }: { params: { ticketId: stri
                                     <th className="ltr:rounded-r-md rtl:rounded-l-md">Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            {/* <tbody>
                                 <tr className="group text-white-dark hover:text-black dark:hover:text-white-light/90">
                                     <td className="min-w-[150px] text-black dark:text-white">
                                         <div className="flex items-center">
@@ -349,7 +349,7 @@ export default function TicketPreviewPage({ params }: { params: { ticketId: stri
                                         <span className="badge bg-success shadow-md dark:group-hover:bg-transparent">Paid</span>
                                     </td>
                                 </tr>
-                            </tbody>
+                            </tbody> */}
                         </table>
                     </div>
 

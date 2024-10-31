@@ -10,11 +10,12 @@ import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchAllTicketAsync, selectTicket, selectTicketModal, setTicketModal, updateTicketState } from '@/lib/features/tickets/ticketSlice';
 import { createTicket, updateTicket } from '@/lib/features/tickets/ticketAPI';
 import { number, object, string } from 'yup';
-import { selectCategories } from '@/lib/features/category/categorySlice';
+import { fetchAllCategoryAsync, selectCategories } from '@/lib/features/category/categorySlice';
 import CategoryModal from './CategoryModal';
 import Select from 'react-select';
 import { fetchAllKycAsync, selectKycs } from '@/lib/features/kyc/kycSlice';
 import UserModal from './UserModal';
+import { C } from '@fullcalendar/core/internal-common';
 
 
 const baseTicketSchema = object({
@@ -45,10 +46,13 @@ export default function TicketModal() {
 
 
     const phoneOp = kycs.results?.map((kyc) => ({ label: kyc.phone_number, value: kyc.id }));
-    const categoryOp = categories.map((category) => ({ label: category.title, value: category.id }));
+    // @ts-ignore //!
+    const categoryOp = categories.results?.map((category) => ({ label: category.title, value: category.id }));
+
 
     useEffect(() => {
-        dispatch(fetchAllKycAsync({type: 'Customer'}));
+        dispatch(fetchAllKycAsync({ type: 'Customer' }));
+        dispatch(fetchAllCategoryAsync({}))
     }, []);
 
 

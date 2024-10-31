@@ -15,24 +15,24 @@ import { formatDate } from '@/utils/helperFunctions';
 import { useRouter } from 'next/navigation';
 
 
-const InvoiceTable = ({ invoices }: { invoices: any }) => {
+const InvoiceTable = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
     const isDark = useAppSelector(selectIsDarkMode)
-    const { error, status } = useAppSelector(selectInvoiceStates);
+    const { error, status, invoices: { results } } = useAppSelector(selectInvoiceStates);
 
-    if (invoices.error) {
-        console.log(invoices.error);
-        // coloredToast('danger', invoices.error);
-    }
+    // if (invoices.error) {
+    //     console.log(invoices.error);
+    //     // coloredToast('danger', invoices.error);
+    // }
     // console.log('line 26--<', invoices);
 
     useEffect(() => {
-        // dispatch(fetchAllInvoicesAsync({}));
-        dispatch(updateInvoices(invoices))
-    }, [invoices]);
+        dispatch(fetchAllInvoicesAsync({}));
+        // dispatch(updateInvoices(results))
+    }, []);
 
     useEffect(() => {
         if (error) coloredToast('danger', error);
@@ -44,7 +44,7 @@ const InvoiceTable = ({ invoices }: { invoices: any }) => {
     const [page, setPage] = useState(1);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(invoices, 'id'));
+    const [initialRecords, setInitialRecords] = useState(sortBy(results, 'id'));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [search, setSearch] = useState('');
@@ -56,9 +56,9 @@ const InvoiceTable = ({ invoices }: { invoices: any }) => {
 
 
     useEffect(() => {
-        setRecords(invoices);
-        setInitialRecords(invoices);
-    }, [invoices]);
+        setRecords(results);
+        setInitialRecords(results);
+    }, [results]);
 
     useEffect(() => {
         setPage(1);
@@ -72,7 +72,7 @@ const InvoiceTable = ({ invoices }: { invoices: any }) => {
 
     useEffect(() => {
         setInitialRecords(() => {
-            return invoices?.filter((item: any) => {
+            return results?.filter((item: any) => {
                 return (
                     item?.staff?.first_name.toLowerCase().includes(search.toLowerCase()) ||
                     item?.customer?.first_name.toLowerCase().includes(search.toLowerCase()) ||

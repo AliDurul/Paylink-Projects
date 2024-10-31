@@ -149,7 +149,7 @@ const InvoiceAction = () => {
                     }));
                     const { id, ...valuesToSend } = values
                     const payload = { ...valuesToSend, invoice_items: transformedItems };
-                    // console.log('payload--', payload);
+                    console.log('payload--', payload);
                     const res = await createInvoice(payload);
                     setTimeout(() => {
                         setSubmitting(false);

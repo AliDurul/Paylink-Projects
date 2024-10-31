@@ -4,13 +4,15 @@ import Dropdown from "../Dropdown";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ProfileLockScreen,
   ProfileMailBoxIcon,
   ProfileSigninIcon,
   UserProfileIcon,
 } from "@/app/icons";
 import { signOut } from "next-auth/react";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+
+// const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
+const BASE_URL = 'http://192.168.1.110:8000'
 
 const NavbarProfileDrop = () => {
   const { userInfo } = useCurrentUser();

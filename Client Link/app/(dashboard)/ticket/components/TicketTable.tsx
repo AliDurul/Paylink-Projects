@@ -18,6 +18,8 @@ import { fetchAllCategoryAsync } from '@/lib/features/category/categorySlice';
 import Dropdown from '@/app/components/Layout/Dropdown';
 import { Ticket } from '@/types/types';
 
+// const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
+const BASE_URL = 'http://192.168.1.110:8000'
 
 const TicketTable = () => {
     const dispatch = useAppDispatch();
@@ -168,9 +170,9 @@ const TicketTable = () => {
                                 button={
                                     <button className="btn btn-sm btn-primary gap-3">
                                         <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M22 7L2 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                            <path d="M19 12L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                                            <path d="M16 17H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                                            <path d="M22 7L2 7" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" />
+                                            <path d="M19 12L5 12" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" />
+                                            <path d="M16 17H8" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" />
                                         </svg>
 
                                         Filter
@@ -273,7 +275,7 @@ const TicketTable = () => {
                                 render: ({ assigned_agent, ticket_id }) => (
                                     <div className="flex items-center font-semibold">
                                         <div className="w-max rounded-full bg-white-dark/30 p-0.5 ltr:mr-2 rtl:ml-2">
-                                            {/* <img className="h-8 w-8 rounded-full object-cover" src={`/assets/images/profile-${id}.jpeg`} alt="" /> */}
+                                            <img className="h-8 w-8 rounded-full object-cover" src={BASE_URL + assigned_agent.profile_pic} alt="agent-picture" />
                                         </div>
                                         <div>{assigned_agent?.first_name} {assigned_agent?.last_name}</div>
                                     </div>

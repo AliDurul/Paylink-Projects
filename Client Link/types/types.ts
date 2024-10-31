@@ -34,7 +34,7 @@ export interface Ticket {
   priority: string;
   flag: string;
   cat: number | { id: number; title: string; };
-  assigned_agent: { id: string; first_name: string; last_name: string; };
+  assigned_agent: { id: string; first_name: string; last_name: string; email: string, phone_number: string, profile_pic: string };
   escalation: null | EscalationForm;
   timestamp: string;
   last_updated: string | null;

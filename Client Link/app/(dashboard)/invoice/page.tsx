@@ -12,14 +12,15 @@ import dynamic from 'next/dynamic';
 export const metadata = { title: 'Invoices' }
 
 export default async function InvoiceListPage() {
-  const response = await getAllInvoices();
+  // const response = await getAllInvoices();
 
   return (
     <>
       <TopPageNavigation />
 
       {/* <Suspense fallback={<TableSkeleton />}> */}
-      <InvoiceTable invoices={response.results} />
+      {/* <InvoiceTable invoices={response.results} /> */}
+      <InvoiceTable />
       {/* </Suspense> */}
     </>
   )
