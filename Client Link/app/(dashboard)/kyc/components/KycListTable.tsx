@@ -20,11 +20,11 @@ import { Kyc } from '@/types/types';
 
 const KycListTable = () => {
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
-    const dispatch = useAppDispatch();
     const searchParams = useSearchParams();
+    const dispatch = useAppDispatch();
     const router = useRouter()
 
-    // search params
+    // search params for pagination
     const page = (searchParams.get('page') || 1) as string;
     const pageSize = (searchParams.get('pageSize') || 10) as string;
 
@@ -64,11 +64,10 @@ const KycListTable = () => {
     useEffect(() => {
         // const from = (Number(page) - 1) * pageSize;
         // const to = from + pageSize;
+        // setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
 
         router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: pageSize.toString() })}`, { scroll: false });
-
         dispatch(fetchAllKycAsync({ type: 'Customer', page, pageSize }));
-        // setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
     }, [page, pageSize]);
 
 
@@ -232,8 +231,8 @@ const KycListTable = () => {
                                 recordsPerPage={Number(pageSize)}
                                 page={Number(page)}
                                 onPageChange={(p) => router.push(`?${new URLSearchParams({ page: p.toString(), pageSize: pageSize.toString() })}`, { scroll: false })}
-                                recordsPerPageOptions={PAGE_SIZES}
                                 onRecordsPerPageChange={(ps) => router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: ps.toString() })}`, { scroll: false })}
+                                recordsPerPageOptions={PAGE_SIZES}
                                 sortStatus={sortStatus}
                                 onSortStatusChange={setSortStatus}
                                 selectedRecords={selectedRecords}

@@ -28,9 +28,9 @@ const TicketTable = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    // search params
-    const pagee = searchParams.get('page') || 1;
-    const pageSizee = searchParams.get('pageSize') || 10;
+    // search params for pagination
+    const page = (searchParams.get('page') || 1) as string;
+    const pageSize = (searchParams.get('pageSize') || 10) as string;
 
     const tickets = useAppSelector(selectTickets);
     const ticketStates = useAppSelector(selectTicketState);
@@ -40,9 +40,9 @@ const TicketTable = () => {
         dispatch(fetchAllTicketAsync({}));
     }, []);
 
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1);
+    // const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
-    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
     const [initialRecords, setInitialRecords] = useState<Ticket[]>(sortBy(tickets.results, 'id'));
     const [records, setRecords] = useState<Ticket[]>(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
@@ -77,20 +77,20 @@ const TicketTable = () => {
         setInitialRecords(tickets.results);
     }, [tickets]);
 
-    useEffect(() => {
-        setPage(1);
-    }, [pageSize]);
+    // useEffect(() => {
+    //     setPage(1);
+    // }, [pageSize]);
 
     useEffect(() => {
-        const from = (page - 1) * pageSize;
-        const to = from + pageSize;
-        
-        // console.log('pagee', pagee, 'pageSizee', pageSizee);
-        // router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: pageSize.toString() })}`, { scroll: false });
+        // const from = (page - 1) * pageSize;
+        // const to = from + pageSize;
+        // setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
 
-        setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
 
-    }, [page, pageSize, initialRecords]);
+        router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: pageSize.toString() })}`, { scroll: false });
+        dispatch(fetchAllTicketAsync({ page, pageSize }));
+
+    }, [page, pageSize,]);
 
 
     useEffect(() => {
@@ -121,7 +121,8 @@ const TicketTable = () => {
     useEffect(() => {
         const data2 = sortBy(initialRecords, sortStatus.columnAccessor);
         setRecords(sortStatus.direction === 'desc' ? data2.reverse() : data2);
-        setPage(1);
+        // setPage(1);
+        // router.push(`?${new URLSearchParams({ page: '1', pageSize: pageSize.toString() })}`, { scroll: false });
     }, [sortStatus]);
 
     const deleteRow = async (id: any = null) => {
@@ -142,7 +143,8 @@ const TicketTable = () => {
             if (deletionSuccess) {
                 setSelectedRecords([]);
                 setSearch("");
-                setPage(1);
+                // setPage(1);
+                router.push(`?${new URLSearchParams({ page: '1', pageSize: pageSize.toString() })}`, { scroll: false });
             }
         }
 
@@ -387,11 +389,11 @@ const TicketTable = () => {
                         ]}
                         highlightOnHover
                         totalRecords={tickets.count}
-                        recordsPerPage={pageSize}
-                        page={page}
-                        onPageChange={(p) => setPage(p)}
+                        recordsPerPage={Number(pageSize)}
+                        page={Number(page)}
+                        onPageChange={(p) => router.push(`?${new URLSearchParams({ page: p.toString(), pageSize: pageSize.toString() })}`, { scroll: false })}
+                        onRecordsPerPageChange={(ps) => router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: ps.toString() })}`, { scroll: false })}
                         recordsPerPageOptions={PAGE_SIZES}
-                        onRecordsPerPageChange={setPageSize}
                         sortStatus={sortStatus}
                         onSortStatusChange={setSortStatus}
                         selectedRecords={selectedRecords}

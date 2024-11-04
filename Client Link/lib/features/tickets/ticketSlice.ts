@@ -88,9 +88,10 @@ export const ticketSlice = createAppSlice({
             state.status = 'idle';
             state.ticket = action.payload;
         }),
-        fetchAllTicketAsync: create.asyncThunk(async () => {
+        fetchAllTicketAsync: create.asyncThunk(async (params: { page?: string, pageSize?: string }) => {
+            const { page, pageSize } = params
             try {
-                const response: ApiResponse = await getAllTickets();
+                const response: ApiResponse = await getAllTickets(null, page, pageSize);
                 if (response.error) {
                     throw new Error(response.error);
                 }

@@ -13,10 +13,19 @@ const authConfig = async () => {
   };
 };
 
-export const getAllInvoices = async () => {
+export const getAllInvoices = async (page?: string, pageSize?: string) => {
   const headers = await authConfig();
+
+  let url = `${BASE_URL}invoices/`;
+
+  const params = new URLSearchParams();
+  if (page) params.append("page", page);
+  if (pageSize) params.append("page_size", pageSize);
+
+  if (params.toString()) url += `?${params.toString()}`;
+
   try {
-    const response = await fetch(`${BASE_URL}invoices/`, {
+    const response = await fetch(url, {
       // cache: "force-cache",
       // next: { revalidate: 900 },
       headers,

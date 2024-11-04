@@ -12,19 +12,25 @@ import { fetchAllInvoicesAsync, selectInvoiceStates, updateInvoiceState, updateI
 import { deleteInvoice, deleteMultiInvoice } from '@/lib/features/invoices/invoiceAPI';
 import { coloredToast } from '@/utils/sweetAlerts';
 import { formatDate } from '@/utils/helperFunctions';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 
 const InvoiceTable = () => {
+    const { error, status, invoices } = useAppSelector(selectInvoiceStates);
+    const { deleteToast, multiDeleteToast } = useDeleteToasts();
+    const isDark = useAppSelector(selectIsDarkMode)
+    const searchParams = useSearchParams();
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const { deleteToast, multiDeleteToast } = useDeleteToasts();
-    const isDark = useAppSelector(selectIsDarkMode)
-    const { error, status, invoices: { results } } = useAppSelector(selectInvoiceStates);
+
+    // search params for pagination
+    const page = (searchParams.get('page') || 1) as string;
+    const pageSize = (searchParams.get('pageSize') || 10) as string;
+
 
     useEffect(() => {
-        dispatch(fetchAllInvoicesAsync({}));
+        dispatch(fetchAllInvoicesAsync({ page, pageSize }));
     }, []);
 
     useEffect(() => {
@@ -34,10 +40,10 @@ const InvoiceTable = () => {
     const col = ['id', 'staff.first_name', 'customer.first_name', 'amount_due', 'payment_terms', 'date_joined', 'total_price', 'status'];
     const header = ['Id', 'Staff Name', 'Customer Name', 'Due Date', 'Payment Terms', 'Data Joined', 'Total Price', 'Status'];
 
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1);
+    // const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
-    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
-    const [initialRecords, setInitialRecords] = useState(sortBy(results, 'id'));
+    const [initialRecords, setInitialRecords] = useState(sortBy(invoices?.results, 'id'));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
     const [search, setSearch] = useState('');
@@ -49,23 +55,26 @@ const InvoiceTable = () => {
 
 
     useEffect(() => {
-        setRecords(results);
-        setInitialRecords(results);
-    }, [results]);
+        setRecords(invoices?.results);
+        setInitialRecords(invoices?.results);
+    }, [invoices?.results]);
+
+    // useEffect(() => {
+    //     setPage(1);
+    // }, [pageSize]);
 
     useEffect(() => {
-        setPage(1);
-    }, [pageSize]);
+        // const from = (page - 1) * pageSize;
+        // const to = from + pageSize;
+        // setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
 
-    useEffect(() => {
-        const from = (page - 1) * pageSize;
-        const to = from + pageSize;
-        setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
-    }, [page, pageSize, initialRecords]);
+        router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: pageSize.toString() })}`, { scroll: false });
+        dispatch(fetchAllInvoicesAsync({ page, pageSize }));
+    }, [page, pageSize]);
 
     useEffect(() => {
         setInitialRecords(() => {
-            return results?.filter((item: any) => {
+            return invoices?.results?.filter((item: any) => {
                 return (
                     item?.staff?.first_name.toLowerCase().includes(search.toLowerCase()) ||
                     item?.customer?.first_name.toLowerCase().includes(search.toLowerCase()) ||
@@ -81,7 +90,7 @@ const InvoiceTable = () => {
     useEffect(() => {
         const data2 = sortBy(initialRecords, sortStatus.columnAccessor);
         setRecords(sortStatus.direction === 'desc' ? data2.reverse() : data2);
-        setPage(1);
+        // setPage(1);
     }, [sortStatus]);
 
     const deleteRow = async (id: any = null) => {
@@ -102,7 +111,9 @@ const InvoiceTable = () => {
             if (deletionSuccess) {
                 setSelectedRecords([]);
                 setSearch("");
-                setPage(1);
+                // setPage(1);
+                router.push(`?${new URLSearchParams({ page: '1', pageSize: pageSize.toString() })}`, { scroll: false });
+
             }
         }
 
@@ -361,12 +372,12 @@ const InvoiceTable = () => {
                             },
                         ]}
                         highlightOnHover
-                        totalRecords={initialRecords?.length}
-                        recordsPerPage={pageSize}
-                        page={page}
-                        onPageChange={(p) => setPage(p)}
+                        totalRecords={invoices?.count}
+                        recordsPerPage={Number(pageSize)}
+                        page={Number(page)}
+                        onPageChange={(p) => router.push(`?${new URLSearchParams({ page: p.toString(), pageSize: pageSize.toString() })}`, { scroll: false })}
+                        onRecordsPerPageChange={(ps) => router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: ps.toString() })}`, { scroll: false })}
                         recordsPerPageOptions={PAGE_SIZES}
-                        onRecordsPerPageChange={setPageSize}
                         sortStatus={sortStatus}
                         onSortStatusChange={setSortStatus}
                         selectedRecords={selectedRecords}

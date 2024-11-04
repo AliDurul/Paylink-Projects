@@ -16,13 +16,17 @@ const authConfig = async () => {
 };
 
 
-export const getAllTickets = async (userId: string | null = null) => {
+export const getAllTickets = async (userId: string | null = null, page?: string, pageSize?: string) => {
 
     const headers = await authConfig();
 
     let url = `${BASE_URL}tickets/`
 
-    if (userId) url = `${BASE_URL}tickets/?user_id=${userId}`
+    const params = new URLSearchParams();
+    if (userId) params.append("user_id", userId);
+    if (page) params.append("page", page);
+    if (pageSize) params.append("page_size", pageSize);
+    if (params.toString()) url += `?${params.toString()}`;
 
     try {
         const response = await fetch(url, {
@@ -30,7 +34,7 @@ export const getAllTickets = async (userId: string | null = null) => {
             headers,
         });
         const data = await response.json();
-        
+
         if (response.ok) {
             return data;
         } else {

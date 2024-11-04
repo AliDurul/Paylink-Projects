@@ -33,10 +33,10 @@ export const getAllKycs = async (type?: string, page?: string, pageSize?: string
   if (type) params.append("user_type", type);
   if (page) params.append("page", page);
   if (pageSize) params.append("page_size", pageSize);
-
+  
   if (params.toString()) url += `?${params.toString()}`;
 
-  console.log('this is url--', url);
+  // console.log('this is url--', url);
 
   try {
     const response = await fetch(url, {

@@ -36,9 +36,10 @@ export const invoiceSlice = createAppSlice({
             state.invoices.results = action.payload;
         }),
         fetchAllInvoicesAsync: create.asyncThunk(
-            async () => {
+            async (params: { page?: string, pageSize?: string }) => {
+                const { page, pageSize } = params
                 try {
-                    const response: ApiResponse = await getAllInvoices();
+                    const response: ApiResponse = await getAllInvoices(page, pageSize);
                     if (response.error) {
                         throw new Error(response.error);
                     }
