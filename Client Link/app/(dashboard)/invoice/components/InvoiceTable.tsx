@@ -23,15 +23,8 @@ const InvoiceTable = () => {
     const isDark = useAppSelector(selectIsDarkMode)
     const { error, status, invoices: { results } } = useAppSelector(selectInvoiceStates);
 
-    // if (invoices.error) {
-    //     console.log(invoices.error);
-    //     // coloredToast('danger', invoices.error);
-    // }
-    // console.log('line 26--<', invoices);
-
     useEffect(() => {
         dispatch(fetchAllInvoicesAsync({}));
-        // dispatch(updateInvoices(results))
     }, []);
 
     useEffect(() => {

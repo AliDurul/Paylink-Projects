@@ -18,6 +18,7 @@ export default function TicketStats() {
             "Escalated": 0
         }
     })
+    
     const tickets = useAppSelector(selectTickets)
 
 

@@ -30,6 +30,7 @@ export const getAllTickets = async (userId: string | null = null) => {
             headers,
         });
         const data = await response.json();
+        
         if (response.ok) {
             return data;
         } else {

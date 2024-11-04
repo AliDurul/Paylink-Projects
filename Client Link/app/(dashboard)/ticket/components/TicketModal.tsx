@@ -228,7 +228,7 @@ export default function TicketModal() {
                                                             <label htmlFor="cat">Category</label>
                                                             <div className="flex justify-center items-center gap-2">
                                                                 <Select placeholder="Select The Category" options={categoryOp}
-                                                                    value={categoryOp.find(option => option.value === values.cat)}
+                                                                    value={categoryOp?.find(option => option.value === values.cat)}
                                                                     onChange={option => { setFieldValue('cat', option ? option.value : ''); }}
                                                                     className='flex-1'
                                                                 />

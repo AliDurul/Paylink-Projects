@@ -11,7 +11,6 @@ interface loginValuesType {
 
 export const login = async (values: loginValuesType) => {
     const { email, password } = values;
-    console.log('this is login function');
     try {
         const res = await signIn('credentials', {
             email,
