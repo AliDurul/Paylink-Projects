@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL + '/'
 
 const authConfig = async () => {
     const session = await auth();

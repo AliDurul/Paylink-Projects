@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { Ticket } from "@/types/types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL + '/';
 
 const authConfig = async () => {
     const session = await auth();

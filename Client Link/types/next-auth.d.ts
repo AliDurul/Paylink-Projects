@@ -20,6 +20,7 @@ declare module "next-auth" {
         first_name: string;
         last_name: string;
         dob: string | null;
+        profile_pic: string | null
       };
     };
   }
@@ -51,6 +52,7 @@ declare module "next-auth/jwt" {
         first_name: string;
         last_name: string;
         dob: string | null;
+        profile_pic: string | null
       };
     };
     iat: number;
@@ -73,6 +75,7 @@ interface userInfo extends JwtPayload {
     first_name: string;
     last_name: string;
     dob: string | null;
+    profile_pic: string | null
   };
 }
 

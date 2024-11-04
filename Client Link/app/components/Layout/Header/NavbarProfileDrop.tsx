@@ -28,7 +28,7 @@ const NavbarProfileDrop = () => {
             width={36}
             height={36}
             className="h-9 w-9 rounded-full object-cover saturate-50 group-hover:saturate-100"
-            src="/assets/images/uba-profile.jpg"
+            src={`${BASE_URL}${userInfo?.payload.profile_pic}`}
             alt="userProfile"
           />
         }

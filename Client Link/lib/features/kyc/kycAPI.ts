@@ -2,7 +2,7 @@
 import { auth } from "@/auth"
 import { Kyc, Ticket } from "@/types/types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL + '/';
 
 const authConfig = async () => {
   const session = await auth();
@@ -24,13 +24,19 @@ const authConfigFormData = async () => {
   };
 }
 
-export const getAllKycs = async (type?: string) => {
+export const getAllKycs = async (type?: string, page?: string, pageSize?: string) => {
   const headers = await authConfig();
 
   let url = `${BASE_URL}users/`;
 
-  if (type) url = `${BASE_URL}users/?user_type=${type}`;
+  const params = new URLSearchParams();
+  if (type) params.append("user_type", type);
+  if (page) params.append("page", page);
+  if (pageSize) params.append("page_size", pageSize);
 
+  if (params.toString()) url += `?${params.toString()}`;
+
+  console.log('this is url--', url);
 
   try {
     const response = await fetch(url, {

@@ -49,9 +49,10 @@ export const kycSlice = createAppSlice({
             state.activeUsers = action.payload
         }),
         fetchAllKycAsync: asyncThunk(
-            async (params: { type?: string }) => {
+            async (params: { type?: string, page?: string, pageSize?: string }) => {
+                const { type, page, pageSize } = params
                 try {
-                    const response: ApiResponse = await getAllKycs(params.type);
+                    const response: ApiResponse = await getAllKycs(type, page, pageSize);
                     if (response.error) {
                         throw new Error(response.error);
                     }

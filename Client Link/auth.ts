@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import Credentials from "@auth/core/providers/credentials";
 import { userInfo } from "./types/next-auth";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL + '/';
 
 export const {
     handlers: { GET, POST },

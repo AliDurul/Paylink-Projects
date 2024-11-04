@@ -17,13 +17,20 @@ import { coloredToast } from '@/utils/sweetAlerts';
 import { fetchAllCategoryAsync } from '@/lib/features/category/categorySlice';
 import Dropdown from '@/app/components/Layout/Dropdown';
 import { Ticket } from '@/types/types';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 // const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
 const BASE_URL = 'http://192.168.1.110:8000'
 
 const TicketTable = () => {
-    const dispatch = useAppDispatch();
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
+    const searchParams = useSearchParams();
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
+    // search params
+    const pagee = searchParams.get('page') || 1;
+    const pageSizee = searchParams.get('pageSize') || 10;
 
     const tickets = useAppSelector(selectTickets);
     const ticketStates = useAppSelector(selectTicketState);
@@ -63,9 +70,6 @@ const TicketTable = () => {
         assigned_agent: { id: "", first_name: "", last_name: "" }
     }
 
-
-
-
     const statuses = ['Pending', 'Active', 'Resolved', 'Cancelled', 'Escalated'];
 
     useEffect(() => {
@@ -80,7 +84,12 @@ const TicketTable = () => {
     useEffect(() => {
         const from = (page - 1) * pageSize;
         const to = from + pageSize;
+        
+        // console.log('pagee', pagee, 'pageSizee', pageSizee);
+        // router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: pageSize.toString() })}`, { scroll: false });
+
         setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
+
     }, [page, pageSize, initialRecords]);
 
 
@@ -377,7 +386,7 @@ const TicketTable = () => {
                             },
                         ]}
                         highlightOnHover
-                        totalRecords={initialRecords.length}
+                        totalRecords={tickets.count}
                         recordsPerPage={pageSize}
                         page={page}
                         onPageChange={(p) => setPage(p)}

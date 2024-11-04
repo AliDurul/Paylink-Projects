@@ -14,26 +14,31 @@ import { deleteKyc, deleteMultiKyc } from '@/lib/features/kyc/kycAPI';
 import { coloredToast } from '@/utils/sweetAlerts';
 import Image from 'next/image';
 import { formatDate } from '@/utils/helperFunctions';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Kyc } from '@/types/types';
 
 
 const KycListTable = () => {
-    const router = useRouter()
-    const dispatch = useAppDispatch();
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
+    const dispatch = useAppDispatch();
+    const searchParams = useSearchParams();
+    const router = useRouter()
+
+    // search params
+    const page = (searchParams.get('page') || 1) as string;
+    const pageSize = (searchParams.get('pageSize') || 10) as string;
+
     const kycs = useAppSelector(selectKycs);
     const isDark = useAppSelector(selectIsDarkMode);
     const value = useAppSelector(selectValue);
 
-
     useEffect(() => {
-        dispatch(fetchAllKycAsync({ type: 'Customer' }));
+        dispatch(fetchAllKycAsync({ type: 'Customer', page, pageSize }));
     }, []);
 
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1);
+    // const [pageSize, ()=>] = useState(PAGE_SIZES[0]);
     const PAGE_SIZES = [10, 20, 30, 50, 100];
-    const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
     const [initialRecords, setInitialRecords] = useState(sortBy(kycs.results, 'first_name'));
     const [records, setRecords] = useState(initialRecords);
     const [selectedRecords, setSelectedRecords] = useState<any>([]);
@@ -51,17 +56,20 @@ const KycListTable = () => {
         setInitialRecords(kycs.results);
     }, [kycs]);
 
-    useEffect(() => {
-        setPage(1);
-    }, [pageSize]);
+    // useEffect(() => {
+    //     // setPage(1);
+    //     // router.push(`?${new URLSearchParams({ page: '1', pageSize: pageSize.toString() })}`, { scroll: false });
+    // }, [pageSize]);
 
     useEffect(() => {
-        const from = (page - 1) * pageSize;
-        const to = from + pageSize;
-        console.log('tiklandi');
-        
+        // const from = (Number(page) - 1) * pageSize;
+        // const to = from + pageSize;
+
+        router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: pageSize.toString() })}`, { scroll: false });
+
+        dispatch(fetchAllKycAsync({ type: 'Customer', page, pageSize }));
         // setRecords([...(Array.isArray(initialRecords) ? initialRecords.slice(from, to) : [])]);
-    }, [page, pageSize, initialRecords]);
+    }, [page, pageSize]);
 
 
     useEffect(() => {
@@ -86,7 +94,9 @@ const KycListTable = () => {
     useEffect(() => {
         const data2 = sortBy(initialRecords, sortStatus.columnAccessor);
         setRecords(sortStatus.direction === 'desc' ? data2.reverse() : data2);
-        setPage(1);
+        // setPage(1);
+        // router.push(`?${new URLSearchParams({ page: '1', pageSize: pageSize.toString() })}`, { scroll: false });
+
     }, [sortStatus]);
 
     const deleteRow = async (id: any = null) => {
@@ -107,7 +117,9 @@ const KycListTable = () => {
             if (deletionSuccess) {
                 setSelectedRecords([]);
                 setSearch("");
-                setPage(1);
+                // setPage(1);
+                router.push(`?${new URLSearchParams({ page: '1', pageSize: pageSize.toString() })}`, { scroll: false });
+
             }
         }
     };
@@ -217,11 +229,11 @@ const KycListTable = () => {
                                 ]}
                                 highlightOnHover
                                 totalRecords={kycs.count}
-                                recordsPerPage={pageSize}
-                                page={page}
-                                onPageChange={(p) => setPage(p)}
+                                recordsPerPage={Number(pageSize)}
+                                page={Number(page)}
+                                onPageChange={(p) => router.push(`?${new URLSearchParams({ page: p.toString(), pageSize: pageSize.toString() })}`, { scroll: false })}
                                 recordsPerPageOptions={PAGE_SIZES}
-                                onRecordsPerPageChange={setPageSize}
+                                onRecordsPerPageChange={(ps) => router.push(`?${new URLSearchParams({ page: page.toString(), pageSize: ps.toString() })}`, { scroll: false })}
                                 sortStatus={sortStatus}
                                 onSortStatusChange={setSortStatus}
                                 selectedRecords={selectedRecords}
