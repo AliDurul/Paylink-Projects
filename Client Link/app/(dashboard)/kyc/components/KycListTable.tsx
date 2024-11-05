@@ -1,22 +1,24 @@
 'use client'
-import Link from 'next/link';
-import { DataTable, DataTableSortStatus } from 'mantine-datatable';
-import { useState, useEffect } from 'react';
-import sortBy from 'lodash/sortBy';
+import { fetchAllKycAsync, selectKycs, selectValue, updateKycState, updateKycs } from '@/lib/features/kyc/kycSlice';
 import { selectIsDarkMode } from '@/lib/features/themeConfig/themeConfigSlice';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { DeleteIcon, EditIcon, PreviewIcon, PrintIcon } from '@/app/icons';
+import { deleteKyc, deleteMultiKyc } from '@/lib/features/kyc/kycAPI';
+import { DataTable, DataTableSortStatus } from 'mantine-datatable';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { useRouter, useSearchParams } from 'next/navigation';
+import useDeleteToasts from '@/hooks/useDeleteToasts';
+import { formatDate } from '@/utils/helperFunctions';
+import { coloredToast } from '@/utils/sweetAlerts';
+import { useState, useEffect } from 'react';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.css';
-import useDeleteToasts from '@/hooks/useDeleteToasts';
-import { fetchAllKycAsync, selectKycState, selectKycs, selectValue, updateKycState, updateKycs } from '@/lib/features/kyc/kycSlice';
-import { deleteKyc, deleteMultiKyc } from '@/lib/features/kyc/kycAPI';
-import { coloredToast } from '@/utils/sweetAlerts';
-import Image from 'next/image';
-import { formatDate } from '@/utils/helperFunctions';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { Kyc } from '@/types/types';
+import sortBy from 'lodash/sortBy';
+import Image from 'next/image';
+import Link from 'next/link';
 
+
+const IMG_URL = process.env.NEXT_PUBLIC_IMG_APIBASE_URL
 
 const KycListTable = () => {
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
@@ -178,10 +180,15 @@ const KycListTable = () => {
                                     {
                                         accessor: 'name',
                                         // sortable: true,
-                                        render: ({ first_name, last_name, id }) => (
+                                        render: ({ first_name, last_name, profile_pic }) => (
                                             <div className="flex items-center font-semibold">
                                                 <div className="w-max rounded-full bg-white-dark/30 p-0.5 ltr:mr-2 rtl:ml-2">
-                                                    <Image height={32} width={32} className="h-8 w-8 rounded-full object-cover" src={`/assets/images/profile-${id}.jpeg`} alt="" />
+                                                    <Image
+                                                        height={32}
+                                                        width={32}
+                                                        className="h-8 w-8 rounded-full object-cover"
+                                                        src={`${profile_pic ? IMG_URL + profile_pic : '/assets/images/profile-pic.jpg'}`}
+                                                        alt="user pic" />
                                                 </div>
                                                 <div>{first_name} {last_name}</div>
                                             </div>

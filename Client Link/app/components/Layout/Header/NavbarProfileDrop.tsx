@@ -11,8 +11,8 @@ import {
 import { signOut } from "next-auth/react";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 
-// const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
-const BASE_URL = 'http://192.168.1.110:8000'
+
+const IMG_URL = process.env.NEXT_PUBLIC_IMG_APIBASE_URL
 
 const NavbarProfileDrop = () => {
   const { userInfo } = useCurrentUser();
@@ -28,7 +28,7 @@ const NavbarProfileDrop = () => {
             width={36}
             height={36}
             className="h-9 w-9 rounded-full object-cover saturate-50 group-hover:saturate-100"
-            src={`${BASE_URL}${userInfo?.payload.profile_pic}`}
+            src={`${IMG_URL}${userInfo?.payload.profile_pic}`}
             alt="userProfile"
           />
         }

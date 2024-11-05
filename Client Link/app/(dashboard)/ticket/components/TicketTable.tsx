@@ -18,9 +18,9 @@ import { fetchAllCategoryAsync } from '@/lib/features/category/categorySlice';
 import Dropdown from '@/app/components/Layout/Dropdown';
 import { Ticket } from '@/types/types';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 
-// const BASE_URL = process.env.NEXT_PUBLIC_APIBASE_URL;
-const BASE_URL = 'http://192.168.1.110:8000'
+const IMG_URL = process.env.NEXT_PUBLIC_IMG_APIBASE_URL
 
 const TicketTable = () => {
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
@@ -286,7 +286,12 @@ const TicketTable = () => {
                                 render: ({ assigned_agent, ticket_id }) => (
                                     <div className="flex items-center font-semibold">
                                         <div className="w-max rounded-full bg-white-dark/30 p-0.5 ltr:mr-2 rtl:ml-2">
-                                            <img className="h-8 w-8 rounded-full object-cover" src={BASE_URL + assigned_agent.profile_pic} alt="agent-picture" />
+                                            <Image
+                                                width={32}
+                                                height={32}
+                                                className="h-8 w-8 rounded-full object-cover"
+                                                src={`${assigned_agent.profile_pic ? IMG_URL + assigned_agent.profile_pic : '/assets/images/profile-pic.jpg'}`}
+                                                alt="agent-picture" />
                                         </div>
                                         <div>{assigned_agent?.first_name} {assigned_agent?.last_name}</div>
                                     </div>
