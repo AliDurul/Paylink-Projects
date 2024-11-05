@@ -33,7 +33,7 @@ export const getAllKycs = async (type?: string, page?: string, pageSize?: string
   if (type) params.append("user_type", type);
   if (page) params.append("page", page);
   if (pageSize) params.append("page_size", pageSize);
-  
+
   if (params.toString()) url += `?${params.toString()}`;
 
   // console.log('this is url--', url);
@@ -142,20 +142,27 @@ export const updateKyc = async (kycData: Kyc) => {
 
 export const createKyc = async (kycData: any) => {
   const headers = await authConfigFormData();
-  console.log(kycData);
+  
+  console.log('this is kycData ---', kycData);
+
   try {
+
     const response = await fetch(`${BASE_URL}users/`, {
       method: "POST",
       headers,
       body: kycData,
     });
+
     const data = await response.json();
+
     if (response.ok) {
       return data
     } else {
       throw new Error(data.error || "Something went wrong, Please try again!");
     }
+
   } catch (error: any) {
     return { error: error.message };
   }
+
 };

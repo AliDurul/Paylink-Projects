@@ -14,30 +14,34 @@ import { getAllTickets } from '@/lib/features/tickets/ticketAPI';
 import { Ticket } from '@/types/types';
 import KycUserTicketsInfo from '../components/KycUserTicketsInfo';
 import TopPageNavigation from '@/app/components/TopPageNavigation';
+import Image from 'next/image';
 
 
 const KycActionPage = () => {
 
-    const searchParams = useSearchParams()
-    const router = useRouter()
-    const dispatch = useAppDispatch()
     const kyc = useAppSelector(selectKyc);
+    const searchParams = useSearchParams()
+    const dispatch = useAppDispatch()
+    const router = useRouter()
 
-    const source = searchParams.get('s')
     const userId = searchParams.get('userId')
+    const source = searchParams.get('s')
     const readOnly = source === 'r';
 
     const [userTickets, setUserTickets] = useState<Ticket[]>([])
+    // file upload
+    const [images, setImages] = useState<any>([]);
+    const maxNumber = 69;
 
     const fetchTicketsForUser = async (userId: string | null) => {
         const data = await getAllTickets(userId ? userId.toString() : null)
         setUserTickets(data.results)
     }
 
-    const fetchKyc = async () => {
+    /* const fetchKyc = async () => {
         const kycInfo = await readKyc(Number(userId))
         dispatch(updateKycState(kycInfo))
-    }
+    } */
 
     /*   useEffect(() => {
           if (userId) fetchKyc()
@@ -102,14 +106,12 @@ const KycActionPage = () => {
         date_joined: kyc?.date_joined || '',
         phone_number: phone_number || '',
         profession: kyc?.profession || '',
+        profile_pic: kyc?.profile_pic || null,
         // id_front: kyc?.id_front || '',
         // id_back: kyc?.id_back || '',
         // doc: kyc?.doc || '',
     };
 
-    // file upload
-    const [images, setImages] = useState<any>([]);
-    const maxNumber = 69;
 
     const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
         setImages(imageList as never[]);
@@ -144,14 +146,16 @@ const KycActionPage = () => {
                                 formData.append(key, values[key as keyof typeof values] as string);
                             })
 
-                            if (images.length > 0) {
-                                images.forEach((image: any) => {
-                                    formData.append('profile_pic', image.file);
-                                })
-                            }
+                            // if (images.length > 0) {
+                            //     formData.append('profile_pic', images[0].file);
+                            // }
                             formData.append('user_type', 'Customer');
-                            formData.append('password', 'CustomerPassword');
+                            formData.append('password', 'default-password');
+
+
+
                             console.log('form data', ...formData);
+
 
                             const res = await createKyc(formData);
                             setTimeout(() => {
@@ -174,43 +178,61 @@ const KycActionPage = () => {
                         ({ values, errors, touched, setFieldValue }) => (
                             <Form className="mb-5 grid grid-cols-1 gap-5 lg:grid-cols-3 xl:grid-cols-4">
                                 <div className="panel">
-                                    <div className="mb-5 flex items-center justify-between">
+                                    <div className="flex items-center justify-between">
                                         <h5 className="text-lg font-semibold dark:text-white-light">Profile</h5>
                                     </div>
                                     <div className="mb-5">
                                         <div className="flex flex-col items-center justify-center">
-                                            <div className="custom-file-container" data-upload-id="myFirstImage">
-                                                <div className="label-container">
-                                                    <label>Upload </label>
-                                                    <div
-                                                        className="custom-file-container__image-clear cursor-pointer"
-                                                        title="Clear Image"
-                                                        onClick={() => {
-                                                            setImages([]);
-                                                        }}
-                                                    >
-                                                        ×
-                                                    </div>
-                                                </div>
-                                                <label className="custom-file-container__custom-file h-0"></label>
-                                                <input type="file" className="custom-file-container__custom-file__custom-file-input h-0 w-full" accept="image/*" />
-                                                <input type="hidden" name="MAX_FILE_SIZE" value="10485760 " />
-                                                <ImageUploading value={images} onChange={onChange} maxNumber={maxNumber}>
-                                                    {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps }) => (
-                                                        <div className="upload__image-wrapper p-3">
-                                                            <div className="custom-file-container__custom-file__custom-file-control cursor-pointer" onClick={onImageUpload}>
-                                                                Choose Pic...
-                                                            </div>
-                                                            {imageList.map((image, index) => (
-                                                                <div key={index} className="custom-file-container__image-preview relative">
-                                                                    <img src={image.dataURL} alt="img" className="m-auto max-w-md h-24 w-24 rounded-full  object-cover" />
+                                            {
+                                                readOnly ? (
+                                                    <Image
+                                                        src={kyc?.profile_pic || '/assets/images/profile-pic.jpg'}
+                                                        alt="profile"
+                                                        width={120}
+                                                        height={120}
+                                                        className="rounded-full my-5" />
+                                                ) : (
+                                                    <div className="custom-file-container my-3 mb-8" data-upload-id="myFirstImage">
+                                                        <label className="custom-file-container__custom-file h-0"></label>
+                                                        <input type="file" className="custom-file-container__custom-file__custom-file-input h-0 w-full" accept="image/*" />
+                                                        <input type="hidden" name="MAX_FILE_SIZE" value="10485760 " />
+                                                        <ImageUploading
+                                                            value={images}
+                                                            onChange={(imageList) => {
+                                                                setImages(imageList as never[]);
+
+                                                                if (imageList.length > 0) {
+                                                                    console.log(imageList[0].file);
+                                                                    setFieldValue('profile_pic', imageList[0].file);
+                                                                } else {
+                                                                    setFieldValue('profile_pic', '');
+                                                                }
+                                                            }}
+                                                            maxNumber={maxNumber}>
+
+                                                            {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps }) => (
+                                                                <div className="-mt-10">
+                                                                    <div className='flex gap-3 justify-center items-center'>
+                                                                        <div className="flex-1 inset-0 z-5 h-10 overflow-hidden rounded border border-[#f1f2f3] bg-[#f1f2f3] px-3 py-2 text-sm leading-6 text-[#333] select-none cursor-pointer" onClick={onImageUpload}>
+                                                                            Choose Pic...
+                                                                        </div>
+                                                                        <div className="text-[#333] text-[26px]  cursor-pointer" title="Clear Image" onClick={() => { setImages([]); setFieldValue('profile_pic', ''); }}>
+                                                                            ×
+                                                                        </div>
+                                                                    </div>
+                                                                    {imageList.map((image, index) => (
+                                                                        <div key={index} className="custom-file-container__image-preview relative mt-3">
+                                                                            <Image width={100} height={100} src={image.dataURL || ''} alt="user profile" className="m-auto max-w-md  rounded-full  object-cover" />
+                                                                        </div>
+                                                                    ))}
                                                                 </div>
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </ImageUploading>
-                                                {images.length === 0 ? <img src="/assets/images/file-preview.svg" className="m-auto  max-w-md h-24 w-24 rounded-full  object-cover" alt="" /> : ''}
-                                            </div>
+                                                            )}
+
+                                                        </ImageUploading>
+                                                        {images.length === 0 ? <Image width={100} height={100} src="/assets/images/file-preview.svg" className="m-auto  max-w-md  rounded-full object-cover mt-3" alt="user profile" /> : ''}
+                                                    </div>
+                                                )
+                                            }
                                         </div>
                                         <ul className="m-auto  flex flex-col space-y-4 font-semibold text-white-dark">
                                             <li className="">
