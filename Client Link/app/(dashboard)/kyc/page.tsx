@@ -27,7 +27,7 @@ export default async function KycPage() {
       </div>
 
       <KycListTable IMG_URL={IMG_URL} />
-      <KycGridTable />
+      <KycGridTable IMG_URL={IMG_URL} />
     </>
   )
 }

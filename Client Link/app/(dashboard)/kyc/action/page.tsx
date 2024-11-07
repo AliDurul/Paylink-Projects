@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { fetchAllKycAsync, selectKyc, updateKycState } from '@/lib/features/kyc/kycSlice';
-import { createKyc, readKyc, updateKyc } from '@/lib/features/kyc/kycAPI';
+import { createKyc, updateKyc, } from '@/lib/features/kyc/kycAPI';
 import { coloredToast } from '@/utils/sweetAlerts';
 import MaskedInput from 'react-text-mask';
 import Select from 'react-select';
@@ -109,9 +109,10 @@ const KycActionPage = () => {
         phone_number: phone_number || '',
         profession: kyc?.profession || '',
         profile_pic: kyc?.profile_pic || null,
+        user_type: 'Customer',
     };
 
-    console.log(kyc);
+    // console.log(kyc);
 
     return (
         <div>
@@ -122,9 +123,16 @@ const KycActionPage = () => {
                     initialValues={initialValues}
                     enableReinitialize={true}
                     onSubmit={async (values, { setSubmitting, resetForm }) => {
+
+                        const formData = new FormData();
+
+                        Object.keys(values).forEach(key => {
+                            formData.append(key, values[key as keyof typeof values] as string);
+                        })
+
                         if (kyc) {
-                            //@ts-ignore
-                            const res = await updateKyc({ ...values })
+                            const res = await updateKyc(formData)
+
                             setTimeout(() => {
                                 if (res.message) {
                                     resetForm();
@@ -137,11 +145,6 @@ const KycActionPage = () => {
                                 }
                             }, 500);
                         } else {
-                            const formData = new FormData();
-                            Object.keys(values).forEach(key => {
-                                formData.append(key, values[key as keyof typeof values] as string);
-                            })
-
 
                             formData.append('user_type', 'Customer');
                             formData.append('password', 'default-password');
@@ -192,7 +195,6 @@ const KycActionPage = () => {
                                                                 setImages(imageList as never[]);
 
                                                                 if (imageList.length > 0) {
-                                                                    console.log(imageList[0].file);
                                                                     setFieldValue('profile_pic', imageList[0].file);
                                                                 } else {
                                                                     setFieldValue('profile_pic', '');

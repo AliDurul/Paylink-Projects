@@ -48,7 +48,7 @@ export const getAllKycs = async (type?: string, page?: string, pageSize?: string
     if (response.ok) {
       return data;
     } else {
-      throw new Error(data.message || "Something went wrong, Please try again!");
+      throw new Error(data.error || "Something went wrong, Please try again!");
     }
   } catch (error: any) {
     return { error: error.message };
@@ -67,7 +67,7 @@ export const readKyc = async (id: number | null) => {
     if (response.ok) {
       return data;
     } else {
-      throw new Error(data.message || "Something went wrong, Please try again!");
+      throw new Error(data.error || "Something went wrong, Please try again!");
     }
   } catch (error: any) {
     return { error: error.message };
@@ -87,7 +87,7 @@ export const deleteKyc = async (id: any) => {
     if (response.status === 200) {
       return { message: data.message, remainingData: data.data };
     } else {
-      throw new Error(data.detail ?? "Something went wrong, Please try again!");
+      throw new Error(data.error ?? "Something went wrong, Please try again!");
     }
 
   } catch (error: any) {
@@ -110,7 +110,7 @@ export const deleteMultiKyc = async (ids: any) => {
     if (!data.error && response.status === 202) {
       return { message: data.message, remainingData: data.data };
     } else {
-      throw new Error(data.message ?? "Something went wrong, Please try again!");
+      throw new Error(data.error ?? "Something went wrong, Please try again!");
     }
 
   } catch (error: any) {
@@ -118,23 +118,26 @@ export const deleteMultiKyc = async (ids: any) => {
   }
 };
 
-export const updateKyc = async (kycData: Kyc) => {
-  const headers = await authConfig();
+export const updateKyc = async (kycData: any) => {
+  const headers = await authConfigFormData();
+  const id = kycData.get("id");
+
   try {
-    const response = await fetch(`${BASE_URL}user/${kycData.id}/`, {
+    const response = await fetch(`${BASE_URL}user/${id}/`, {
       method: "PUT",
       headers,
-      body: JSON.stringify(kycData),
+      body: kycData,
     });
-
+    
     const data = await response.json();
+    // console.log('this is data--', data);
+
     if (response.ok) {
       return { message: "Successfully Updated!" };
     } else {
-      throw new Error(
-        data.message || "Something went wrong, Please try again!"
-      );
+      throw new Error(data.error || "Something went wrong, Please try again!");
     }
+
   } catch (error: any) {
     return { error: error.message };
   }
@@ -142,7 +145,7 @@ export const updateKyc = async (kycData: Kyc) => {
 
 export const createKyc = async (kycData: any) => {
   const headers = await authConfigFormData();
-  
+
   try {
 
     const response = await fetch(`${BASE_URL}users/`, {
