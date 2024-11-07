@@ -20,9 +20,9 @@ import { Ticket } from '@/types/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
-const IMG_URL = process.env.NEXT_PUBLIC_IMG_APIBASE_URL
+// const IMG_URL = process.env.NEXT_PUBLIC_IMG_APIBASE_URL
 
-const TicketTable = () => {
+const TicketTable = ({ IMG_URL }: { IMG_URL: string }) => {
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
     const searchParams = useSearchParams();
     const dispatch = useAppDispatch();
@@ -290,7 +290,7 @@ const TicketTable = () => {
                                                 width={32}
                                                 height={32}
                                                 className="h-8 w-8 rounded-full object-cover"
-                                                src={`${assigned_agent.profile_pic ? IMG_URL + assigned_agent.profile_pic : '/assets/images/profile-pic.jpg'}`}
+                                                src={`${assigned_agent.profile_pic ? IMG_URL + assigned_agent.profile_pic : '/assets/images/profile-pic.png'}`}
                                                 alt="agent-picture" />
                                         </div>
                                         <div>{assigned_agent?.first_name} {assigned_agent?.last_name}</div>

@@ -25,10 +25,10 @@ const NavbarProfileDrop = () => {
         btnClassName="relative group block"
         button={
           <Image
-            width={36}
-            height={36}
-            className="h-9 w-9 rounded-full object-cover saturate-50 group-hover:saturate-100"
-            src={`${IMG_URL}${userInfo?.payload.profile_pic}`}
+            width={32}
+            height={32}
+            className="rounded-full object-cover saturate-50 group-hover:saturate-100"
+            src={userInfo?.payload.profile_pic ? `${IMG_URL}${userInfo?.payload.profile_pic}` : '/assets/images/profile-pic.png'}
             alt="userProfile"
           />
         }
@@ -37,18 +37,18 @@ const NavbarProfileDrop = () => {
           <li>
             <div className="flex items-center px-4 py-4">
               <Image
-                width={36}
-                height={36}
-                className="h-10 w-10 rounded-md object-cover"
-                src="/assets/images/uba-profile.jpg"
+                width={40}
+                height={40}
+                className=" rounded-md object-cover"
+                src={userInfo?.payload.profile_pic ? `${IMG_URL}${userInfo?.payload.profile_pic}` : '/assets/images/profile-pic.png'}
                 alt="userProfile"
               />
               <div className="ltr:pl-4 rtl:pr-4">
                 <h4 className="text-base">
                   {userInfo?.payload?.first_name}{" "}{userInfo?.payload?.last_name}
-                  <span className="rounded bg-success-light px-1 text-xs text-success ltr:ml-2 rtl:ml-2">
+                  {/* <span className="rounded bg-success-light px-1 text-xs text-success ltr:ml-2 rtl:ml-2">
                     Admin
-                  </span>
+                  </span> */}
                 </h4>
                 <button
                   type="button"

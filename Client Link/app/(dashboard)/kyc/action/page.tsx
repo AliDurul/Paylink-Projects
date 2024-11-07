@@ -19,6 +19,8 @@ import Image from 'next/image';
 
 const KycActionPage = () => {
 
+    const IMG_URL = 'http://192.168.1.111:8000'
+
     const kyc = useAppSelector(selectKyc);
     const searchParams = useSearchParams()
     const dispatch = useAppDispatch()
@@ -107,15 +109,9 @@ const KycActionPage = () => {
         phone_number: phone_number || '',
         profession: kyc?.profession || '',
         profile_pic: kyc?.profile_pic || null,
-        // id_front: kyc?.id_front || '',
-        // id_back: kyc?.id_back || '',
-        // doc: kyc?.doc || '',
     };
 
-
-    const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
-        setImages(imageList as never[]);
-    };
+    console.log(kyc);
 
     return (
         <div>
@@ -146,18 +142,12 @@ const KycActionPage = () => {
                                 formData.append(key, values[key as keyof typeof values] as string);
                             })
 
-                            // if (images.length > 0) {
-                            //     formData.append('profile_pic', images[0].file);
-                            // }
+
                             formData.append('user_type', 'Customer');
                             formData.append('password', 'default-password');
 
-
-
-                            console.log('form data', ...formData);
-
-
                             const res = await createKyc(formData);
+
                             setTimeout(() => {
                                 setSubmitting(false);
                                 if (!res.error) {
@@ -186,7 +176,7 @@ const KycActionPage = () => {
                                             {
                                                 readOnly ? (
                                                     <Image
-                                                        src={kyc?.profile_pic || '/assets/images/profile-pic.jpg'}
+                                                        src={kyc?.profile_pic ? IMG_URL + kyc.profile_pic : '/assets/images/profile-pic.png'}
                                                         alt="profile"
                                                         width={120}
                                                         height={120}

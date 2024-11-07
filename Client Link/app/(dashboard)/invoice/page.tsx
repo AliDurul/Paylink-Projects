@@ -7,11 +7,13 @@ export const metadata = { title: 'Invoices' }
 
 export default async function InvoiceListPage() {
 
+  const IMG_URL = process.env.IMG_APIBASE_URL ?? '';
+
   return (
     <>
       <TopPageNavigation />
 
-      <InvoiceTable />
+      <InvoiceTable  IMG_URL={IMG_URL} />
     </>
   )
 }

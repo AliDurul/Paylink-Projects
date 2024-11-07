@@ -18,9 +18,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 
-const IMG_URL = process.env.NEXT_PUBLIC_IMG_APIBASE_URL
-
-const KycListTable = () => {
+const KycListTable = ({ IMG_URL }: { IMG_URL: string }) => {
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
     const searchParams = useSearchParams();
     const dispatch = useAppDispatch();
@@ -184,11 +182,11 @@ const KycListTable = () => {
                                             <div className="flex items-center font-semibold">
                                                 <div className="w-max rounded-full bg-white-dark/30 p-0.5 ltr:mr-2 rtl:ml-2">
                                                     <Image
-                                                        height={32}
                                                         width={32}
+                                                        height={32}
                                                         className="h-8 w-8 rounded-full object-cover"
-                                                        src={`${profile_pic ? IMG_URL + profile_pic : '/assets/images/profile-pic.jpg'}`}
-                                                        alt="user pic" />
+                                                        src={profile_pic ? IMG_URL + profile_pic : '/assets/images/profile-pic.png'} alt="customer pic" />
+
                                                 </div>
                                                 <div>{first_name} {last_name}</div>
                                             </div>
@@ -248,7 +246,7 @@ const KycListTable = () => {
                             />
                         </div>
                     </div>
-                </div>
+                </div >
             }
         </>
 

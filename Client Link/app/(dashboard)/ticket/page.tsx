@@ -11,6 +11,8 @@ const TicketTable = dynamic(() => import('./components/TicketTable'), { ssr: fal
 
 export default async function TicketListPage() {
 
+  const IMG_URL = process.env.IMG_APIBASE_URL ?? '';
+
   // const session = await auth();
   // const accessToken = session?.accessToken;
   // console.log(accessToken);
@@ -21,7 +23,7 @@ export default async function TicketListPage() {
 
       <TicketStats />
 
-      <TicketTable />
+      <TicketTable IMG_URL={IMG_URL} />
 
     </>
   )

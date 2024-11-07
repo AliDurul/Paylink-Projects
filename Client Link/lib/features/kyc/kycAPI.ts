@@ -143,8 +143,6 @@ export const updateKyc = async (kycData: Kyc) => {
 export const createKyc = async (kycData: any) => {
   const headers = await authConfigFormData();
   
-  console.log('this is kycData ---', kycData);
-
   try {
 
     const response = await fetch(`${BASE_URL}users/`, {

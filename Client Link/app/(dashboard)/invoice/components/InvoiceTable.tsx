@@ -15,9 +15,8 @@ import { formatDate } from '@/utils/helperFunctions';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
-const IMG_URL = process.env.NEXT_PUBLIC_IMG_APIBASE_URL
 
-const InvoiceTable = () => {
+const InvoiceTable = ({ IMG_URL }: { IMG_URL: string }) => {
     const { error, status, invoices } = useAppSelector(selectInvoiceStates);
     const { deleteToast, multiDeleteToast } = useDeleteToasts();
     const isDark = useAppSelector(selectIsDarkMode)
@@ -297,7 +296,7 @@ const InvoiceTable = () => {
                                                 width={32}
                                                 height={32}
                                                 className="rounded-full object-cover"
-                                                src={`${staff.profile_pic ? IMG_URL + staff?.profile_pic : '/assets/images/profile-pic.jpg'}`}
+                                                src={`${staff.profile_pic ? IMG_URL + staff?.profile_pic : '/assets/images/profile-pic.png'}`}
                                                 alt="staff pic" />
                                         </div>
                                         <div>{staff?.first_name} {staff?.last_name}</div>
@@ -310,26 +309,11 @@ const InvoiceTable = () => {
                                 render: ({ customer, id }) => (
                                     <div className="flex items-center font-semibold">
                                         <div className="w-max rounded-full bg-white-dark/30 p-1 ltr:mr-2 rtl:ml-2">
-                                            {
-                                                customer.profile_pic ? (
-                                                    <Image
-                                                        width={32}
-                                                        height={32}
-                                                        className="h-8 w-8 rounded-full object-cover"
-                                                        src={IMG_URL + customer.profile_pic} alt="customer pic" />
-                                                )
-                                                    : (
-                                                        <svg className="" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5" />
-                                                            <path
-                                                                opacity="0.5"
-                                                                d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z"
-                                                                stroke="currentColor"
-                                                                strokeWidth="1.5"
-                                                            />
-                                                        </svg>
-                                                    )
-                                            }
+                                            <Image
+                                                width={32}
+                                                height={32}
+                                                className="h-8 w-8 rounded-full object-cover"
+                                                src={customer.profile_pic ? IMG_URL + customer.profile_pic : '/assets/images/profile-pic.png'} alt="customer pic" />
 
                                         </div>
                                         <div>{customer?.first_name} {customer?.last_name}</div>

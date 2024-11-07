@@ -6,7 +6,14 @@ import KycGridTable from './components/KycGridTable'
 
 // export const metadata = { title: 'Kycs' }
 
+
+
 export default async function KycPage() {
+
+  const IMG_URL = process.env.IMG_APIBASE_URL ?? '';
+
+
+
   return (
     <>
       <TopPageNavigation />
@@ -19,7 +26,7 @@ export default async function KycPage() {
         </div>
       </div>
 
-      <KycListTable />
+      <KycListTable IMG_URL={IMG_URL} />
       <KycGridTable />
     </>
   )
