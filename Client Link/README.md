@@ -1,5 +1,4 @@
 # Client link
 
-where remained ?
-- add dropdown for user type
-- show tab for user type
+ssh -> paylink@192.168.1.111
+pass -> plzm2024
