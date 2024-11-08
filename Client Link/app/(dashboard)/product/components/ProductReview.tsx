@@ -8,17 +8,15 @@ import { Product } from '@/types/types';
 
 
 
-const ProductReview = ({ product }: { product: any }) => {
-    // const [selectedColor, setSelectedColor] = useState(product.colors[0])
+const ProductReview = ({ product, IMG_URL }: { product: Product, IMG_URL: string }) => {
 
-console.log(product);
 
     return (
         <div className="panel">
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-12 lg:max-w-7xl lg:px-8">
                 <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
                     {/* Image gallery */}
-                    <Tab.Group>
+                    <Tab.Group >
                         <div className="flex flex-col-reverse">
                             {/* Image selector */}
                             {/* <div className="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
@@ -47,13 +45,13 @@ console.log(product);
 
                             <Tab.Panels className="aspect-h-1 aspect-w-1 w-full">
                                 {/* {product.images.map((image: any) => ( */}
-                                    <Tab.Panel>
-                                        <img
-                                            src={product.images[0].src}
-                                            alt={product.images[0].alt}
-                                            className="h-full w-full object-cover object-center sm:rounded-lg"
-                                        />
-                                    </Tab.Panel>
+                                <Tab.Panel>
+                                    <img
+                                        src={IMG_URL + product.thumb}
+                                        alt={product.name}
+                                        className="h-full w-full object-cover object-center sm:rounded-lg"
+                                    />
+                                </Tab.Panel>
                                 {/* ))} */}
                             </Tab.Panels>
                         </div>
@@ -65,7 +63,7 @@ console.log(product);
 
                         <div className="mt-3">
                             <h2 className="sr-only">Product information</h2>
-                            {/* <p className="text-3xl tracking-tight text-gray-900">K{product.price}</p> */}
+                            <p className="text-3xl tracking-tight text-gray-900">K{product.price}</p>
                         </div>
 
                         {/* Reviews */}
@@ -90,13 +88,20 @@ console.log(product);
 
                         <div className="mt-6">
                             <h3 className="sr-only">Description</h3>
-
                             <div className="space-y-6 text-base text-gray-700">
                                 <p>{product.description}</p>
                             </div>
                         </div>
+                        <div className="mt-6">
+                            <h3 className="sr-only">Category</h3>
+                            <div className="space-y-6 text-base text-gray-700">
+                                <p>{product.category.title}</p>
+                            </div>
+                        </div>
 
-                        <section aria-labelledby="details-heading" className="mt-12">
+
+
+                       {/* <section aria-labelledby="details-heading" className="mt-12">
                             <h2 id="details-heading" className="sr-only">
                                 Additional details
                             </h2>
@@ -140,7 +145,7 @@ console.log(product);
                                     </Disclosure>
                                 ))}
                             </div>
-                        </section>
+                        </section> */} 
                     </div>
                 </div>
             </div>

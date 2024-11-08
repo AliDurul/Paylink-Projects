@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import ReactQuill from 'react-quill';
 import Swal from 'sweetalert2';
@@ -8,10 +8,8 @@ import Select from 'react-select';
 import { createTask, updateTask } from '@/lib/features/task/taskAPI';
 import { coloredToast } from '@/utils/sweetAlerts';
 import { fetchAllTasksAsync } from '@/lib/features/task/taskSlice';
-import { AsignAgent } from '@/types/types';
-import { set } from 'lodash';
-
-
+import { AsignAgent, Kyc } from '@/types/types';
+import { getAllKycs } from '@/lib/features/kyc/kycAPI';
 
 
 interface TaskListModalProps {
@@ -32,10 +30,17 @@ interface TaskListModalProps {
 const TaskAddEditModal = ({ addTaskModal, setAddTaskModal, setParams, params }: TaskListModalProps) => {
 
     const dispatch = useAppDispatch();
-    const agents = useAppSelector(selectKycs)
+    const [agents, setAgents] = useState<Kyc[]>([])
+
+    useEffect(() => {
+        (() => {
+            getAllKycs('Employee', '1', '100')
+                .then((res) => setAgents(res.results))
+        })()
+    }, [])
 
 
-    const agentOp = agents.results?.map((kyc) => ({ label: kyc.first_name + " " + kyc.last_name, value: kyc.id }));
+    const agentOp = agents?.map((kyc) => ({ label: kyc.first_name + " " + kyc.last_name, value: kyc.id }));
 
     const showMessage = (msg = '', type = 'success') => {
         const toast: any = Swal.mixin({
@@ -64,7 +69,7 @@ const TaskAddEditModal = ({ addTaskModal, setAddTaskModal, setParams, params }: 
         }
         if (params.id) {
             // setParams({ ...params, asign_agent: typeof params.asign_agent === 'object' ? params.asign_agent?.id : params.asign_agent })
-            
+
             const res = await updateTask({ ...params, asign_agent: typeof params.asign_agent === 'object' ? params.asign_agent?.id : params.asign_agent })
             if (res.message) {
                 dispatch(fetchAllTasksAsync({}))
@@ -72,8 +77,9 @@ const TaskAddEditModal = ({ addTaskModal, setAddTaskModal, setParams, params }: 
             } else {
                 coloredToast('error', res.error);
             }
-            
+
         } else {
+            console.log(params);
             const res = await createTask(params)
             if (res.message) {
                 dispatch(fetchAllTasksAsync({}))
@@ -149,7 +155,7 @@ const TaskAddEditModal = ({ addTaskModal, setAddTaskModal, setParams, params }: 
                                         <div className="mb-5">
                                             <label htmlFor="asign_agent">Assignee</label>
                                             <Select placeholder="Select The Agent" options={agentOp}
-                                                value={agentOp.find(option => option.value === (typeof params.asign_agent === 'object' ? params.asign_agent?.id : params.asign_agent))}
+                                                value={agentOp?.find(option => option.value === (typeof params.asign_agent === 'object' ? params.asign_agent?.id : params.asign_agent))}
                                                 onChange={option => { setParams({ ...params, asign_agent: option?.value }) }}
                                                 className='flex-1' />
                                         </div>

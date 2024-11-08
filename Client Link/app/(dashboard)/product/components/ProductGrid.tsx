@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useAppDispatch } from '@/lib/hooks';
 import { updateProductState } from '@/lib/features/products/productSlice';
 
-const ProductGrid = ({ filteredItems, editProduct, deleteProduct }: ProductTableProp) => {
+const ProductGrid = ({ filteredItems, editProduct, deleteProduct, IMG_URL }: ProductTableProp) => {
 
     const router = useRouter()
     const dispatch = useAppDispatch()
@@ -17,8 +17,7 @@ const ProductGrid = ({ filteredItems, editProduct, deleteProduct }: ProductTable
                     <div className={`relative overflow-hidden rounded-md bg-white text-center shadow-lg ${product.is_pub ? 'shadow-green-300' : 'shadow-red-300'}  dark:bg-[#1c232f] group transition`} key={product.id}>
                         <div className={`relative overflow-hidden rounded-md bg-white text-center shadow dark:bg-[#1c232f]`}>
                             <div className="rounded-t-md bg-white/40 bg-[url('/assets/images/notification-bg.png')] bg-cover bg-center p-4 ">
-                                {/* @ts-ignore */}
-                                <img className="mx-auto max-h-40 w-4/5 object-contain group-hover:scale-110 transition duration-300" src={product.images[0].src} alt="product" />
+                                <img className="mx-auto max-h-40 w-4/5 object-contain group-hover:scale-110 transition duration-300" src={IMG_URL + product.thumb} alt="product" />
                             </div>
                             <div className="relative mt-3 px-6 pb-5">
                                 <div className="text-xl">{product?.name}</div>

@@ -7,9 +7,10 @@ import { updateTasks } from '@/lib/features/task/taskSlice';
 import { formatDate } from '@/utils/helperFunctions';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import { Task } from '@/types/types';
 
 interface TaskListBodyProps {
-    pagedTasks: any[]
+    pagedTasks: Task[]
     filteredTasks: any[];
     selectedTab: string;
     setSelectedTask: (value: any) => void;
@@ -20,6 +21,8 @@ interface TaskListBodyProps {
 }
 
 const TaskListBody = ({ pagedTasks, filteredTasks, selectedTab, setSelectedTask, setViewTaskModal, searchTasks, addEditTask }: TaskListBodyProps) => {
+
+    const IMG_URL = 'http://192.168.1.111:8000'
 
     const [isPriorityMenu] = useState<any>(null);
     const dispatch = useAppDispatch()
@@ -77,7 +80,7 @@ const TaskListBody = ({ pagedTasks, filteredTasks, selectedTab, setSelectedTask,
         <div className="table-responsive min-h-[400px] grow overflow-y-auto sm:min-h-[300px]">
             <table className="table-hover">
                 <tbody>
-                    {pagedTasks.map((task: any) => {
+                    {pagedTasks.map((task: Task) => {
                         return (
                             <tr className={`group cursor-pointer ${task.status === 'Completed' ? 'bg-white-light/30 dark:bg-[#1a2941] ' : ''}`} key={task.id}>
                                 <td className="w-1">
@@ -97,7 +100,7 @@ const TaskListBody = ({ pagedTasks, filteredTasks, selectedTab, setSelectedTask,
                                         </div>
                                         <div className={`min-w-[300px] overflow-hidden text-white-dark line-clamp-1 ${task.status === 'Completed' ? 'line-through' : ''}`} dangerouslySetInnerHTML={{
                                             __html: task.description,
-                                        }}/>
+                                        }} />
                                     </div>
                                 </td>
                                 <td className="w-1">
@@ -157,13 +160,17 @@ const TaskListBody = ({ pagedTasks, filteredTasks, selectedTab, setSelectedTask,
                                 <td className="w-1">
                                     <div className="flex w-max items-center justify-between">
                                         <div className="flex-shrink-0 ltr:mr-2.5 rtl:ml-2.5">
-                                            {task.path && (
-                                                <div>
-                                                    <img src={`/assets/images/${task.path}`} className="h-8 w-8 rounded-full object-cover" alt="avatar" />
-                                                </div>
+                                            {task.asign_agent.profile_pic && (
+                                                <Tippy content={`${task.asign_agent.first_name} ${task.asign_agent.last_name}`} theme="" >
+
+                                                    <div>
+                                                        <img src={IMG_URL + task.asign_agent.profile_pic} className="h-8 w-8 rounded-full object-cover" alt="avatar" />
+                                                    </div>
+                                                </Tippy>
+
                                             )}
-                                            {!task.path && task.asign_agent ? (
-                                                <Tippy content={`${task.asign_agent.first_name} ${task.asign_agent.last_name}`} theme="danger" >
+                                            {!task.asign_agent.profile_pic && task.asign_agent ? (
+                                                <Tippy content={`${task.asign_agent.first_name} ${task.asign_agent.last_name}`} theme="" >
                                                     <div className="grid h-8 w-8 place-content-center rounded-full bg-primary text-sm font-semibold text-white">
                                                         {task.asign_agent.first_name.charAt(0) + '' + task.asign_agent.last_name.charAt(0)}
                                                     </div>
@@ -171,7 +178,7 @@ const TaskListBody = ({ pagedTasks, filteredTasks, selectedTab, setSelectedTask,
                                             ) : (
                                                 ''
                                             )}
-                                            {!task.path && !task.asign_agent ? (
+                                            {/* {!task.asign_agent.profile_pic && !task.asign_agent ? (
                                                 <div className="grid h-8 w-8 place-content-center rounded-full border border-gray-300 dark:border-gray-800">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-4.5 w-4.5">
                                                         <circle cx="12" cy="6" r="4" stroke="currentColor" strokeWidth="1.5" />
@@ -180,7 +187,7 @@ const TaskListBody = ({ pagedTasks, filteredTasks, selectedTab, setSelectedTask,
                                                 </div>
                                             ) : (
                                                 ''
-                                            )}
+                                            )} */}
                                         </div>
                                         <div className="dropdown">
                                             <Dropdown

@@ -10,7 +10,7 @@ interface defaultParams {
 }
 
 export interface FaqSliceState {
-    faqs: Pagination<Faq>;
+    faqs: Faq[];
     faq: Faq | defaultParams;
     status: "idle" | "loading" | "failed";
     error: null | string;
@@ -19,12 +19,7 @@ export interface FaqSliceState {
 }
 
 const initialState: FaqSliceState = {
-    faqs: {
-        count: 0,
-        next: null,
-        previous: null,
-        results: []
-    },
+    faqs: [],
     status: "idle",
     faqModal: false,
     error: null,
@@ -41,7 +36,7 @@ export const faqSlice = createAppSlice({
     reducers: (create) => ({
         updateFaqs: create.reducer((state, action: PayloadAction<Faq[]>) => {
             state.status = 'idle';
-            state.faqs.results = action.payload;
+            state.faqs = action.payload;
         }),
         setFaqModal: create.reducer((state, action: PayloadAction<boolean>) => {
             state.status = 'idle';
@@ -54,11 +49,14 @@ export const faqSlice = createAppSlice({
         fetchAllFaqAsync: create.asyncThunk(
             async () => {
                 try {
-                    const response:ApiResponse = await getAllFaqs();
+                    const response = await getAllFaqs();
+
                     if (response.error) {
                         throw new Error(response.error);
                     }
+
                     return response;
+
                 } catch (error) {
                     throw new Error("Data fetch failed: " + (error as Error).message);
                 }

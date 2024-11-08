@@ -24,7 +24,7 @@ export const getAllTasks = async () => {
     const data = await response.json();
 
     if (response.ok) {
-      return data.reverse();
+      return data
     } else {
       throw new Error(data.message || "Something went wrong, Please try again!");
     }

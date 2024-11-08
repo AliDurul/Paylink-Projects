@@ -11,7 +11,7 @@ import useDeleteToasts from '@/hooks/useDeleteToasts';
 import { deleteProduct } from '@/lib/features/products/productAPI';
 
 
-const ProductViews = () => {
+const ProductViews = ({ IMG_URL }: { IMG_URL: string }) => {
 
     const { deleteToast } = useDeleteToasts();
 
@@ -20,10 +20,9 @@ const ProductViews = () => {
 
 
 
-    // useEffect(() => {
-    //     console.log('burasi calisti');
-    //     dispatch(fetchAllProductAsync({}));
-    // }, [dispatch])
+    useEffect(() => {
+        dispatch(fetchAllProductAsync({}));
+    }, [dispatch])
 
 
     const [value, setValue] = useState<any>('list');
@@ -201,9 +200,9 @@ const ProductViews = () => {
                 </div>
             </div>
 
-            {value === 'list' && <ProductTable filteredItems={filteredItems} editProduct={editProductFunc} deleteProduct={deleteProductFunc} />}
+            {value === 'list' && <ProductTable filteredItems={filteredItems} editProduct={editProductFunc} deleteProduct={deleteProductFunc} IMG_URL={IMG_URL} />}
 
-            {value === 'grid' && <ProductGrid filteredItems={filteredItems} editProduct={editProductFunc} deleteProduct={deleteProductFunc} />}
+            {value === 'grid' && <ProductGrid filteredItems={filteredItems} editProduct={editProductFunc} deleteProduct={deleteProductFunc} IMG_URL={IMG_URL}/>}
 
             <ProductModal />
         </div>

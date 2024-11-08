@@ -44,7 +44,7 @@ export default function FaqList() {
             </div>
             <div className="mt-5 space-y-5 max-w-[80%] mx-auto">
                 {
-                    faqs.results.map((faq, index) => (
+                    faqs?.map((faq, index) => (
                         <div className="rounded-md border border-[#ebedf2] bg-white dark:border-[#191e3a] dark:bg-black ">
                             <div className={`flex cursor-pointer rounded-t-md p-5  font-semibold ${active === index + 1 ? 'bg-primary/20 text-black' : ''}`} onClick={() => togglePara(index + 1)}>
                                 <span className="text-dark">{faq.question}</span>

@@ -16,6 +16,7 @@ const authConfig = async () => {
 
 export const getAllFaqs = async () => {
   const headers = await authConfig();
+
   try {
     const response = await fetch(`${BASE_URL}faqs/`, {
       headers,
@@ -24,7 +25,7 @@ export const getAllFaqs = async () => {
     const data = await response.json();
 
     if (response.ok) {
-      return data;
+      return data.results
     } else {
       throw new Error(data.message || "Something went wrong, Please try again!");
     }

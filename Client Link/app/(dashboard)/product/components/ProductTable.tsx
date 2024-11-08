@@ -7,7 +7,7 @@ import React from 'react'
 
 
 
-const ProductTable = ({ filteredItems, editProduct, deleteProduct }: ProductTableProp) => {
+const ProductTable = ({ filteredItems, editProduct, deleteProduct, IMG_URL }: ProductTableProp) => {
 
     const router = useRouter()
     const dispatch = useAppDispatch()
@@ -34,7 +34,7 @@ const ProductTable = ({ filteredItems, editProduct, deleteProduct }: ProductTabl
                                         <div className="flex w-max items-center">
                                             {product.thumb && (
                                                 <div className="w-max">
-                                                    <img src={`/assets/images/${product.thumb}`} className="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2" alt="avatar" />
+                                                    <img src={IMG_URL + product.thumb} className="h-8 w-8 rounded-full object-cover ltr:mr-2 rtl:ml-2" alt="avatar" />
                                                 </div>
                                             )}
                                             {!product.thumb && product.name && (
@@ -53,9 +53,9 @@ const ProductTable = ({ filteredItems, editProduct, deleteProduct }: ProductTabl
                                     </td>
                                     <td>{product.is_pub ? "YES" : "NO"}</td>
                                     <td>{truncateText(product.description, 29)}</td>
+                                    <td className="whitespace-nowrap">{product?.category.title}</td>
                                     {/* @ts-ignore */}
-                                    <td className="whitespace-nowrap">{product?.category}</td>
-                                    <td className="whitespace-nowrap">{product.price}</td>
+                                    <td className="whitespace-nowrap">K{product.price.toLocaleString('en-ZM', { style: 'currency', currency: 'ZMW' })}</td>
                                     <td>
                                         <div className="flex items-center justify-center gap-4">
                                             <button type="button" className="btn btn-sm btn-outline-primary"

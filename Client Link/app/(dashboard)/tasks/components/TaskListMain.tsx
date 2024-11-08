@@ -42,7 +42,7 @@ const TasklistMain = () => {
     const [viewTaskModal, setViewTaskModal] = useState(false);
     const [params, setParams] = useState<any>(JSON.parse(JSON.stringify(defaultParams)));
 
-    const [filteredTasks, setFilteredTasks] = useState<any>(tasks);
+    const [filteredTasks, setFilteredTasks] = useState<any>(tasks.results);
     const [pagedTasks, setPagedTasks] = useState<any>(filteredTasks);
     const [searchTask, setSearchTask] = useState<any>('');
     const [selectedTask, setSelectedTask] = useState<any>(defaultParams);
@@ -56,7 +56,7 @@ const TasklistMain = () => {
     });
 
     useEffect(() => {
-        setFilteredTasks(tasks);
+        setFilteredTasks(tasks.results);
         setPagedTasks(filteredTasks);
     }, [tasks])
 

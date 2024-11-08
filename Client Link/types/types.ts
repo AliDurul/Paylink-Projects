@@ -173,17 +173,28 @@ export interface Kyc {
 
 /* PRODUCT */
 export interface Product {
-  error?: any;
   id: number;
   thumb: string;
   name: string;
   description: string;
-  author: Author;
+  color: null;
+  size: null;
+  img: null | string;
+  author: null | Author
   price: string;
+  discount: string;
   is_pub: boolean;
   category: ProductCategory;
-  img: null;
 }
+
+export interface ProductCategory {
+  id: number;
+  cover: string;
+  title: string;
+  timestamp: Date;
+  updated: Date;
+}
+
 
 export interface ProductDefaultParams {
   id?: number | null;
@@ -201,15 +212,12 @@ export interface Author {
   location: string;
 }
 
-export interface ProductCategory {
-  id: number;
-  title: string;
-}
 
 export type ProductTableProp = {
   filteredItems: Product[],
   deleteProduct: (ProductId: number) => void,
   editProduct: (product: Product) => void,
+  IMG_URL: string
 }
 
 /* FAQ */
@@ -300,8 +308,9 @@ export interface Folder {
   isHidden: boolean
 }
 
-
+/* TASK */
 export interface Task {
+  id: number;
   title: string;
   asign_agent: AsignAgent;
   description: string;
@@ -316,6 +325,7 @@ export interface AsignAgent {
   last_name: string;
   phone_number: string;
   email: string;
+  profile_pic: string;
 }
 
 

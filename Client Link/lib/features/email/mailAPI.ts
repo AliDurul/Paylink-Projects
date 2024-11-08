@@ -34,7 +34,7 @@ export const refreshAccessToken = async (): Promise<string | object> => {
             accessToken = data.access_token;
             const expiresIn = data.expires_in || 3600;
             tokenExpiryTime = Date.now() + expiresIn * 1000
-            // console.log('new access token taken..');
+            console.log('new access token taken..');
             return data.access_token
         } else {
             throw new Error(data.error || "Something went wrong, Please try again!");
@@ -48,7 +48,6 @@ const getAccessToken = async (): Promise<string | object> => {
     if (!accessToken || isTokenExpired()) {
         return await refreshAccessToken();
     }
-    // console.log('using same token..');
     return accessToken;
 };
 
@@ -165,6 +164,7 @@ export const getAllEmailFolders = async () => {
         });
 
         const data = await response.json();
+        console.log(data);
 
         if (response.ok) {
             return data.value;
