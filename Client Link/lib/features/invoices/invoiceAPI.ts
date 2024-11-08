@@ -154,6 +154,7 @@ export const getWeeklyInvoice = async (startDate: string, endDate: string) => {
 
 export const createInvoice = async (saleData: any) => {
   const headers = await authConfig();
+
   try {
     const response = await fetch(`${BASE_URL}invoices/`, {
       method: "POST",
@@ -161,8 +162,9 @@ export const createInvoice = async (saleData: any) => {
       body: JSON.stringify(saleData),
     });
 
+    console.log(response)
     const data = await response.json();
-    // console.log(data);
+
     if (response.ok) {
       return { message: "Successfully Created!" };
     } else {
